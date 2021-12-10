@@ -24,6 +24,8 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     )
+
+    
   
  /*
     const [isLogin, setIsLogin]= useState('1');       //저장해둔 로그인 사용자의 id 넣어주기.
