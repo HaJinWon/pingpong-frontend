@@ -114,7 +114,7 @@ const NavLeft = ({isLogin}) => {
             <h3>Part</h3>
             <ul>
             
-                 {parts.map((part, index)=>{return (<li key = {index}> <NavLink  to ={'post'} >{part.name}</NavLink> </li>)})}
+                 {parts.map((part, index)=>{return (<li key = {index}> <NavLink  to ={'/post'} >{part.name}</NavLink> </li>)})}
                  {
                  //successAdd==''?null :notifyMemu.partAdd(successAdd)
                  }
@@ -130,7 +130,9 @@ const NavLeft = ({isLogin}) => {
             
             
         </nav>
+    
     );
+    
 };
 
 export default NavLeft;

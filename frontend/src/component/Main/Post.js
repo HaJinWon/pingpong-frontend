@@ -1,10 +1,10 @@
 import React ,{useState}from 'react';
 import SiteLayout from '../../layout/SiteLayout';
 
-const Post = ({isLogin, postId}) => {
+const Post = () => {
     return (
         <SiteLayout>
-            <h2>[Post] login : {isLogin}  postId : {postId}</h2>
+            <h2>[Post] login :   postId : </h2>
         </SiteLayout>
     );
 };

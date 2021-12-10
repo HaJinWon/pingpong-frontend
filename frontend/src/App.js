@@ -3,9 +3,12 @@ import {BrowserRouter} from 'react-router-dom';
 import {Routes, Route} from 'react-router';
 import Login from './login/Login';
 import Join from './join/Join';
-import Post from './post/Post';
-import Message from './component/Main/Message';
 import UserUpdate from './userUpdate/UserUpdate';
+
+import Main from './component/Main/Main'
+import Post from './component/Main/Post'
+import Message from './component/Main/Message';
+
 
 
 
@@ -15,11 +18,15 @@ export default function App() {
     return (   
       <BrowserRouter>
         <Routes>
+            
             <Route path='/login' element={<Login/>}/>
             <Route path='/join' element={<Join/>}/>
-            <Route path='/post' element={<Post/>}/>
             <Route path='/userUpdate' element={<UserUpdate/>}/>
+
+            <Route path='/' element={<Main/>}/>
+            <Route path='/post'element ={<Post/>}/>
             <Route path='/message' element={<Message/>}/>
+            
             
         </Routes>
       </BrowserRouter>
@@ -50,5 +57,5 @@ export default function App() {
        {path:'userUpdate', element :<UserUpdate />}
 
     ]);
-    */
+*/
 }

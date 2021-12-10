@@ -34,9 +34,8 @@ export default function() {
         });
     */
     await axios.post('/api/members/login', formInfo, {
-    headers: { "Content-Type": `application/json`}
-    }
-    ).then((res) => {
+        headers: { "Content-Type": `application/json`}
+    }).then((res) => {
         console.log(res.data);
         if(res.data !== null){
             location.href='/login';
