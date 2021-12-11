@@ -107,17 +107,17 @@ const NavLeft = ({isLogin}) => {
             <h3>Team</h3>
             <ul>
                  {teams.map((team, index)=>{return (<li key ={index} > <NavLink to ={team}>{team.name}</NavLink> </li>)})}
-                 {//successAdd==''?null:notifyMemu.teamAdd(successAdd)
+                 {
+                 //successAdd==''?null:notifyMemu.teamAdd(successAdd)
                  }
                  <li><input className = "menuInput" placeholder={"Team 추가"} onKeyPress={(e)=>{e.key=='Enter'?notifyMemu.teamAdd(e.target.value):false}}></input></li>
             </ul>
             <h3>Part</h3>
             <ul>
-            
                  {
                     parts.map((part, index)=>{
-                        return (<li key = {part.id}> <NavLink  to ={`/post/${part.part_id}`} >{part.name}</NavLink> </li>)
-                    })}
+                        return (<li key = {part.id}> <NavLink  to ={`/post/${part.part_id}`} >{part.name}</NavLink> </li>)})
+                    }
 
                  {
                  //successAdd==''?null :notifyMemu.partAdd(successAdd)

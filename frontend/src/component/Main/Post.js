@@ -6,12 +6,14 @@ import PostForm from './PostForm';
 const Post = () => {
     let {id} = useParams();
     
-    //console.log(id);
-    
-    
+    const [postidforComment, setPostidforComment] = useState('');
     const [postList, setPostList] = useState([]);
     
-    useEffect(async()=>{        //nav 리스트 가져오는 useEffect
+    const handlerOnclickPost=({Postid})=>{
+        setPostidforComment(Postid);
+    }
+
+    useEffect(async()=>{        // 리스트 가져오는 useEffect
         console.log("useeffect in");
         
         try {
@@ -31,15 +33,9 @@ const Post = () => {
             
             
             const jsonResult = await response.json();
-            //console.log(jsonResult.data);
         
             setPostList(jsonResult.data.postList);
-            //console.log("postlist",postList);
-            //console.log("message",response.message);
-       
-           // setPartId(id);
-            //console.log(id);
-            //setPartId(id);
+
         }catch(err){
             console.log(err);
         }
@@ -48,22 +44,20 @@ const Post = () => {
 
 
     return (
-        <SiteLayout>
+        <SiteLayout postidforComment={postidforComment}>
             <h2>[Post]{id}</h2>
-        
-            {
-            
-                postList
+
+            {postList
                     .map((posts)=>{return <PostForm 
                                             key={posts.post_id} 
                                             id = {posts.post_id}
                                             title={posts.title} 
                                             contents={posts.contents} 
                                             name={posts.name}
-                                            date={posts.date}/>})
-            
+                                            date={posts.date}
+                                            callback={handlerOnclickPost}
+                                            />})
             }
-
         </SiteLayout>
     );
 };

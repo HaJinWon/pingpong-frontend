@@ -1,16 +1,20 @@
 import React from 'react';
 
-const PostForm = ({key,title, contents,name ,date,id }) => {
-
-    const handlerOnclick= (e)=> {
-        e.preventDefault();
-        console.log(id);
-
-    }
+const PostForm = ({title, contents,name ,date,id,callback }) => {
+      
+   const handlerOnclickPost=(e)=>{
+      e.preventDefault();
+      callback({'Postid':id})
+   }
 
     return (
         
-            <table class="Post" onClick={handlerOnclick}>
+      
+      //<NavLink to ={`/post/comment/:${id}`}>
+            <table className="Post" onClick={handlerOnclickPost
+               
+               }
+            >
                <tr >
                   <td className="PostTitle">{title, id}</td>
                   <td><button>post detail</button></td>
@@ -25,9 +29,12 @@ const PostForm = ({key,title, contents,name ,date,id }) => {
                   <td className="date">{date}</td>
                </tr>
                 <tr>
-                    <p onClick={'클릭하면 NavRight에 comment 띄움. '}>comment summery</p>
-                </tr>
+                  {
+                    //<p onClick={'클릭하면 NavRight에 comment 띄움. '}>comment summery</p>
+                  }
+               </tr>
             </table>
+        // </NavLink>
       
     );
 };

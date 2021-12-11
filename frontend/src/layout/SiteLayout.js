@@ -8,7 +8,7 @@ import styles from '../assets/scss/layout/Contents.scss'
 import styles2 from'../assets/scss/layout/Body.scss'
 
 
-const SiteLayout = ({children}) => {
+const SiteLayout = ({children, postidforComment}) => {
     return (
         <Fragment >
             <NavLeft></NavLeft>
@@ -19,7 +19,7 @@ const SiteLayout = ({children}) => {
                 </div>
                
             </div>
-            <NavRight/>
+            <NavRight postidforComment={postidforComment}/>
            
 
         </Fragment>
