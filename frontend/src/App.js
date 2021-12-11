@@ -24,14 +24,14 @@ export default function App() {
 
             <Route path='/userUpdate' element={<UserUpdate/>}/>
 
-            <Route path='/' element={<Main/>}/>
+            <Route path='/' element={<Login/>}/>
             <Route path='/post'element ={<Post/>}/>
             <Route path='/message' element={<Message/>}/>
 
             <Route path='/main' element={<Main/>}/>
             <Route path='/post'element ={<Post/>}/>
             <Route path='/message' element={<Message/>}/>
-            <Route path='/chat/:id' element={<Chat/>}/>
+            <Route path='/chat/:roomId' element={<Chat/>}/>
 
         </Routes>
       </BrowserRouter>

@@ -3,12 +3,18 @@ import styles from '../../assets/css/Message.css';
 import styles2 from '../../assets/css/Message2.css';
 import Modal from "react-modal";
 import ReactModal from "react-modal";
+import ProfileModaStyle from '../../assets/scss/ProfileModal.scss';
 
 ReactModal.setAppElement('body');
 const Message = () => {
 
     
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
+    const [modalData, setModalData] = useState({
+        'profile':'',
+        'status':'',
+        '메세지 보내기':''
+    });
 
     return (
         <div>
@@ -46,16 +52,12 @@ const Message = () => {
                 </div>
             </div>
 
-            <button onClick={ () => setModal02IsOpen(true) }>modal02</button>
-            <br/><br/>
-            <Modal
+            <Modal 
+                className={ProfileModaStyle["Modal"]}
                 isOpen={modal02IsOpen}
                 onRequestClose={ () => setModal02IsOpen(false) }
                 contentLabel="modal02 example">
                 <h1>modal02</h1>
-                <button onClick={ () => setModal02IsOpen(false) }>
-                    Close
-                </button>
             </Modal>
         </div>
     );
