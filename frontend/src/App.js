@@ -8,6 +8,7 @@ import Message from './component/Main/Message';
 import UserUpdate from './userUpdate/UserUpdate';
 import Main from './component/Main/Main';
 import Post from './component/Main/Post';
+import PostWrite from './component/Main/PostWrite';
 
 
 
@@ -25,12 +26,10 @@ export default function App() {
             <Route path='/userUpdate' element={<UserUpdate/>}/>
 
             <Route path='/' element={<Main/>}/>
-            <Route path='/post'element ={<Post/>}/>
+            <Route path='/post/write/:id'element ={<PostWrite/>}/>
             <Route path='/message' element={<Message/>}/>
 
-            <Route path='/main' element={<Main/>}/>
-            <Route path='/post'element ={<Post/>}/>
-            <Route path='/message' element={<Message/>}/>
+           
 
         </Routes>
       </BrowserRouter>

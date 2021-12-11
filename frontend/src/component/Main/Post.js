@@ -1,6 +1,6 @@
 import React ,{useState, useEffect}from 'react';
 import SiteLayout from '../../layout/SiteLayout';
-import { BrowserRouter,useParams } from 'react-router-dom';
+import { BrowserRouter,useParams,NavLink } from 'react-router-dom';
 import PostForm from './PostForm';
 
 const Post = () => {
@@ -46,6 +46,7 @@ const Post = () => {
     return (
         <SiteLayout postidforComment={postidforComment}>
             <h2>[Post]{id}</h2>
+            <NavLink to ={`/post/write/${id}`}>게시글 작성</NavLink>
 
             {postList
                     .map((posts)=>{return <PostForm 

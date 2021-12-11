@@ -6,7 +6,7 @@ const Main = () => {
     
     return (
         <SiteLayout >
-            <h2>[Main] isLogin :    Post : </h2>
+            <h2>[Main]</h2>
         </SiteLayout>
     );
 };

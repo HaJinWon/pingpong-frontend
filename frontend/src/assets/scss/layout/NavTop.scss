@@ -1,27 +1,42 @@
 @charset "utf-8";
 .NavTop{
-    border:1px solid red;
+    
     background-color: #FEFEFE;
-    height:10vh;
+   height: 10vh;
     display: block;
+    padding-top: 2vh;
+    padding-left: 1vw;    
+
     
 
-    form.SearchForm{
-        background-color: #00A2FF;
-        display:block;
-        position: absolute;
-        left: 50%;
-        top: 50%
-        input{
+    form{
+        float: left;
+        width: 50vw;
+        .kwd{
             
-            background-color: #00A2FF;
-            box-sizing: border-box;
-           
-        }
-        button{
-            background-color: #00A2FF;
+            width: 40vw;
             float: left;
-
+            flex:auto;
+        }
+        .submit{
+            width: 20vw;
+            float: left;
+            flex:auto;
         }
     }
+    
+    .OpenProfile{
+        display: inline;
+        width: 300px;
+        float: right;
+        
+    }
 }
+
+
+
+// <form className="SearchForm">                           
+// <input type='text' className='kwd' />
+// <input type='submit' value="찾기" className='submit'/>
+// </form>
+// <button className="OpenProfile">프로필 열기</button>
