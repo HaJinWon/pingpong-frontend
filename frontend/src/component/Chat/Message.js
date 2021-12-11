@@ -6,52 +6,60 @@ import ReactModal from "react-modal";
 import ProfileModaStyle from '../../assets/scss/ProfileModal.scss';
 
 ReactModal.setAppElement('body');
-const Message = () => {
+const Message = ({type,message,sender,senderId}) => {
 
-    
+    const loginUser ={
+        'name':'김진영'
+    }
+
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
     const [modalData, setModalData] = useState({
         'profile':'',
-        'status':'',
+        'status':'접속중',
         '메세지 보내기':''
     });
 
     return (
         <div>
+            {loginUser.name !== sender ?
+            <div>
             <div className={styles.Message}>
                 <div className={styles.Profile} onClick={ () => setModal02IsOpen(true) }>
                     사진
                 </div>
                 <div className={styles.Block}>
                     <div className={styles.UserName}>
-                        맴버이름
+                    {sender}
                     </div>
                     <div className={styles.Contents}>
-                        채팅내용
+                    {message}
                     </div>
                 </div>
                 <div className={styles.Count}>
                     3
                 </div>
             </div>
-
+            </div>
+            :
+            <div>
             <div className={styles2.Message}>
                <div className={styles2.Count}>
                     3
                 </div>
                 <div className={styles2.Block}>
                     <div className={styles2.UserName}>
-                        맴버이름
+                        {sender}
                     </div>
                     <div className={styles2.Contents}>
-                        채팅내용
+                        {message}
                     </div>
                 </div> 
                 <div className={styles2.Profile}>
                     사진
                 </div>
             </div>
-
+            </div>
+            }
             <Modal 
                 className={ProfileModaStyle["Modal"]}
                 isOpen={modal02IsOpen}

@@ -2,7 +2,7 @@ import React ,{useState}from 'react';
 
 import styles from '../assets/scss/layout/NavTop.scss'
 
-const NavTop = () => {
+const NavTop = ({isSearch}) => {
     return (
         <header className={styles.NavTop}>
             <form className="SearchForm">                           
