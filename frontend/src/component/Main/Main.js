@@ -2,11 +2,11 @@ import React ,{useState}from 'react';
 import SiteLayout from '../../layout/SiteLayout';
 import styles from '../../../assets/scss/Main.scss';
 
-const Main = ({isLogin, Post}) => {
+const Main = () => {
     
     return (
-        <SiteLayout isLogin={isLogin} Post={Post}>
-            <h2>[Main] isLogin : {isLogin}   Post : {Post}</h2>
+        <SiteLayout >
+            <h2>[Main] isLogin :    Post : </h2>
         </SiteLayout>
     );
 };

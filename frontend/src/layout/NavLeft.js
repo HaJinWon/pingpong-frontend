@@ -118,6 +118,7 @@ const NavLeft = ({isLogin}) => {
                     parts.map((part, index)=>{
                         return (<li key = {part.id}> <NavLink  to ={`/post/${part.part_id}`} >{part.name}</NavLink> </li>)
                     })}
+
                  {
                  //successAdd==''?null :notifyMemu.partAdd(successAdd)
                  }
@@ -134,7 +135,9 @@ const NavLeft = ({isLogin}) => {
             </ul>
             
         </nav>
+    
     );
+    
 };
 
 export default NavLeft;

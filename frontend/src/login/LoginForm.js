@@ -36,6 +36,7 @@ export default function() {
         });
     */
     await axios.post('/api/members/login', formInfo, {
+
     headers: { "Content-Type": `application/json`}
     }
     ).then((res) => {
@@ -45,6 +46,7 @@ export default function() {
             window.sessionStorage.setItem("authUser",JSON.stringify(res.data.member));
             //console.log(window.sessionStorage.getItem("authUser"));
             alert('로그인 성공');
+
         } else{
             alert("로그인 실패");
         }

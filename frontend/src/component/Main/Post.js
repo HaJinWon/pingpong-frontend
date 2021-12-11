@@ -46,6 +46,7 @@ const Post = () => {
        
     },[id]);
 
+
     return (
         <SiteLayout>
             <h2>[Post]{id}</h2>
@@ -63,6 +64,7 @@ const Post = () => {
                                     })
             
             }
+
         </SiteLayout>
     );
 };
