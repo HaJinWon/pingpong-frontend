@@ -53,13 +53,14 @@ const Post = () => {
             {
             
                 postList
-                    .map((posts)=>{return <PostForm 
-                                            key={posts.post_id} 
+                    .map((posts,index)=>{return <PostForm 
+                                            key={index} 
                                             id = {posts.post_id}
                                             title={posts.title} 
                                             contents={posts.contents} 
                                             name={posts.name}
-                                            date={posts.date}/>})
+                                            date={posts.date}/>
+                                    })
             
             }
         </SiteLayout>

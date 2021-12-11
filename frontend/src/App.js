@@ -7,7 +7,7 @@ import Message from './component/Main/Message';
 import UserUpdate from './userUpdate/UserUpdate';
 import Main from './component/Main/Main';
 import Post from './component/Main/Post';
-
+import Chat from './component/Chat/Chat';
 
 export default function App() {
 
@@ -23,6 +23,7 @@ export default function App() {
             <Route path='/main' element={<Main/>}/>
             <Route path='/post'element ={<Post/>}/>
             <Route path='/message' element={<Message/>}/>
+            <Route path='/chat/:id' element={<Chat/>}/>
         </Routes>
       </BrowserRouter>
     )

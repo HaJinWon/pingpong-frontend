@@ -126,11 +126,12 @@ const NavLeft = ({isLogin}) => {
             {
                 //parts.map(part=>{return (<li> <NavLink to ={part.part_id}>{part.name}</NavLink> </li>)})
             }
-        
-            
-             
-                
-            
+            <h3>Chat</h3>
+            <ul>
+                <li key = {1}>
+                    <NavLink to ={`/chat/1`}>채팅방</NavLink>
+                </li>
+            </ul>
             
         </nav>
     );

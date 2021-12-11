@@ -1,0 +1,39 @@
+.Message{
+    width: 1050px;
+    height: 100px;
+    border:1px solid black;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    
+}
+
+.Profile{
+    width:100px;
+    height:100px;
+    border:1px solid red;
+    float: left;
+}
+
+.Block{
+    width:250px;
+    height:100px;
+    border:1px solid blue;
+    float:left;
+}
+.UserName{
+    border:1px solid green;
+    width:250px;
+    height:30px;
+    text-align: right;
+}
+.Contents{
+    text-align: right;
+}
+.Count{
+    width:20px;
+    border:1px solid black;
+    float: left;
+}

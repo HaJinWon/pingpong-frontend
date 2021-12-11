@@ -9,6 +9,7 @@ const NavTop = () => {
                     <input type='text' className='kwd' />
                     <input type='submit' value="찾기" />
             </form>
+            
             <button className="OpenProfile">프로필 열기</button>
         </header>
     );
