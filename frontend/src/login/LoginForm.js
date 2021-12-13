@@ -35,7 +35,7 @@ export default function() {
             }
         });
     */
-    await axios.post('/api/members/login', formInfo, {
+    await axios.post('/api/member/login', formInfo, {
 
     headers: { "Content-Type": `application/json`}
     }
@@ -46,6 +46,7 @@ export default function() {
             window.sessionStorage.setItem("loginMember",JSON.stringify(res.data.member));
             //console.log(window.sessionStorage.getItem("authUser"));
             alert('로그인 성공');
+            location.href='/main';
 
         } else{
             alert("로그인 실패");

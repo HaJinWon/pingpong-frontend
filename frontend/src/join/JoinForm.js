@@ -19,7 +19,7 @@ const JoinForm = () => {
         e.preventDefault();
         console.log(JSON.stringify(formInfo));
         
-        await axios.post('/api/members', formInfo, {
+        await axios.post('/api/member', formInfo, {
         headers: { "Content-Type": `application/json`}
         }
         ).then((res) => {
@@ -65,7 +65,7 @@ const JoinForm = () => {
         }
         console.log('value=',value)
         try{
-            const response = await fetch(`/api/members/emailcheck/${value}`, {
+            const response = await fetch(`/api/member/emailcheck/${value}`, {
                 method: 'get',
                 mode:'cors',                          // no-cors, cors, same-origin
                 credentials:'include',                // include, omit, same-origin

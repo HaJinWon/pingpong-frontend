@@ -1,17 +1,16 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect, useState, useRef} from 'react';
 import { useParams } from 'react-router';
 import SiteLayout from '../../layout/SiteLayout';
 import InputText from './InputText';
 import MessageList from './MessageList';
-import SockJS from 'sockjs-client';
-//import Stomp from 'stompjs';
-import {Stomp} from '@stomp/stompjs';
-import StompJs from '@stomp/stompjs';
+import * as SockJS from "sockjs-client";
+import * as StompJs from "@stomp/stompjs";
+
 
 
 const Chat = () => {
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
-    let {roomId} = useParams();
+    const {roomId} = useParams();
 
     
     console.log(roomId);
@@ -23,15 +22,34 @@ const Chat = () => {
     }
 
     const [messages,setMessages] = useState([]);
-    const [inputMessage,setInputMessage] = useState([]);
+    // const [inputMessage,setInputMessage] = useState([]);
     /*
         여기서 채팅 내용 리스트를 받아야함
     */
    
     useEffect(async()=>{        //nav 리스트 가져오는 useEffect
         console.log("useeffect in");
+        ///room/enter/{roomId}
         
         try {
+
+            // const response2 = await fetch(`http://localhost:8080/chat/room/enter/${roomId}`, {
+            //     method: 'get',
+            //     mode: 'cors',                           
+            //     credentials: 'include',                 
+            //     cache: 'no-cache',                           
+            //     headers: {
+            //     'Accept': 'application/json',
+            //     'Content-Type': 'application/json'         
+            //     },
+            //     redirect: 'follow',                     
+            //     referrer: 'client',                       
+            //     body: null
+            // }).then(
+                
+            // )
+
+
             const response = await fetch(`/api/chat/${roomId}`, {
                 method: 'get',
                 mode: 'cors',                           
@@ -51,7 +69,7 @@ const Chat = () => {
             
             console.log(jsonResult);
             setMessages(jsonResult);
-        
+            
  
         }catch(err){
             console.log(err);
@@ -69,49 +87,92 @@ const Chat = () => {
     const loginId = loginMember.id;
     console.log(roomName + ", " + roomId + ", " + loginName + ", " + loginId);
 
-    var sockJs = new SockJS("http://localhost:8080/ws-stomp");
-    var stomp = Stomp.over(sockJs);
-    stomp.connect({}, function (){
-        console.log("STOMP Connection");
+    const client = useRef({});
+    const [chatMessages, setChatMessages] = useState([]);
+    const [message, setMessage] = useState("");
+  
+    useEffect(() => {
+      connect();
+  
+      return () => disconnect();
+    }, []);
+  
+    const connect = () => {
+      client.current = new StompJs.Client({
+        webSocketFactory: () => new SockJS("http://localhost:8080/ws-stomp"), // proxy를 통한 접속
+        connectHeaders: {
+          "auth-token": "spring-chat-auth-token",
+        },
+        debug: function (str) {
+          console.log(str);
+        },
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
+        onConnect: () => {
+          subscribe();
+        },
+        onStompError: (frame) => {
+          console.error(frame);
+        },
+      });
+  
+      client.current.activate();
+    };
+  
+    const disconnect = () => {
+      client.current.deactivate();
+    };
+  
+    const subscribe = () => {
+      client.current.subscribe(`/sub/chat/room/${roomId}`, ({ body }) => {
+        setChatMessages((_chatMessages) => [..._chatMessages, JSON.parse(body)]);
+        setMessages([...messages,JSON.parse(body)]);
+      });
+    };
+  
+    const publish = (message) => {
+      if (!client.current.connected) {
+        return;
+      }
+  
+      console.log(JSON.stringify({
+        type: "TALK",
+        roomId: Number(roomId),
+        senderId: loginId,
+        message: message,
+        sender: loginName,
+      }));
 
-        //4. subscribe(path, callback)으로 메세지를 받을 수 있음
-        stomp.subscribe(`/sub/chat/room/${roomId}`, function (chatMessage) {
-            var content = JSON.parse(chatMessage.body);
-
-            // 글을쓴사람 (로그인한사람이 아님)
-            var writer = content.sender;
-            var writerId = content.senderId;
-
-            var message = content.message;
-            var type = content.type;
-            var str = '';
-            console.log(type);
-
-            //setMessages([...messages,content]);
-            /*
-            if (type === 'ENTER') {
-                printNotice(message);
-            } else {
-                if (writerId === loginId) {
-                    printMyChat(writer, message);
-                } else {
-                    //printOtherChat(writer, message);
-                }
-            }
-            */
-        });
+      client.current.publish({
+        destination: "/pub/chat/message",
+        body: JSON.stringify({
+          type: "TALK",
+          roomId: roomId,
+          senderId: loginId,
+          message: message,
+          sender: loginName,
+        }),
+      });
+      
+      setMessage("");
+    };
+  
     
-        // 입장메시지
-        //stomp.send("/pub/chat/message", {}, JSON.stringify({type:'ENTER', roomId: roomId, senderId: loginId, sender:loginName}))
-    });
+        
+        
+
         
     const notifyMessage = {
         add:function(message2){
             
             console.log('Chat:',message2.message);
-            //setMessages([...messages,message]);
+            //setMessages([...messages,message2]);
+            //setMessage(message2);
+            //publish(message2);
             //stomp.send('/pub/chat/message', {}, JSON.stringify({type:"TALK",roomId: roomId, senderId: loginId,  message: message2.message, sender: loginName}));
-            stomp.send('/pub/chat/message', {}, JSON.stringify({type:"TALK",roomId: 12, senderId: "2",  message: "test", sender: "test"}));
+            //stomp.send('/pub/chat/message', {}, JSON.stringify({type:"TALK",roomId: 12, senderId: "2",  message: "test", sender: "test"}));
+            
         }
     }
     
@@ -122,8 +183,20 @@ const Chat = () => {
             <div style={styles} className='chatDiv'>
                 <h2>ChatPage</h2>
                 <MessageList messages={messages}/>
-                
             </div>
+            <div>
+                <div>
+                <input
+                    type={"text"}
+                    placeholder={"message"}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyPress={(e) => e.which === 13 && publish(message)}
+                />
+                <button onClick={() => publish(message)}>send</button>
+                </div>
+            </div>
+
             <InputText roodId={roomId} notifyMessage={notifyMessage} />
         </SiteLayout> 
     );

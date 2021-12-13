@@ -10,22 +10,42 @@ const NavLeft = ({isLogin}) => {
     const [pid, setPid] = useState(1);
     const [successAdd, setSuccessAdd]=useState(false);
     const [posts, setPosts] = useState([]);
+    const [searchUserResult, setSearchUserResult] = useState([]);
     const [teams, setTeams] = useState([]);
     const [parts, setParts] = useState([]);
+    const [chatRooms,setChatRooms] = useState([]);
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
-    const [searchChatMember, setSearchChatMember] = useState('');
-    const ChatSearchMember = (e)=>{
+    const [selectedChatInvite, setSelectedChatInvite] = useState();
+
+
+    const openChatInviteModal = async(e)=>{
         e.preventDefault();
-    }
+        setModal02IsOpen(true);
+        // let { name, value } = e.target;
 
-    const chatSearchChg = (e)=>{
-        let { name, value } = e.target;
+        // setSearchChatMember({
+        // ...searchChatMember,
+        // [name]: value,
+        // });
 
-        setSearchChatMember({
-        ...searchChatMember,
-        [name]: value,
-        });
-        console.log(searchChatMember);
+        const response = await fetch('/api/member/team/1', {
+            method: 'get',
+            mode: 'cors',                           
+            credentials: 'include',                 
+            cache: 'no-cache',                           
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'         
+            },
+            redirect: 'follow',                     
+            referrer: 'client',                       
+            body: null
+          });
+
+          const data = await response.json();
+          console.log(data);
+          setSearchUserResult(data);
+
     }
 
     useEffect(async()=>{        //nav 리스트 가져오는 useEffect
@@ -45,7 +65,7 @@ const NavLeft = ({isLogin}) => {
               redirect: 'follow',                     
               referrer: 'client',                       
               body: null
-            })
+            });
             
             
             const data = await response.json();
@@ -54,8 +74,24 @@ const NavLeft = ({isLogin}) => {
             setTeams(data.teamInfo);
             setParts(data.partList);
 
-            
-      
+            const response2 = await fetch('/api/room/1', {
+                method: 'get',
+                mode: 'cors',                           
+                credentials: 'include',                 
+                cache: 'no-cache',                           
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'         
+                },
+                redirect: 'follow',                     
+                referrer: 'client',                       
+                body: null
+            })
+
+            const data2 = await response2.json();
+            console.log(data2);
+            setChatRooms(data2);
+
         }catch(err){
             console.log(err);
         }
@@ -117,7 +153,20 @@ const NavLeft = ({isLogin}) => {
                 
             }
         }
-       
+        const selectChatMember = (e)=>{
+            //e.preventDefault();
+            //setSelectChatInvite(e.target.value);
+            console.log("radiobox",e.target.value);
+            const selectedMemberId = e.target.value;
+            setSelectedChatInvite(selectedMemberId);
+            console.log("selectedInvite",selectedChatInvite);
+        }
+
+        const inviteHandler = (e) =>{
+            e.preventDefault();
+            console.log('submit',selectedChatInvite);
+            
+        }
 
     return (
         <nav className={styles.NavLeft}>
@@ -131,10 +180,10 @@ const NavLeft = ({isLogin}) => {
             </ul>
             <h3>Part</h3>
             <ul>
-                 {
+                {
                     parts.map((part, index)=>{
                         return (<li key = {part.id}> <NavLink  to ={`/post/${part.part_id}`} >{part.name}</NavLink> </li>)})
-                    }
+                }
 
                  {
                  //successAdd==''?null :notifyMemu.partAdd(successAdd)
@@ -144,24 +193,41 @@ const NavLeft = ({isLogin}) => {
             {
                 //parts.map(part=>{return (<li> <NavLink to ={part.part_id}>{part.name}</NavLink> </li>)})
             }
-            <h3>Chat</h3><button onClick={ () => setModal02IsOpen(true)}>+</button>
+            <h3>Chat</h3><button onClick={ openChatInviteModal/*,() => setModal02IsOpen(true)*/}>+</button>
             <ul>
                 <li key = {1}>
-                    <NavLink to ={`/chat/12`}>채팅방</NavLink>
+                    {
+                        chatRooms.map((chatRoom, index)=>{
+                            return (<li key = {chatRoom.id}> <NavLink  to ={`/chat/${chatRoom.id}`} >{chatRoom.title}</NavLink> </li>)})
+                    }
                 </li>
             </ul>
 
             <Modal
                 isOpen={modal02IsOpen}
+                searchUserListResult={searchUserResult}
                 onRequestClose={ () => setModal02IsOpen(false) }
                 contentLabel="modal02 example">
-                <form onSubmit={ChatSearchMember} onChange={chatSearchChg}>
-                    <input type='text' name='member'/>
+                {/* <form onSubmit={ChatSearchMember} onChange={chatSearchChg}>
+                    <input type='text' name='memberName'/>
                     <input type='submit' value='검색'/>
-                </form>
+                </form> */}
                 <div>
-                    <div>사진</div>
-                    <div>검색된 유저 이름</div>
+                    <form onSubmit={inviteHandler}>
+                    {
+                        searchUserResult.map((sMember)=>{
+                            return (<div>
+                                        <label>
+                                            <div>{sMember.avatar}</div>
+                                            <div>{sMember.name}</div>
+                                            <div>{sMember.memberId}</div>
+                                            <input type='radio' name='selectMember' value={sMember.memberId} onClick={selectChatMember} />
+                                        </label>
+                                    </div>)
+                        })
+                    }
+                    <input type='submit' value='채팅방 개설'/>
+                    </form>
                 </div>
             </Modal>
             
@@ -172,3 +238,4 @@ const NavLeft = ({isLogin}) => {
 };
 
 export default NavLeft;
+
