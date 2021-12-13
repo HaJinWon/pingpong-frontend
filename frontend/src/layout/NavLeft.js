@@ -13,9 +13,19 @@ const NavLeft = ({isLogin}) => {
     const [teams, setTeams] = useState([]);
     const [parts, setParts] = useState([]);
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
-   
+    const [searchChatMember, setSearchChatMember] = useState('');
     const ChatSearchMember = (e)=>{
         e.preventDefault();
+    }
+
+    const chatSearchChg = (e)=>{
+        let { name, value } = e.target;
+
+        setSearchChatMember({
+        ...searchChatMember,
+        [name]: value,
+        });
+        console.log(searchChatMember);
     }
 
     useEffect(async()=>{        //nav 리스트 가져오는 useEffect
@@ -145,7 +155,7 @@ const NavLeft = ({isLogin}) => {
                 isOpen={modal02IsOpen}
                 onRequestClose={ () => setModal02IsOpen(false) }
                 contentLabel="modal02 example">
-                <form onSubmit={ChatSearchMember}>
+                <form onSubmit={ChatSearchMember} onChange={chatSearchChg}>
                     <input type='text' name='member'/>
                     <input type='submit' value='검색'/>
                 </form>
