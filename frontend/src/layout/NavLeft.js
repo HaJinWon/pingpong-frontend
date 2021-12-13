@@ -1,5 +1,7 @@
 import React ,{useEffect, useState}from 'react';
 import { NavLink } from 'react-router-dom';
+import Modal from "react-modal";
+import ReactModal from "react-modal";
 
 import styles from '../assets/scss/layout/NavLeft.scss'
 
@@ -10,7 +12,22 @@ const NavLeft = ({isLogin}) => {
     const [posts, setPosts] = useState([]);
     const [teams, setTeams] = useState([]);
     const [parts, setParts] = useState([]);
-   
+    const [modal02IsOpen, setModal02IsOpen] = useState(false);
+    const [searchChatMember, setSearchChatMember] = useState('');
+    const ChatSearchMember = (e)=>{
+        e.preventDefault();
+    }
+
+    const chatSearchChg = (e)=>{
+        let { name, value } = e.target;
+
+        setSearchChatMember({
+        ...searchChatMember,
+        [name]: value,
+        });
+        console.log(searchChatMember);
+    }
+
     useEffect(async()=>{        //nav 리스트 가져오는 useEffect
         console.log("useeffect in");
   
@@ -127,11 +144,26 @@ const NavLeft = ({isLogin}) => {
             {
                 //parts.map(part=>{return (<li> <NavLink to ={part.part_id}>{part.name}</NavLink> </li>)})
             }
-        
-            
-             
-                
-            
+            <h3>Chat</h3><button onClick={ () => setModal02IsOpen(true)}>+</button>
+            <ul>
+                <li key = {1}>
+                    <NavLink to ={`/chat/12`}>채팅방</NavLink>
+                </li>
+            </ul>
+
+            <Modal
+                isOpen={modal02IsOpen}
+                onRequestClose={ () => setModal02IsOpen(false) }
+                contentLabel="modal02 example">
+                <form onSubmit={ChatSearchMember} onChange={chatSearchChg}>
+                    <input type='text' name='member'/>
+                    <input type='submit' value='검색'/>
+                </form>
+                <div>
+                    <div>사진</div>
+                    <div>검색된 유저 이름</div>
+                </div>
+            </Modal>
             
         </nav>
     

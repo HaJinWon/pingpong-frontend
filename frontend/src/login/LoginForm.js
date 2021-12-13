@@ -43,7 +43,7 @@ export default function() {
         console.log(res.data.member.id);
         if(res.data.member.id !== null){
             //setAuthUser();    
-            window.sessionStorage.setItem("authUser",JSON.stringify(res.data.member));
+            window.sessionStorage.setItem("loginMember",JSON.stringify(res.data.member));
             //console.log(window.sessionStorage.getItem("authUser"));
             alert('로그인 성공');
 
