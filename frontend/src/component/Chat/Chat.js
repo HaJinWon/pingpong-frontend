@@ -146,22 +146,23 @@ const Chat = () => {
 
       client.current.publish({
         destination: "/pub/chat/message",
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'  
+        },
         body: JSON.stringify({
           type: "TALK",
           roomId: roomId,
           senderId: loginId,
           message: message,
-          sender: loginName,
-        }),
+          sender: loginName
+        })
       });
       
       setMessage("");
     };
   
-    
-        
-        
-
+    //
         
     const notifyMessage = {
         add:function(message2){
@@ -193,11 +194,13 @@ const Chat = () => {
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyPress={(e) => e.which === 13 && publish(message)}
                 />
-                <button onClick={() => publish(message)}>send</button>
+                <button onClick={message !=="" ? () => publish(message):null}>send</button>
                 </div>
             </div>
-
-            <InputText roodId={roomId} notifyMessage={notifyMessage} />
+            {
+                //<InputText roodId={roomId} notifyMessage={notifyMessage} />
+            }
+            
         </SiteLayout> 
     );
 };
