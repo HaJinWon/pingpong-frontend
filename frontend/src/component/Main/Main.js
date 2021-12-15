@@ -5,7 +5,7 @@ import styles from '../../../assets/scss/Main.scss';
 const Main = () => {
     
     return (
-        <SiteLayout >
+        <SiteLayout>
             <h2>[Main]</h2>
         </SiteLayout>
     );

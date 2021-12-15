@@ -48,9 +48,6 @@ const InputText = ({notifyMessage}) => {
         <div>
             <form className={styles.Form} onSubmit={handlerSubmit} ref={inputRef}>
                 <input type='text' name='message' className={styles.MessageBox} onChange={chgForm} onKeyPress={keyPress}/>
-                {
-                    //<input type='file' name='file' className={styles.File}/>
-                }
                 <input type='submit' value='입력' className={styles.SubmitBtn}/>
             </form>
             <input type='button' value='test' onClick={test}/>

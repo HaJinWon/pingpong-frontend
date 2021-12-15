@@ -34,7 +34,7 @@ export default function App() {
            
             <Route path='/' element={<Login/>}/>
             <Route path='/post'element ={<Post/>}/>
-  
+            
 
             <Route path='/main' element={<Main/>}/>
             <Route path='/post'element ={<Post/>}/>
