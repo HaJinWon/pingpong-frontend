@@ -3,6 +3,8 @@ import SiteLayout from '../../layout/SiteLayout';
 import styles from '../../../assets/scss/Main.scss';
 
 const Main = () => {
+    const authUser=window.sessionStorage.getItem("loginMember");
+    console.log('authUser : ', authUser);
     
     return (
         <SiteLayout >

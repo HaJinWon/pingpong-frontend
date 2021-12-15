@@ -1,13 +1,13 @@
 import React from 'react';
 
-const CommentForm = ({id, member_id, contents, name, date, post_id, callback}) => {
+const CommentForm = (props) => {
    
     const handlerOnclickCommentDel=async()=>{ 
        
             //comment 삭제를 위한 함수
             try {
             // Delete
-            const response = await fetch(`/api/post/comment/delete/${id}`, {
+            const response = await fetch(`/api/post/comment/delete/${props.id}`, {
                 method: 'get',
                 mode: 'cors',                           
                 credentials: 'include',                 
@@ -38,18 +38,18 @@ const CommentForm = ({id, member_id, contents, name, date, post_id, callback}) =
             console.error(err);
             }
 
-            callback(id)
+            props.callback(props.id)
 
     };
     return (
         <table className="Comment">
             <tr >
-                <td  className="Writer">{name}</td> 
-                <td  className="date">{date}</td>   
+                <td  className="Writer">{props.name}</td> 
+                <td  className="date">{props.date}</td>   
                 <td><button onClick={handlerOnclickCommentDel}>post delete</button></td>
                 </tr>
             <tr>
-               <td className="CommentContents">{contents}</td>
+               <td className="CommentContents">{props.contents}</td>
             </tr>   
          </table>
     )

@@ -4,13 +4,21 @@ import SiteLayout from '../../layout/SiteLayout';
 import CommentForm from '../Main/CommentForm';
 
 const Comment = ({postidforComment}) => {
+   // const refForm = useRef(null);
+
+
     const postId = postidforComment
     const [commentList, setCommentList] = useState([]);
     const [commentDelid, setCommentDelid] = useState('');
     const [commentAdd, setCommentAdd] = useState(false);
+    const [comment, setComment] = useState('');
+    const chgComment =(e)=>{
+
+        setComment(e.target.value);
+    }
+
     useEffect(async()=>{        // Commnet 리스트 가져오는 useEffect
-        console.log("useeffect in for comment:",{postId});
-        
+        setCommentAdd(false);
         try {
             const response = await fetch(`/api/post/comment/${postId}`, {
               method: 'get',
@@ -36,45 +44,30 @@ const Comment = ({postidforComment}) => {
        
     },[postId ,commentDelid, commentAdd]);
 
-    const handlerOnclickCommentAdd=async(e)=>{ 
-        e.preventdefault()
-        //comment 작성을 위한 함수
-        try {
-        
-        const response = await fetch(`/api/post/comment/${id}`, {
-            method: 'post',
-            mode: 'cors',                           
-            credentials: 'include',                 
-            cache: 'no-cache',                           
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'         
-            },
-            redirect: 'follow',                     
-            referrer: 'client',                       
-            body: JSON.stringify(e.target.value)
-        });
-
-
-        // fetch success?
-        if (!response.ok) {
-        throw `${response.status} ${response.statusText}`;
+    const handlerOnclickCommentAdd=async (e)=>{
+        e.preventDefault();
+            console.log("part 추가 in:", comment);
+            try {
+                const response = await fetch(`/api/post/comment/${postidforComment}`, {
+                method: 'post',
+                mode: 'cors',                           
+                credentials: 'include',                 
+                cache: 'no-cache',                           
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'         
+                },
+                redirect: 'follow',                     
+                referrer: 'client',                       
+                body: JSON.stringify(comment)
+                })
+                
+            }catch(err){
+                console.log(err);
+            }
+            setCommentAdd(true)
         }
 
-        // API success?
-        const json = await response.json();
-        if (json.result !== 'success') {
-        throw json.message;
-        }
-
-
-        } catch (err) {
-        console.error(err);
-        }
-
-        setCommentAdd(e.target.value)
-
-};
 
     const handlerOnclickCommentDel=(commentId)=>{       //comment 삭제를 위한 handler
         console.log("comment del in "+commentId)
@@ -99,8 +92,8 @@ const Comment = ({postidforComment}) => {
 
                 }
                 <form onSubmit={handlerOnclickCommentAdd}>
-                <input type='text'></input>
-                <input type='submit'/>
+                    <input type='text' name='commnet' onChange={chgComment}></input>
+                    <input type='submit' autoComplete={'off'}/>
                 </form>
 
             </div>

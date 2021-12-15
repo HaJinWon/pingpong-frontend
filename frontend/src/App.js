@@ -8,12 +8,12 @@ import Message from './component/Main/Message';
 import UserUpdate from './userUpdate/UserUpdate';
 import Main from './component/Main/Main';
 import Post from './component/Main/Post';
-<<<<<<< HEAD
+
 import PostWrite from './component/Main/PostWrite';
 
-=======
+
 import Chat from './component/Chat/Chat';
->>>>>>> 02bbb92fa67d5e56a211277e96f45fe0f3531360
+
 
 
 export default function App() {
@@ -28,23 +28,16 @@ export default function App() {
             <Route path='/post/:id' element={<Post/>}/>
 
             <Route path='/userUpdate' element={<UserUpdate/>}/>
-
-<<<<<<< HEAD
-            <Route path='/' element={<Main/>}/>
             <Route path='/post/write/:id'element ={<PostWrite/>}/>
-            <Route path='/message' element={<Message/>}/>
+
 
            
-=======
-            <Route path='/' element={<Login/>}/>
-            <Route path='/post'element ={<Post/>}/>
-            <Route path='/message' element={<Message/>}/>
 
-            <Route path='/main' element={<Main/>}/>
-            <Route path='/post'element ={<Post/>}/>
+            <Route path='/' element={<Login/>}/>
+            <Route path='/main/:selectTeamId' element={<Main/>}/>
             <Route path='/message' element={<Message/>}/>
             <Route path='/chat/:roomId' element={<Chat/>}/>
->>>>>>> 02bbb92fa67d5e56a211277e96f45fe0f3531360
+
 
         </Routes>
       </BrowserRouter>

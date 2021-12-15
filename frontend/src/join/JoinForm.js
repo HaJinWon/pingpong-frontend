@@ -19,7 +19,7 @@ const JoinForm = () => {
         e.preventDefault();
         console.log(JSON.stringify(formInfo));
         
-        await axios.post('/api/members', formInfo, {
+        await axios.post('/api/member', formInfo, {
         headers: { "Content-Type": `application/json`}
         }
         ).then((res) => {
@@ -35,12 +35,12 @@ const JoinForm = () => {
     //changeForm 함수
     const chgForm = (e) => {
         let { name, value } = e.target;
-
+                                                                        console.log("login changeForm 함수 : ",e.target)
         setFormInfo({
         ...formInfo,
         [name]: value,
         });
-        
+                                                                        console.log("login changeForm 함수 : ",formInfo)        
         if(formInfo.password !== formInfo.password2){
             setPwdChk('비밀번호가 일치하지 않습니다.');
         } else{
@@ -65,7 +65,7 @@ const JoinForm = () => {
         }
         console.log('value=',value)
         try{
-            const response = await fetch(`/api/members/emailcheck/${value}`, {
+            const response = await fetch(`/api/member/emailcheck/${value}`, {
                 method: 'get',
                 mode:'cors',                          // no-cors, cors, same-origin
                 credentials:'include',                // include, omit, same-origin

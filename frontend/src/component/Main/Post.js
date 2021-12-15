@@ -14,8 +14,6 @@ const Post = () => {
     }
 
     useEffect(async()=>{        // 리스트 가져오는 useEffect
-        console.log("useeffect in");
-        
         try {
             const response = await fetch(`/api/post/list/${id}`, {
               method: 'get',
@@ -46,33 +44,23 @@ const Post = () => {
     return (
         <SiteLayout postidforComment={postidforComment}>
             <h2>[Post]{id}</h2>
-<<<<<<< HEAD
+
             <NavLink to ={`/post/write/${id}`}>게시글 작성</NavLink>
 
-            {postList
-                    .map((posts)=>{return <PostForm 
-                                            key={posts.post_id} 
-=======
-        
             {
             
                 postList
                     .map((posts,index)=>{return <PostForm 
                                             key={index} 
->>>>>>> 02bbb92fa67d5e56a211277e96f45fe0f3531360
                                             id = {posts.post_id}
                                             title={posts.title} 
                                             contents={posts.contents} 
                                             name={posts.name}
-<<<<<<< HEAD
+
                                             date={posts.date}
                                             callback={handlerOnclickPost}
                                             />})
-=======
-                                            date={posts.date}/>
-                                    })
-            
->>>>>>> 02bbb92fa67d5e56a211277e96f45fe0f3531360
+
             }
         </SiteLayout>
     );
