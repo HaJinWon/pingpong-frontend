@@ -31,19 +31,15 @@ const PostWrite = () => {
     }
 
 
-    let {id} = useParams();
+    let {teamid, partid} = useParams();
     const [addPost, setAddPost]=useState([]);
-
-    const useEffect=(()=>{
-        <NavLink to=''/>
-    },[postAdd])
 
 
     const handlerOnClickPostAdd=async(e)=>{
         e.preventDefault();
       
         try {
-            const response = await fetch(`/api/post/write/${id}`, {
+            const response = await fetch(`/api/post/write/${partid}`, {
             method: 'post',
             mode: 'cors',                           
             credentials: 'include',                 
@@ -60,8 +56,8 @@ const PostWrite = () => {
         }catch(err){
             console.log(err);
         }
-        setPostAdd(true);
-        location.href=`/post/${id}`;
+       
+        location.href=`/${teamid}/post/${partid}`;
     }
 
     return (

@@ -1,5 +1,10 @@
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+
+
+
 
 const UserUpadteForm = () => {
 
@@ -40,7 +45,7 @@ const UserUpadteForm = () => {
     useEffect(async () => {
 
         try{
-            const response = await fetch('/api/member/edit', {
+            const response = await fetch('/api/members/edit', {
                 method: 'get',
                 mode:'cors',                          // no-cors, cors, same-origin
                 credentials:'include',                // include, omit, same-origin
@@ -80,6 +85,49 @@ const UserUpadteForm = () => {
                 <input type='file' name ='avatar' onChange={chgForm}/>
                 <input type='submit' value='수정'/>
             </form>
+
+
+
+            <div className='User UpdateForm'>
+           
+            <Form onSubmit={handlerSubmit} >
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label >Email address</Form.Label>
+                    <Form.Control type="email" placeholder="Email"  name='email' disabled/>
+                    <Form.Text className="text-muted">
+                   
+                    </Form.Text>
+                </Form.Group>
+
+               
+              
+                
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" placeholder="Name"  name='name'/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Phone</Form.Label>
+                    <Form.Control type="text" placeholder="Phone"  name='phone'/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Company</Form.Label>
+                    <Form.Control type="text" placeholder="Company"  name='company'/>
+                </Form.Group>
+                <Button variant="primary" type="button">
+                    돌아가기
+                </Button>
+                <Button variant="primary" type="submit">
+                    회원정보 수정
+                </Button>
+            </Form>
+        </div>
+    
+
+
+
+
+
         </div>
     );
 };
