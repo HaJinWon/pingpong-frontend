@@ -56,7 +56,6 @@ const Post = () => {
                                             title={posts.title} 
                                             contents={posts.contents} 
                                             name={posts.name}
-
                                             date={posts.date}
                                             callback={handlerOnclickPost}
                                             />})

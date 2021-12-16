@@ -7,7 +7,7 @@ const Main = () => {
     console.log('authUser : ', authUser);
     
     return (
-        <SiteLayout >
+        <SiteLayout>
             <h2>[Main]</h2>
         </SiteLayout>
     );

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const PostForm = ({title, contents,name ,date,id,callback }) => {
       
    const handlerOnclickPost=(e)=>{
@@ -13,9 +12,8 @@ const PostForm = ({title, contents,name ,date,id,callback }) => {
         border:'1px solid black'
     }
 
-    return (
 
-        
+    return ( 
       
       //<NavLink to ={`/post/comment/:${id}`}>
             <table className="Post" onClick={handlerOnclickPost}
@@ -40,7 +38,6 @@ const PostForm = ({title, contents,name ,date,id,callback }) => {
                </tr>
             </table>
         // </NavLink>
-
       
     );
 };

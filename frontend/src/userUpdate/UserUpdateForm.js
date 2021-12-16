@@ -24,7 +24,7 @@ const UserUpadteForm = () => {
     const handlerSubmit = async (e)=>{
         e.preventDefault();
 
-        await axios.post('/api/members/edit', formInfo, {
+        await axios.post('/api/member/edit', formInfo, {
             headers: { "Content-Type": `application/json`}
             }
             ).then((res) => {
@@ -40,7 +40,7 @@ const UserUpadteForm = () => {
     useEffect(async () => {
 
         try{
-            const response = await fetch('/api/members/edit', {
+            const response = await fetch('/api/member/edit', {
                 method: 'get',
                 mode:'cors',                          // no-cors, cors, same-origin
                 credentials:'include',                // include, omit, same-origin

@@ -11,7 +11,7 @@ import styles2 from'../assets/scss/layout/Body.scss'
 const SiteLayout = ({children, postidforComment}) => {
     return (
         <Fragment >
-            <NavLeft></NavLeft>
+            <NavLeft/>
             <div className={styles2.Body}>
                 <NavTop/>
                 <div className={styles.Contents}>

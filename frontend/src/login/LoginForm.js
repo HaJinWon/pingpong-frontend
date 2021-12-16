@@ -53,6 +53,7 @@ export default function() {
             } else{
                 alert("로그인 실패");
             }
+
         }
         
         
@@ -88,7 +89,7 @@ export default function() {
                 console.log('select team : ',JSON.parse(sessionStorage.getItem("selectTeam")).team_id);
                 //console.log('selectTeam에 담아두었던 팀아이디',selectTeam.team_id);   //selectTeam name
 
-                selectTeam===''?null:location.href=`/main/${selectTeam}`;
+                selectTeam===''?null:location.href=`/${selectTeam}/main`;
             }catch(err){
                 console.log(err);
             }
