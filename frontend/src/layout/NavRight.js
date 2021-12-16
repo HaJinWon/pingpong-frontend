@@ -1,16 +1,17 @@
 import React ,{useState}from 'react';
 import Comment from '../component/Main/Comment';
-import styles from '../assets/scss/layout/NavRight.scss'
+import styles from '../assets/scss/layout/NavRight.scss';
+import Profile from '../userUpdate/Profile';
 
 const NavRight = ({postidforComment}) => {
     
     return (
         <div className={styles.NavRight}>
             
-            {//postidforComment==='' || postidforComment==undefined?<h2>NavRight</h2>:<Comment postidforComment={postidforComment}/>
+            {// <Comment postidforComment={postidforComment}/>
             }
-            <Comment postidforComment={postidforComment}/>
-            
+           
+            {postidforComment==='' || postidforComment==undefined?<Profile/>:<Comment postidforComment={postidforComment}/>}
         </div>
     );
 };

@@ -5,7 +5,6 @@ import Login from './login/Login';
 import Join from './join/Join';
 
 import Message from './component/Main/Message';
-import UserUpdate from './userUpdate/UserUpdate';
 import Main from './component/Main/Main';
 import Post from './component/Main/Post';
 
@@ -24,10 +23,10 @@ export default function App() {
             
             <Route path='/login' element={<Login/>}/>
             <Route path='/join' element={<Join/>}/>
-            <Route path='/:teamid/post/:id' element={<Post/>}/>
+            <Route path='/:teamid/post/:partid' element={<Post/>}/>
 
-            <Route path='/:teamid/userUpdate' element={<UserUpdate/>}/>
-            <Route path='/:teamid/post/write/:id'element ={<PostWrite/>}/>
+           
+            <Route path='/:teamid/post/write/:partid'element ={<PostWrite/>}/>
 
 
            

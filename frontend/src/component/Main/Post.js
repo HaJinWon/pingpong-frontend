@@ -4,7 +4,7 @@ import { BrowserRouter,useParams,NavLink } from 'react-router-dom';
 import PostForm from './PostForm';
 
 const Post = () => {
-    let {teamname, id} = useParams();
+    let {teamid, partid} = useParams();
     
     const [postidforComment, setPostidforComment] = useState('');
     const [postList, setPostList] = useState([]);
@@ -15,7 +15,7 @@ const Post = () => {
 
     useEffect(async()=>{        // 리스트 가져오는 useEffect
         try {
-            const response = await fetch(`/api/post/list/${id}`, {
+            const response = await fetch(`/api/post/list/${partid}`, {
               method: 'get',
               mode: 'cors',                           
               credentials: 'include',                 
@@ -38,14 +38,14 @@ const Post = () => {
             console.log(err);
         }
        
-    },[id]);
+    },[partid]);
 
 
     return (
         <SiteLayout postidforComment={postidforComment}>
-            <h2>[Post]{id}</h2>
+            <h2>[Post]{partid}</h2>
 
-            <NavLink to ={`/post/write/${id}`}>게시글 작성</NavLink>
+            <NavLink to ={`/${teamid}/post/write/${partid}`}>게시글 작성</NavLink>
 
             {
             

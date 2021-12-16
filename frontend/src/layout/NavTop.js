@@ -2,7 +2,10 @@ import React ,{useState}from 'react';
 
 import styles from '../assets/scss/layout/NavTop.scss'
 
-const NavTop = ({isSearch}) => {
+const NavTop = (props) => {
+    const handlerOpenNavRight=(e)=>{
+        e.preventDefault()
+    }
     return (
         <header className={styles.NavTop}>
             <form className="SearchForm">                           
@@ -10,7 +13,7 @@ const NavTop = ({isSearch}) => {
                     <input type='submit' value="찾기" className='submit'/>
             </form>
             
-            <button className="OpenProfile">프로필 열기</button>
+            <button className="OpenProfile" onClick={handlerOpenNavRight}>프로필 열기</button>
         </header>
     );
 };
