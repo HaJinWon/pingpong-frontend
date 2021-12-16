@@ -4,7 +4,7 @@ import { BrowserRouter,useParams,NavLink } from 'react-router-dom';
 import PostForm from './PostForm';
 
 const Post = () => {
-    let {id} = useParams();
+    let {teamname, id} = useParams();
     
     const [postidforComment, setPostidforComment] = useState('');
     const [postList, setPostList] = useState([]);

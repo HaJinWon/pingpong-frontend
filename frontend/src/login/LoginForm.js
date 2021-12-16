@@ -49,6 +49,7 @@ export default function() {
                 //console.log(window.sessionStorage.getItem("authUser"));
                 alert('로그인 성공');
                 setSuccessAdd(!successAdd)
+                //location.href=`/main/${}`
                 
             } else{
                 alert("로그인 실패");
@@ -84,11 +85,12 @@ export default function() {
                
                 window.sessionStorage.setItem("selectTeam",JSON.stringify(data.data.teamList[0]));  //받아온 team list 중 디폴트 team을 session storage에 할당
                 //console.log('세션에 담아놨던 팀 아이디',JSON.parse(sessionStorage.getItem("selectTeam")).team_id);   //selectTeam name
-                setSelectTeam(JSON.parse(sessionStorage.getItem("selectTeam")).team_id);
+                setSelectTeam(JSON.parse(sessionStorage.getItem("selectTeam")));
                 console.log('select team : ',JSON.parse(sessionStorage.getItem("selectTeam")).team_id);
                 //console.log('selectTeam에 담아두었던 팀아이디',selectTeam.team_id);   //selectTeam name
 
-                selectTeam===''?null:location.href=`/main/${selectTeam}`;
+                selectTeam===''?null:location.href=`/${selectTeam.team_id}/main`;
+
             }catch(err){
                 console.log(err);
             }

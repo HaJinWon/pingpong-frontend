@@ -25,18 +25,18 @@ export default function App() {
             
             <Route path='/login' element={<Login/>}/>
             <Route path='/join' element={<Join/>}/>
-            <Route path='/post/:id' element={<Post/>}/>
+            <Route path='/:teamid/post/:id' element={<Post/>}/>
 
-            <Route path='/userUpdate' element={<UserUpdate/>}/>
-            <Route path='/post/write/:id'element ={<PostWrite/>}/>
+            <Route path='/:teamid/userUpdate' element={<UserUpdate/>}/>
+            <Route path='/:teamid/post/write/:id'element ={<PostWrite/>}/>
 
 
            
 
             <Route path='/' element={<Login/>}/>
-            <Route path='/main/:selectTeamId' element={<Main/>}/>
-            <Route path='/message' element={<Message/>}/>
-            <Route path='/chat/:roomId' element={<Chat/>}/>
+            <Route path='/:teamid/main' element={<Main/>}/>
+            <Route path='/:teamid/message' element={<Message/>}/>
+            <Route path='/:teamid/chat/:roomId' element={<Chat/>}/>
 
 
         </Routes>
