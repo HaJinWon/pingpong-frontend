@@ -23,7 +23,7 @@ const Members = ({ teamId }) => {
         
         setMemberLists(data);
         console.log('members',data);
-    },[])
+    },[teamId])
 
     return (
         <Fragment>

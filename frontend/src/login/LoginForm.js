@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import styles from '../assets/css/LoginForm.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { NavLink } from 'react-router-dom';
 
 export default function() {
 
@@ -15,6 +18,20 @@ export default function() {
         flexDirection: 'row',
         justifyContent: 'space-evenly'
     }
+    
+    const styles1 ={
+        width:'35vh'
+    }
+
+    // ID/PW 
+    const styles2 ={
+        fontWeight:'bold',
+        textDecoration:'none'
+    }
+
+    const styles3 ={
+        width:'35vh'
+    }
 
     const [formInfo, setFormInfo] = useState({
         'email': '',
@@ -23,21 +40,17 @@ export default function() {
 
     const handlerSubmit = async (e) => {
         e.preventDefault();
-        console.log(formInfo);
-            
-        /*
-            await axios.post('http://localhost:8080/api/members', formInfo, {
-            headers: { "Content-Type": `application/json`}
-            }
-            ).then((res) => {
-                console.log(res.data);
-                if(res.data !== null){
-                    location.href='/login';
-                } else{
-                    alert("로그인 실패");
-                }
-            });
-        */
+
+        if(formInfo.email == ''){
+            alert('이메일을 입력해주세요');
+            return;
+        }
+
+        if(formInfo.password == ''){
+            alert('비밀번호를 입력해주세요');
+            return;
+        }
+        
         await axios.post('/api/member/login', formInfo, {
 
         headers: { "Content-Type": `application/json`}
@@ -47,9 +60,8 @@ export default function() {
                 //setAuthUser();    
                 window.sessionStorage.setItem("loginMember",JSON.stringify(res.data.member));
                 //console.log(window.sessionStorage.getItem("authUser"));
-                alert('로그인 성공');
-                setSuccessAdd(!successAdd)
-                //location.href=`/main/${}`
+                setSuccessAdd(!successAdd);
+                getTeamList();
                 
             } else{
                 alert("로그인 실패");
@@ -57,16 +69,14 @@ export default function() {
 
         }
         
-        
-        
         );
 
+        
 
     } 
 
-    useEffect(async()=>{        //nav 리스트 가져오는 useEffect
+    const getTeamList = async()=>{
         
-        teamList:{       //team
             try {
                 const response = await fetch('/api/team/list', {
                 method: 'get',
@@ -90,15 +100,13 @@ export default function() {
                 console.log('select team : ',JSON.parse(sessionStorage.getItem("selectTeam")).team_id);
                 //console.log('selectTeam에 담아두었던 팀아이디',selectTeam.team_id);   //selectTeam name
 
-                selectTeam===''?null:location.href=`/${selectTeam.team_id}/main`;
+                location.href=`/${JSON.parse(sessionStorage.getItem("selectTeam")).team_id}/main`;
 
 
             }catch(err){
                 console.log(err);
             }
-            
-        }},[successAdd]);
-
+     }
     //changeForm 함수
     const chgForm = (e) => {
         let { name, value } = e.target;
@@ -118,15 +126,28 @@ export default function() {
     }
     return (
         <div className={styles.LoginForm}>
-            <form id = 'loginForm' onSubmit={handlerSubmit}>
-                <input type = 'text' name='email' placeholder='Email' onChange={chgForm}/>
-                <input type = 'password' name='password' placeholder='Password' onChange={chgForm} />
-                <div id='buttonDiv' style={styleBtnDiv}>
-                    <input type = 'button' id='join' value='회원가입' onClick={moveJoin} />
-                    <input type = 'submit' value = '로그인'/>
-                </div>
-            </form>
-            <a href=''>ID / PW 찾기</a>
+            <Form onSubmit={handlerSubmit} style={styles1}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label >Email address</Form.Label>
+                    <Form.Control type="email" placeholder="Email" name='email' onChange={chgForm}/>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" name='password' onChange={chgForm}/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Button variant="primary" type="submit" style={styles3}>
+                    로그인
+                </Button>
+                </Form.Group>
+                <Button variant="primary" type="button" style={styles3} onClick={moveJoin}>
+                    회원가입
+                </Button>
+
+            </Form>
+            <div>{'  '}</div>
+            <NavLink style={styles2} to={`/`}>ID / PW 찾기</NavLink>
         </div>
     )
 }

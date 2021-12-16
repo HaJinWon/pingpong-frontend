@@ -26,7 +26,7 @@ export default function App() {
             <Route path='/join' element={<Join/>}/>
             <Route path='/:teamid/post/:id' element={<Post/>}/>
 
-            <Route path='/:teamid/userUpdate' element={<UserUpdate/>}/>
+            <Route path='/userUpdate' element={<UserUpdate/>}/>
             <Route path='/:teamid/post/write/:id'element ={<PostWrite/>}/>
 
 

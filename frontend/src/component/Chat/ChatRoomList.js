@@ -4,6 +4,7 @@ import Modal from "react-modal";
 
 const ChatList = ({teamId,loginMember}) => {
 
+
     const [chatRooms,setChatRooms] = useState([]);
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
     const [searchUserResult, setSearchUserResult] = useState([]);
@@ -53,7 +54,7 @@ const ChatList = ({teamId,loginMember}) => {
         console.log(data2);
         setChatRooms(data2.roomDtoList);
         
-    },[changeValue]);
+    },[changeValue,teamId]);
         // 채팅방 개설을 위한 맴버선택
         const selectChatMember = (e)=>{
             //e.preventDefault();

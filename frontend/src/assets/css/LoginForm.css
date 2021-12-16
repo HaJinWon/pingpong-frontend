@@ -1,5 +1,4 @@
 .LoginForm {
-  border:1px solid red;
   display: flex;
   
   flex-direction: column;
@@ -8,17 +7,3 @@
   align-items: center;
   
 }
-/* 
-input {
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 20px;
-} */
-
-/* #buttonDiv {
-  border:1px solid blue;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
- */
