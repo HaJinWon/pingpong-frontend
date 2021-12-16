@@ -14,6 +14,8 @@ const NavLeft = () => {
     const {teamid } = useParams();
 
     
+
+    
     const [selectTeamName, setSelectTeamName] = useState('');
     const [isLogin, setIsLogin] = useState(JSON.parse(window.sessionStorage.getItem('loginMember')).id);
     const [successChange, setSuccessChange] = useState(false);
