@@ -20,7 +20,6 @@ const Notice = ({roomId}) => {
             body: null,
         });
         const data = await response.json();
-        console.log('notice',data);
         setNotice(data.notice);
     })
 
