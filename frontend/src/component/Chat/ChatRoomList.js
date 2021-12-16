@@ -121,8 +121,8 @@ const ChatList = ({teamId,loginMember}) => {
                     {
                         chatRooms.map((chatRoom, index)=>{
                             return (
-                                
-                                <li key = {chatRoom.id}> <NavLink  to ={`/chat/${chatRoom.roomId}`} >{chatRoom.title}</NavLink> 
+                           
+                                <li key = {chatRoom.id}> <NavLink  to ={`/${teamId}/chat/${chatRoom.roomId}`} >{chatRoom.title}</NavLink> 
                                     <button id={chatRoom.id} onClick={exitRoom}> 나가기 </button> 
                                 </li>
                             )})

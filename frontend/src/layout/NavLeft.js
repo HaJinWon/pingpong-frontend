@@ -3,13 +3,14 @@ import { NavLink, useParams } from 'react-router-dom';
 import Modal from "react-modal";
 import ReactModal from "react-modal";
 import CloseButton from 'react-bootstrap/CloseButton'
-
+import ChatRoomList from '../component/Chat/ChatRoomList';
 import styles from '../assets/scss/layout/NavLeft.scss'
-
+import BelongMemberList from '../component/Member/BelongMemberList';
 import MenuList from './NavLeft/MenuList';
 
 
 const NavLeft = () => {
+    const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
     const {teamid } = useParams();
 
     
@@ -249,27 +250,17 @@ const NavLeft = () => {
                 }
                 <li><input className="menuInput" name='name' placeholder={"Part 추가"} onKeyPress={(e) => { e.key === 'Enter' ? notifyMemu.partAdd(e) : null }}></input></li>
             </ul>
-
-            <h3>🗨 Chat</h3><button onClick={() => setModal02IsOpen(true)}>+</button>
-            <ul>
-                <li key={1}>
-                    <NavLink to={`/${teamid}/chat/12`}>채팅방</NavLink>
-                </li>
-            </ul>
-
-            <Modal
-                isOpen={modal02IsOpen}
-                onRequestClose={() => setModal02IsOpen(false)}
-                contentLabel="modal02 example">
-                <form onSubmit={ChatSearchMember} onChange={chatSearchChg}>
-                    <input type='text' name='member' />
-                    <input type='submit' value='검색' />
-                </form>
-                <div>
-                    <div>사진</div>
-                    <div>검색된 유저 이름</div>
-                </div>
-            </Modal>
+            
+                {
+                    /*
+                        <li key={1}>
+                            <NavLink to={`/${teamid}/chat/12`}>채팅방</NavLink>
+                        </li>
+                    */
+                }
+               
+            <ChatRoomList teamId={teamid} loginMember={loginMember}/>
+            <BelongMemberList teamId={teamid}/>
 
         </nav>
 

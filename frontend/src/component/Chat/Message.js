@@ -10,12 +10,7 @@ ReactModal.setAppElement('body');
 
 const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
 
-    //const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
-
-
-    const loginUser ={
-        'name':'김진영'
-    }
+    const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
 
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
     const [modal03IsOpen, setModal03IsOpen] = useState(false);
@@ -98,7 +93,7 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
 
     return (
         <div>
-            {loginUser.name !== sender ?
+            {loginMember.name !== sender ?
             <div>
             <div className={styles.Message}>
                 <div className={styles.Profile} onClick={ () => setModal02IsOpen(true) }>
