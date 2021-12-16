@@ -54,6 +54,7 @@ export default function() {
             } else{
                 alert("로그인 실패");
             }
+
         }
         
         
@@ -90,6 +91,7 @@ export default function() {
                 //console.log('selectTeam에 담아두었던 팀아이디',selectTeam.team_id);   //selectTeam name
 
                 selectTeam===''?null:location.href=`/${selectTeam.team_id}/main`;
+
 
             }catch(err){
                 console.log(err);

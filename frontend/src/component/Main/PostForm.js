@@ -16,6 +16,7 @@ const PostForm = ({title, contents,name ,date,id,callback }) => {
     return (
 
         
+
       
       //<NavLink to ={`/post/comment/:${id}`}>
             <table className="Post" onClick={handlerOnclickPost}

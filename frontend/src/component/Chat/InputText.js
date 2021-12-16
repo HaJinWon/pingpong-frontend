@@ -36,10 +36,14 @@ const InputText = ({notifyMessage}) => {
     return (
         <div>
             <form className={styles.Form} onSubmit={handlerSubmit} ref={inputRef}>
+<<<<<<< HEAD
                 <input type='text' name='message' className={styles.MessageBox} onChange={chgForm}/>
                 {
                     //<input type='file' name='file' className={styles.File}/>
                 }
+=======
+                <input type='text' name='message' className={styles.MessageBox} onChange={chgForm} onKeyPress={keyPress}/>
+>>>>>>> won
                 <input type='submit' value='입력' className={styles.SubmitBtn}/>
             </form>
         </div>

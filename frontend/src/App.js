@@ -11,7 +11,6 @@ import Post from './component/Main/Post';
 
 import PostWrite from './component/Main/PostWrite';
 
-
 import Chat from './component/Chat/Chat';
 
 
@@ -20,7 +19,7 @@ export default function App() {
 
   
     return (   
-      <BrowserRouter>
+        <BrowserRouter>
         <Routes>
             
             <Route path='/login' element={<Login/>}/>

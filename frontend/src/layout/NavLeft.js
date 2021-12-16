@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import Modal from "react-modal";
 import ReactModal from "react-modal";
-
 import CloseButton from 'react-bootstrap/CloseButton'
 
 import styles from '../assets/scss/layout/NavLeft.scss'
@@ -15,7 +14,7 @@ const NavLeft = () => {
 
     
 
-    
+
     const [selectTeamName, setSelectTeamName] = useState('');
     const [isLogin, setIsLogin] = useState(JSON.parse(window.sessionStorage.getItem('loginMember')).id);
     const [successChange, setSuccessChange] = useState(false);
@@ -43,10 +42,12 @@ const NavLeft = () => {
             [name]: value,
         });
 
+
     }
 
     const handlerTeamChange = ({ team }) => {
         location.href = `/main/${team.team_id}`
+
     }
 
     useEffect(async () => {        //nav 리스트 가져오는 useEffect
@@ -160,7 +161,7 @@ const NavLeft = () => {
         teamExit: async ({ teamId }) => {
             try {
                 // Delete
-                const response = await fetch(`/api/team/exit/${teamId}`, {
+                const response = await fetch(`/api/team/exit/${teamid}`, {
                     method: 'get',
                     mode: 'cors',
                     credentials: 'include',
