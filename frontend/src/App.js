@@ -7,6 +7,7 @@ import Main from './component/Main/Main';
 import Post from './component/Main/Post';               //postlist
 import PostWork from './component/Main/PostWork';       //postwrite, modify, del, showComment 
 import Chat from './component/Chat/Chat';
+import Welcome from './welcome/Welcome';
 
 
 
@@ -25,6 +26,7 @@ export default function App() {
             <Route path='/' element={<Login/>}/>
             <Route path='/:teamid/main' element={<Main/>}/>
             <Route path='/:teamid/chat/:roomId' element={<Chat/>}/>
+            <Route path='/welcome' element={<Welcome/>}/>
 
 
         </Routes>
