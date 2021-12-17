@@ -33,7 +33,7 @@ const PostWrite = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`/api/post/write/${partid}`, {
+            const response = await fetch(`/api/post/${partid}`, {
                 method: 'post',
                 mode: 'cors',
                 credentials: 'include',
@@ -44,7 +44,7 @@ const PostWrite = () => {
                 },
                 redirect: 'follow',
                 referrer: 'client',
-                body: JSON.stringify({ ...title, ...contents })
+                body: JSON.stringify({ ...title, ...contents,...image,...file })
             })
 
         } catch (err) {
@@ -89,27 +89,17 @@ const PostWrite = () => {
                     <br />
                     <tr className='postfile'>
                         <td>{"file add"}</td>
-                        <td><input name='file' type="text" name="title" onChange={onChangeContents} /> <input type="file" multiple="multiple" name="attachFiles" /></td>
+                        <td><input type="file" multiple="multiple" name="attachFiles" onChange={onChangeFile}/></td>
 
                     </tr>
                     <br />
                     <tr className='postimg'>
                         <td>{"Image add"}</td>
-                        <td><input name='file' type="text" name="title" onChange={onChangeContents} /> <input type="file" name="imageFile" /></td>
+                        <td><input type="file" name="imageFile"  onChange={onChangeImage}/></td>
 
                     </tr>
                     <br />
-                    <tr className='postcontents'>
-                        <td>
-                            <input name='imageFile' type='file' onChange={onChangeImage} />
-                        </td>
-
-                        <td>
-                            <input name='attachFiles' type='file' multiple="multiple" onChange={onChangeFile} />
-
-                        </td>
-
-                    </tr>
+ 
                     <tr>
                         <td>
                             <Button variant="secondary" size="lg" type='submit' onClick={handlerOnClickPostAdd}>작성 완료</Button>

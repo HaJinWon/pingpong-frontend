@@ -10,7 +10,7 @@ const BelongMemberList = ({ teamId }) => {
     // 모달 상태
     const [modal03IsOpen, setModal03IsOpen] = useState(false);
 
-    //member 초대시 member 검색 onChange 함수  
+    //member 초대시 member 검색 onChange 함수
     const memberSearch = async (e) => {
 
         let { name, value } = e.target;
@@ -56,7 +56,8 @@ const BelongMemberList = ({ teamId }) => {
             referrer: 'client',                       
             body: JSON.stringify({"members":checkedId})
           });
-        //console.log()
+
+        setModal03IsOpen(false);
     }
     
     //member 추가 모달 창 열기

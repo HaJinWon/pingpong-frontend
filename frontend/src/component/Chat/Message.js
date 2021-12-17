@@ -63,8 +63,8 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
               'Accept': 'application/json',
               'Content-Type': 'application/json'         
             },
-            redirect: 'follow',                     
-            referrer: 'client',                       
+            redirect: 'follow',               
+            referrer: 'client',
             body: JSON.stringify({"notice":message})
         })
         setModal03IsOpen(false);

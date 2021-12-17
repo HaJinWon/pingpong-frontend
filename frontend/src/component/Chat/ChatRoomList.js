@@ -58,6 +58,7 @@ const ChatList = ({ teamId, loginMember }) => {
 
         const data2 = await response2.json();
         setChatRooms(data2.roomDtoList);
+        console.log('chatRooms',data2.roomDtoList);
 
     }, [changeValue, teamId]);
     
@@ -131,7 +132,7 @@ const ChatList = ({ teamId, loginMember }) => {
                             return (
 
                                 <li key={chatRoom.id}> <NavLink to={`/${teamId}/chat/${chatRoom.roomId}`} >{chatRoom.title}</NavLink>
-                                    <button id={chatRoom.id} onClick={exitRoom}> 나가기 </button>
+                                    <button id={chatRoom.roomId} onClick={exitRoom}> 나가기 </button>
                                 </li>
                             )
                         })

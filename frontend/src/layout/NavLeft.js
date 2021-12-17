@@ -69,7 +69,7 @@ const NavLeft = () => {
 
         partList: {       //part
             try {
-                const response = await fetch(`/api/part/list/${teamid}`, {
+                const response = await fetch(`/api/part/${teamid}`, {
                     method: 'get',
                     mode: 'cors',
                     credentials: 'include',
@@ -124,7 +124,7 @@ const NavLeft = () => {
         partAdd: async (e) => {
             console.log("part 추가 in:" + teamid);
             try {
-                const response = await fetch(`/api/part/add/${teamid}`, {
+                const response = await fetch(`/api/part/${teamid}`, {
                     method: 'post',
                     mode: 'cors',
                     credentials: 'include',
