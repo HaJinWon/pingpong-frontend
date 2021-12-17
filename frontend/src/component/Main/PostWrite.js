@@ -15,6 +15,8 @@ import styles from '../../assets/scss/PostWrite.scss'
 const PostWrite = () => {
    const [title, setTitle]= useState('');
    const [contents, setContents]=useState('');
+   const [file, setFile]=useState();
+   const [image, setImage]=useState();
    const [postAdd, setPostAdd]=useState(false);
 
     const onChangeTitle=(e)=>{
@@ -28,6 +30,18 @@ const PostWrite = () => {
             contents : e.target.value,
         })
       
+    }
+    
+    const onChangeImage = (e) =>{
+        setImage({
+            imageFile : e.target.value,
+        })
+    }
+
+    const onChangeFile=(e)=>{
+        setFile({
+            attachFiles : e.target.value,
+        })
     }
 
 
@@ -65,7 +79,7 @@ const PostWrite = () => {
             <SiteLayout>
                  <div className={styles.PostWrite}>
                  <h2>[PostWrite]</h2>
-                 <form>
+                 <form enctype="multipart/form-data">
                      <table>
                          <tr className='posttitle'>
                             <td>{"title"}</td>
@@ -76,12 +90,18 @@ const PostWrite = () => {
                         </tr>
                         <tr className='postcontents'>
                             <td>
-                                
+                            <input name='imageFile' type='file'  onChange={onChangeImage}/>  
                             </td>
                             <td>
-                            <input type='submit' onClick={handlerOnClickPostAdd}/>
+                            <input name='attachFiles' type='file' multiple="multiple"  onChange={onChangeFile} />  
                             </td>
+                         
                         </tr>
+                        <tr>
+                            <td>
+                                <input type='submit' onClick={handlerOnClickPostAdd}/>
+                            </td>
+                            </tr>
                             
                            
                         </table>

@@ -7,8 +7,6 @@ import { NavLink } from 'react-router-dom';
 
 export default function() {
 
-    //const [authUser, setAuthUser] =useState(null);
-
     const [selectTeam, setSelectTeam]=useState('');
     const [successAdd, setSuccessAdd]=useState(true);
 
@@ -38,6 +36,10 @@ export default function() {
         'password': ''
     });
 
+    /**
+     *  로그인 함수 
+     *  (로그인 버튼 클릭시)
+     */
     const handlerSubmit = async (e) => {
         e.preventDefault();
 
@@ -56,10 +58,8 @@ export default function() {
         headers: { "Content-Type": `application/json`}
         }).then((res) => {
             console.log(res.data.member.id);
-            if(res.data.member.id !== null){
-                //setAuthUser();    
+            if(res.data.member.id !== null){  
                 window.sessionStorage.setItem("loginMember",JSON.stringify(res.data.member));
-                //console.log(window.sessionStorage.getItem("authUser"));
                 setSuccessAdd(!successAdd);
                 getTeamList();
                 
@@ -74,9 +74,10 @@ export default function() {
         
 
     } 
-
+    /**
+     *  본인이 속한 팀 리스트 부르는 함수
+     */
     const getTeamList = async()=>{
-        
             try {
                 const response = await fetch('/api/team/list', {
                 method: 'get',
@@ -95,10 +96,9 @@ export default function() {
                 console.log(data);
                
                 window.sessionStorage.setItem("selectTeam",JSON.stringify(data.data.teamList[0]));  //받아온 team list 중 디폴트 team을 session storage에 할당
-                //console.log('세션에 담아놨던 팀 아이디',JSON.parse(sessionStorage.getItem("selectTeam")).team_id);   //selectTeam name
+        
                 setSelectTeam(JSON.parse(sessionStorage.getItem("selectTeam")));
                 console.log('select team : ',JSON.parse(sessionStorage.getItem("selectTeam")).team_id);
-                //console.log('selectTeam에 담아두었던 팀아이디',selectTeam.team_id);   //selectTeam name
 
                 location.href=`/${JSON.parse(sessionStorage.getItem("selectTeam")).team_id}/main`;
 
@@ -107,7 +107,9 @@ export default function() {
                 console.log(err);
             }
      }
-    //changeForm 함수
+    /**
+     *  Form 내용 set하는 함수
+     */
     const chgForm = (e) => {
         let { name, value } = e.target;
 

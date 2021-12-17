@@ -2,13 +2,19 @@ import React ,{useState, useEffect}from 'react';
 import SiteLayout from '../../layout/SiteLayout';
 import { BrowserRouter,useParams,NavLink } from 'react-router-dom';
 import PostForm from './PostForm';
+import SearchBar from './SearchBar';
 
 const Post = () => {
     let {teamid, partid} = useParams();
     
     const [postidforComment, setPostidforComment] = useState('');
     const [postList, setPostList] = useState([]);
-    
+    const [keyword, setKeyword] = useState('');
+
+    const notifyKeywordChanged = (keyword) => {
+        setKeyword(keyword);
+    };
+
     const handlerOnclickPost=({Postid})=>{
         setPostidforComment(Postid);
     }
@@ -46,10 +52,11 @@ const Post = () => {
             <h2>[Post]{partid}</h2>
 
             <NavLink to ={`/${teamid}/post/write/${partid}`}>게시글 작성</NavLink>
-
+            <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
             {
             
                 postList
+                    .filter(posts => posts.title.indexOf(keyword) !== -1 || posts.contents.indexOf(keyword) !== -1)
                     .map((posts,index)=>{return <PostForm 
                                             key={index} 
                                             id = {posts.post_id}

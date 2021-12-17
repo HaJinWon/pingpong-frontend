@@ -12,19 +12,14 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
 
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
 
+    const [miniProfile, setMiniProfile] = useState({});
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
     const [modal03IsOpen, setModal03IsOpen] = useState(false);
-    const [notice, setNotice] = useState('');
-    const [callbackCnt, setCallbackCnt] = useState(0);
-    const [modalData, setModalData] = useState({
-        'profile':'',
-        'status':'접속중',
-        '메세지 보내기':''
-    });
 
 
-
-
+    /**
+     *  채팅: 상대방 이미지 클릭시 미니 프로필을 띄우기 위한 함수
+     */
     const openMiniProfile = async ()=>{
         setModal02IsOpen(true);
 
@@ -42,16 +37,21 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
             body: null
         });
         const data = await response.json();
-        console.log('miniprofile',data);
+        //console.log('miniprofile',data);
         setMiniProfile(data);
         
     }
 
+    /**
+     *  채팅 더보기 모달 창 띄우는 함수 (공지등록, 메시지 삭제)
+     */
     const openSubModal =()=>{
         setModal03IsOpen(true);
     }
 
-    //공지사항 등록
+    /**
+     *  공지사항 등록 함수
+     */
     const regNotice = async ()=>{
         console.log(JSON.stringify({"notice":message}));
         const response = await fetch(`/api/room/notice/${roomId}`, {
@@ -69,10 +69,12 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
         })
         setModal03IsOpen(false);
         const data = await response.json();
-        console.log(data.notice);
         callback(data.notice);
     }
 
+    /**
+     *  채팅 메세지 삭제함수 (본인 메세지만 가능)
+     */
     const deleteChat = async () =>{
         const response = await fetch(`/api/chat/${chatId}`, {
             method: 'PATCH',
@@ -96,7 +98,7 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
             {loginMember.name !== sender ?
             <div>
             <div className={styles.Message}>
-                <div className={styles.Profile} onClick={ () => setModal02IsOpen(true) }>
+                <div className={styles.Profile} onClick={ openMiniProfile }>
                     사진
                 </div>
                 <div className={styles.Block}>
@@ -132,12 +134,16 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
             </div>
             </div>
             }
+
+
             <Modal 
                 className={ProfileModaStyle["Modal"]}
                 isOpen={modal02IsOpen}
                 onRequestClose={ () => setModal02IsOpen(false) }
                 contentLabel="modal02 example">
-                <h1>modal02</h1>
+                <div>{miniProfile.name}</div>
+                <div>{miniProfile.status}</div>
+                <div>메세지 보내기 어케하지..</div>
             </Modal>
 
             <Modal 

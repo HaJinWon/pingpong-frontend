@@ -3,6 +3,9 @@ import Message from './Message';
 
 const MessageList = ({ messages, roomId, callback }) => {
 
+    /**
+     *  공지글 내용 콜백함수
+     */
     const noticeCallback2 = (notice)=>{
         callback(notice);
     }
