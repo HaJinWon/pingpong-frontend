@@ -1,0 +1,31 @@
+.WelcomeDiv{
+    border:1px solid red;
+    height:90vh;
+}
+
+.BodyLeft{
+    border:1px solid blue;
+    float:left;
+    width:30%;
+    height:83vh;
+}
+
+.BodyRight{
+    border:1px solid green;
+    height:83vh;
+    
+}
+
+.BodyLeftInner{
+    margin:15%;
+    border:1px solid pink;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.BodyLeftInner2{
+    margin:5%;
+    border:1px solid pink;
+    text-align: center;
+    font-weight: bolder;
+}
