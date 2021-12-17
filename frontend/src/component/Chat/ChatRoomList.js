@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Modal from "react-modal";
+import SearchBar from '../Main/SearchBar';
 
 const ChatList = ({ teamId, loginMember }) => {
 
@@ -10,7 +11,7 @@ const ChatList = ({ teamId, loginMember }) => {
     const [searchUserResult, setSearchUserResult] = useState([]);
     const [selectedChatInvite, setSelectedChatInvite] = useState();
     const [changeValue, setChangeValue] = useState(0);
-
+    const [keyword, setKeyword] = useState('');
     /**
      *  채팅방 개설 (상대방 초대위한 모달 띄우는 함수) 
      */
@@ -116,6 +117,10 @@ const ChatList = ({ teamId, loginMember }) => {
         setChangeValue(changeValue + 1);
     }
 
+    const notifyKeywordChanged = (keyword) => {
+        setKeyword(keyword);
+    };
+
     return (
         <div>
             <h3>Chat</h3><button onClick={openChatInviteModal}>+</button>
@@ -139,9 +144,12 @@ const ChatList = ({ teamId, loginMember }) => {
                 onRequestClose={() => setModal02IsOpen(false)}
                 contentLabel="modal02 example">
                 <div>
+                <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
                     <form onSubmit={inviteHandler}>
                         {
-                            searchUserResult.map((sMember) => {
+                            searchUserResult
+                                .filter(sMember => sMember.name.indexOf(keyword) !== -1)
+                                .map((sMember) => {
                                 return (
                                     sMember.memberId !== loginMember.id ?
                                         <div>

@@ -5,7 +5,7 @@ const SearchBar = ({keyword,callback}) => {
     
     return (
         <div>
-        찾기: <input type='text' placeholder='search' value={keyword} onChange={(e) => callback(e.target.value) }/>
+        <input type='text' placeholder='search' value={keyword} onChange={(e) => callback(e.target.value) }/>
         </div>
     );
 };
