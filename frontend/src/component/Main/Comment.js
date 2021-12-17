@@ -3,24 +3,19 @@ import SiteLayout from '../../layout/SiteLayout';
 
 import CommentForm from '../Main/CommentForm';
 
-const Comment = ({postidforComment}) => {
-   // const refForm = useRef(null);
-
-
-    const postId = postidforComment
+const Comment = ({ postforComment}) => {       //
+    const postId = postforComment.post_id
     const [commentList, setCommentList] = useState([]);
     const [commentDelid, setCommentDelid] = useState('');
     const [commentAdd, setCommentAdd] = useState(false);
     const [comment, setComment] = useState('');
-    const chgComment =(e)=>{
 
-        setComment(e.target.value);
-    }
+    
 
     useEffect(async()=>{        // Commnet 리스트 가져오는 useEffect
         setCommentAdd(false);
         try {
-            const response = await fetch(`/api/post/comment/${postId}`, {
+            const response = await fetch(`/api/post/comment/${postforComment.post_id}`, {
               method: 'get',
               mode: 'cors',                           
               credentials: 'include',                 
@@ -44,11 +39,11 @@ const Comment = ({postidforComment}) => {
        
     },[postId ,commentDelid, commentAdd]);
 
-    const handlerOnclickCommentAdd=async (e)=>{
+    const handlerOnclickCommentAdd=async (e)=>{     //comment 작성 후 list reloading을 위한 handler
         e.preventDefault();
             console.log("part 추가 in:", comment);
             try {
-                const response = await fetch(`/api/post/comment/${postidforComment}`, {
+                const response = await fetch(`/api/post/comment/${postforComment.post_id}`, {
                 method: 'post',
                 mode: 'cors',                           
                 credentials: 'include',                 
@@ -69,16 +64,30 @@ const Comment = ({postidforComment}) => {
         }
 
 
-    const handlerOnclickCommentDel=(commentId)=>{       //comment 삭제를 위한 handler
-        console.log("comment del in "+commentId)
+    const handlerOnclickCommentDel=(commentId)=>{       //comment 삭제 후 list reloading을 위한 handler
         setCommentDelid(commentId) 
      }
+
+     const chgComment =(e)=>{        //comment 입력값 세팅하는 부분
+
+        setComment(e.target.value);
+    }
+
     return (
        
             <div className='Comment'>
                 <h2>Comment</h2>
-                
-                {commentList
+
+                <div className='selectPost'>        {//show target post. 추가적 배치 필요.  
+                }
+                    {postforComment.title}
+                    {postforComment.contents}
+                    
+
+                </div>
+        <br/>
+                                                      {/**comment list  */}
+                {commentList                       
                         .map((comment, index)=>{return <CommentForm
                                                     key={index} 
                                                     id = {comment.comment_id}
@@ -91,7 +100,9 @@ const Comment = ({postidforComment}) => {
                                                 />})
 
                 }
-                <form onSubmit={handlerOnclickCommentAdd}>
+
+
+                <form onSubmit={handlerOnclickCommentAdd}>           {/**comment add  */}
                     <input type='text' name='commnet' onChange={chgComment}></input>
                     <input type='submit' autoComplete={'off'}/>
                 </form>

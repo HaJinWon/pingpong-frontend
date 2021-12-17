@@ -6,12 +6,12 @@ import NavTop from './NavTop';
 
 import styles from '../assets/scss/layout/Contents.scss'
 import styles2 from'../assets/scss/layout/Body.scss'
+        
 
-
-const SiteLayout = ({children, postidforComment}) => {
+const SiteLayout = ({children, postidforComment, postforComment}) => {
     return (
         <Fragment >
-            <NavLeft/>
+            <NavLeft />
             <div className={styles2.Body}>
                 <NavTop/>
                 <div className={styles.Contents}>
@@ -19,7 +19,7 @@ const SiteLayout = ({children, postidforComment}) => {
                 </div>
                
             </div>
-            <NavRight postidforComment={postidforComment}/>
+            <NavRight postidforComment={postidforComment} postforComment={postforComment}/>
            
 
         </Fragment>

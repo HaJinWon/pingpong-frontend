@@ -4,7 +4,7 @@ const CommentForm = (props) => {
    
     const handlerOnclickCommentDel=async()=>{ 
        
-            //comment 삭제를 위한 함수
+            //comment 삭제
             try {
             // Delete
             const response = await fetch(`/api/post/comment/delete/${props.id}`, {

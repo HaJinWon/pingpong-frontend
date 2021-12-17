@@ -22,7 +22,7 @@ const UserInfo = (props) => {
 
     };
 
-    const handlerSubmit = async (e)=>{
+    const handlerSubmit = async (e)=>{         
         e.preventDefault();
 
         await axios.post('/api/member/edit', formInfo, {
@@ -38,9 +38,7 @@ const UserInfo = (props) => {
             });
     }
     
-    // useEffect(()=>{
-        
-    // },[]);
+
     const styles ={
         backgroundImage:formInfo.avatar
     }

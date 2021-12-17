@@ -12,10 +12,6 @@ import MenuList from './NavLeft/MenuList';
 const NavLeft = () => {
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
     const {teamid } = useParams();
-
-    
-
-
     const [selectTeamName, setSelectTeamName] = useState('');
     const [isLogin, setIsLogin] = useState(JSON.parse(window.sessionStorage.getItem('loginMember')).id);
     const [successChange, setSuccessChange] = useState(false);
@@ -28,9 +24,6 @@ const NavLeft = () => {
     const [searchChatMember, setSearchChatMember] = useState('');
     const [changeValue, setChangeValue] = useState(0);
 
-    //console.log('userid : ', window.sessionStorage.getItem('loginMember'));
-    //const loginMenber = JSON.parse(window.sessionStorage.getItem('loginMember'));
-    //console.log(loginMenber.id);
     const ChatSearchMember = (e) => {
         e.preventDefault();
     }
@@ -46,13 +39,7 @@ const NavLeft = () => {
 
     }
 
-    const handlerTeamChange = ({ team }) => {
-        location.href = `/main/${team.team_id}`
-
-    }
-
-    useEffect(async () => {        //nav 리스트 가져오는 useEffect
-        const teamID='';
+    useEffect(async () => {        //nav 리스트(team, part) 가져오는 useEffect
         teamList: {       //team
             try {
                 const response = await fetch('/api/team/list', {
@@ -71,9 +58,6 @@ const NavLeft = () => {
                 const data = await response.json();
                 console.log(data);
                 setTeams(data.data.teamList);       //teams state에 받아온 teamlist 주입
-               // teamID = data.data.teamList.filter((team) => (team.name == teamname))[0].teamid
-               // console.log('!!!!!!!!!!!!!!!!teamID: ')
-               // console.log(teamID)
                 setSelectTeam(data.data.teamList.filter((team) => (team.team_id == teamid)))
                 setSelectTeamName(data.data.teamList.filter((team) => (team.team_id == teamid))[0].name);
 
@@ -109,9 +93,9 @@ const NavLeft = () => {
 
         }
 
-    }, [successChange,teamid])
+    }, [successChange,teamid])      //선택한 팀이 바뀌거나 수정이 완료되면 (메뉴 삭제, 입력) list reloading
 
-    const notifyMemu = {
+    const notifyMemu = {            //team, part  추가 삭제
 
         teamAdd: async (e) => {
             console.log('menu', e.target.value);
@@ -239,7 +223,7 @@ const NavLeft = () => {
             </ul>
 
 
-            <MenuList  menuTitle={"team"}  menus = {teams}/>
+           
 
             <h3>📚 Part</h3>
             <ul>
@@ -250,17 +234,13 @@ const NavLeft = () => {
                 }
                 <li><input className="menuInput" name='name' placeholder={"Part 추가"} onKeyPress={(e) => { e.key === 'Enter' ? notifyMemu.partAdd(e) : null }}></input></li>
             </ul>
-            
-                {
-                    /*
-                        <li key={1}>
-                            <NavLink to={`/${teamid}/chat/12`}>채팅방</NavLink>
-                        </li>
-                    */
-                }
                
             <ChatRoomList teamId={teamid} loginMember={loginMember}/>
             <BelongMemberList teamId={teamid}/>
+
+
+
+            <MenuList  menuTitle={"team"}  menus = {teams}/>        {/**team과 part list를 컴포넌트화 하기 위한 test code */}
 
         </nav>
 

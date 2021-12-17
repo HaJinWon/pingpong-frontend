@@ -1,29 +1,66 @@
 import React from 'react';
+import Dropdown from 'react-bootstrap/Dropdown'
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import { useParams } from 'react-router';
 
+const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeletePost}) => {
+   let {teamid, partid}=useParams()
+  
+    const handlerOnclickCommentDel=async()=>{ 
+       
+                                       //comment 삭제를 위한 함수
+            try {
+            // Delete
+            const response = await fetch(`/api/post/del/${id}`, {
+               method: 'get',
+               mode: 'cors',                           
+               credentials: 'include',                 
+               cache: 'no-cache',                           
+               headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'         
+               },
+               redirect: 'follow',                     
+               referrer: 'client',                       
+               body: null
+            });
 
-const PostForm = ({title, contents,name ,date,id,callback }) => {
-      
-   const handlerOnclickPost=(e)=>{
+            if (!response.ok) {
+            throw `${response.status} ${response.statusText}`;
+            }
+
+            const json = await response.json();
+            if (json.result !== 'success') {
+            throw json.message;
+            }
+            } catch (err) {
+            console.error(err);
+            }
+            handlerDeletePost(id)      //comment 삭제 후 list 반영을 위해 callback함수 사용.
+
+   }; 
+
+   const handlerOnclickPost=(e)=>{           //선택한 post의 comment 확인을 위해 선택한 정보를 부모 commponent로 돌려주는 handler
       e.preventDefault();
-      callback({'Postid':id})
+      callback({'Postid':id ,'post':post})
    }
-
-
-    const styles ={
-        border:'1px solid black'
-    }
 
     return (
 
-        
-
-      
-      //<NavLink to ={`/post/comment/:${id}`}>
-            <table className="Post" onClick={handlerOnclickPost}
-            >
+            <table className="Post"  border='solid 1px' width='90%' >
                <tr >
-                  <td className="PostTitle">{title, id}</td>
-                  <td><button>post detail</button></td>
+                  <td className="PostTitle">{title}</td>
+                  <td> <div>
+                        
+                  <DropdownButton id="dropdown-basic-button" title="더보기" background-color="rgb(255, 255, 255)">
+                        <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
+                        <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
+                        <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">대화방 공유</Dropdown.Item>
+                  </DropdownButton>
+                  
+                     </div>
+                  </td>
                </tr>
                <tr>
                   <td className="PostContents">{contents}</td>
@@ -35,12 +72,10 @@ const PostForm = ({title, contents,name ,date,id,callback }) => {
                   <td className="date">{date}</td>
                </tr>
                 <tr>
-                  {
-                    //<p onClick={'클릭하면 NavRight에 comment 띄움. '}>comment summery</p>
-                  }
+                 
                </tr>
             </table>
-        // </NavLink>
+        
 
       
     );

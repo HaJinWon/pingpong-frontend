@@ -8,7 +8,7 @@ const NavTop = (props) => {
     }
     return (
         <header className={styles.NavTop}>
-            <form className="SearchForm">                           
+            <form className="SearchForm">                   {/**삭제예정 */}                 
                     <input type='text' className='kwd' />
                     <input type='submit' value="찾기" className='submit'/>
             </form>

@@ -4,16 +4,15 @@ import { BrowserRouter,useParams,NavLink } from 'react-router-dom';
 import PostForm from './PostForm';
 
 const Post = () => {
-    let {teamid, partid} = useParams();
-    
+    let {teamid, partid} = useParams(); 
     const [postidforComment, setPostidforComment] = useState('');
+    const [postforComment, setPostforComment]=useState([]);
     const [postList, setPostList] = useState([]);
-    
-    const handlerOnclickPost=({Postid})=>{
-        setPostidforComment(Postid);
-    }
+    const [postListReset, setPostListReset]=useState(false);
 
-    useEffect(async()=>{        // 리스트 가져오는 useEffect
+ 
+
+    useEffect(async()=>{        // part 별 post list 가져옴.
         try {
             const response = await fetch(`/api/post/list/${partid}`, {
               method: 'get',
@@ -38,14 +37,23 @@ const Post = () => {
             console.log(err);
         }
        
-    },[partid]);
+    },[partid, postListReset]);
+
+    const handlerDeletePost=({Postid})=>{       //postform component에서 게시글이 삭제되었을 때, postlist reloading을 위한 handler. 40번 줄에 반영
+        setPostListReset(!postListReset)
+    }
+    
+    const handlerOnclickPost=({Postid, post})=>{        //nav right(comment) commponent에 target post 정보를 보내준다. 
+        setPostidforComment(Postid);
+        setPostforComment(post);
+    }
 
 
     return (
-        <SiteLayout postidforComment={postidforComment}>
+        <SiteLayout postidforComment={postidforComment} postforComment={postforComment}>
             <h2>[Post]{partid}</h2>
 
-            <NavLink to ={`/${teamid}/post/write/${partid}`}>게시글 작성</NavLink>
+            <NavLink to ={`/${teamid}/post/write/${partid}`}>게시글 작성</NavLink>      {/*버튼으로 교체 예정 */}
 
             {
             
@@ -56,9 +64,10 @@ const Post = () => {
                                             title={posts.title} 
                                             contents={posts.contents} 
                                             name={posts.name}
-
+                                            post={posts}
                                             date={posts.date}
                                             callback={handlerOnclickPost}
+                                            handlerDeletePost={handlerDeletePost}
                                             />})
 
             }

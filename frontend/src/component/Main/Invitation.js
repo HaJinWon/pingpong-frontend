@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button'
 const Invitation = () => {
 
     const InvitationResponse= async (e) => {
-            console.log("InvitationResponse in:" );
-            try {
+            
+            try {                                           //초대장 내용 받아오는 api 미반영. 
                 const response = await fetch(`/--`, {
                     method: 'post',
                     mode: 'cors',

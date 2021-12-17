@@ -3,9 +3,10 @@ import Menu from './Menu';
 
 const MenuList = (props) => {
     const [showAddedMenu, setshowAddedMenu]= useState('');
-    const [addedMenu, setAddedMenu]= useState(''); 
-     const AddMenu=(e)=> {
-            e.preventDefault();     //reset안되는데.. 이거 이해가 안됨..
+    const [addedMenu, setAddedMenu]= useState('');
+
+     const AddMenu=(e)=> {                                  
+            e.preventDefault();     
             setAddedMenu(e.target.MenuInput.value);
 
                 if(e.target.MenuInput.value ===''){

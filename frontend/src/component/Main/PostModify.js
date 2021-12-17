@@ -6,19 +6,16 @@ import Button from 'react-bootstrap/Button';
 
 import styles from '../../assets/scss/PostWrite.scss'
 
-const PostWrite = () => {
+const PostModify = (props) => {
    const [title, setTitle]= useState('');
    const [contents, setContents]=useState('');
-   const [postAdd, setPostAdd]=useState(false);
-    let {teamid, partid} = useParams();
-    const [addPost, setAddPost]=useState([]);
+   let {teamid, partid} = useParams();
 
-
-    const handlerOnClickPostAdd=async(e)=>{         //글 작성을 위한 함수
+    const handlerOnClickPostModify=async(e)=>{          //수정된 post 내용을 전송하는 post id
         e.preventDefault();
       
         try {
-            const response = await fetch(`/api/post/write/${partid}`, {
+            const response = await fetch(`/api/post/update/${partid}`, {
             method: 'post',
             mode: 'cors',                           
             credentials: 'include',                 
@@ -56,7 +53,7 @@ const PostWrite = () => {
        
            
                  <div className={styles.PostWrite}>
-                 <h2>[PostWrite]</h2>
+                 <h2>[PostModify]</h2>
                  <form  action method="post" enctype="multipart/form-data">
                      <table>
                          <tr className='posttitle'>
@@ -87,7 +84,7 @@ const PostWrite = () => {
                                 
                             </td>
                             <td >
-                            <Button variant="secondary" size="lg" type='submit' onClick={handlerOnClickPostAdd}>작성 완료</Button>
+                            <Button variant="secondary" size="lg" type='submit' onClick={handlerOnClickPostModify}>작성 완료</Button>
                             </td>
                         </tr>
                             
@@ -101,4 +98,4 @@ const PostWrite = () => {
     );
 };
 
-export default PostWrite;
+export default PostModify;
