@@ -37,7 +37,7 @@ const UserUpadteForm = () => {
     const handlerSubmit = async (e)=>{
         e.preventDefault();
 
-        await axios.post('/api/member/edit', formInfo, {            //회원정보 수정 부분
+        await axios.patch('/api/member/edit', formInfo, {            //회원정보 수정 부분
             headers: { "Content-Type": `application/json`}
             }
             ).then((res) => {
@@ -75,7 +75,7 @@ const UserUpadteForm = () => {
             }
 
             console.log('회원정보 수정 : ',jsonResult.data);
-            setFormInfo({'name':jsonResult.data.name,'avatar':jsonResult.data.avatar, 'email':jsonResult.data.email, 'phone':jsonResult.data.phone, 'company':jsonResult.data.company});
+            setFormInfo({'name':jsonResult.data.name,'imageFile':jsonResult.data.imageFile, 'email':jsonResult.data.email, 'phone':jsonResult.data.phone, 'company':jsonResult.data.company});
             
         } catch(err){
 
@@ -91,23 +91,23 @@ const UserUpadteForm = () => {
            
         <div className='User UpdateForm'>
             <Form onSubmit={handlerSubmit} >
-                <input type='file' name ='avatar' onChange={chgForm}/>
+                <input type='file' name ='imageFile' onChange={chgForm}/>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label >Email address</Form.Label>
-                        <Form.Control type="email" placeholder={formInfo.email}  name='email' disabled/>
+                        <Form.Control type="email" value={formInfo.email} onChange={chgForm}  name='email' disabled />
                 </Form.Group> 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder={formInfo.name}  name='name'/>
+                    <Form.Control type="text" value={formInfo.name} onChange={chgForm} name='name'/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Phone</Form.Label>
-                    <Form.Control type="text" placeholder={formInfo.phone}  name='phone'/>
+                    <Form.Control type="text" value={formInfo.phone} onChange={chgForm} name='phone'/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Company</Form.Label>
-                    <Form.Control type="text" placeholder={formInfo.company}  name='company'/>
+                    <Form.Control type="text" value={formInfo.company} onChange={chgForm} name='company'/>
                 </Form.Group>
                 <Button variant="primary" type="button">
                     돌아가기

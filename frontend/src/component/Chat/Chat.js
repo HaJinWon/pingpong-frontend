@@ -49,7 +49,7 @@ const Chat = () => {
             });
 
             const jsonResult = await response.json();
-
+            console.log(jsonResult);
             setMessages(jsonResult);
         } catch (err) {
 
@@ -116,6 +116,7 @@ const Chat = () => {
     const subscribe = () => {
         client.current.subscribe(`/sub/chat/room/${roomId}`, ({ body }) => {
             setMessages(messages=>[...messages, JSON.parse(body)]);
+
         });
     };
 

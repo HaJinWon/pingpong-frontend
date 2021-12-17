@@ -20,7 +20,7 @@ const Post = () => {
 
     useEffect(async()=>{        // part 별 post list 가져옴.
         try {
-            const response = await fetch(`/api/post/list/${partid}`, {
+            const response = await fetch(`/api/post/${partid}`, {
               method: 'get',
               mode: 'cors',                           
               credentials: 'include',                 

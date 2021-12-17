@@ -24,6 +24,7 @@ export default function () {
         <Container style={containerStyle}>
             <Row roundedCircle style={imgStlye}>
                 <Col xs={10} md={4}>
+                    
                     <Image src={LogoImage} />
                 </Col>
             </Row>

@@ -7,8 +7,8 @@ const CommentForm = (props) => {
             //comment 삭제
             try {
             // Delete
-            const response = await fetch(`/api/post/comment/delete/${props.id}`, {
-                method: 'get',
+            const response = await fetch(`/api/comment/${props.id}`, {
+                method: 'delete',
                 mode: 'cors',                           
                 credentials: 'include',                 
                 cache: 'no-cache',                           

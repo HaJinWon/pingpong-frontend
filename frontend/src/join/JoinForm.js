@@ -110,6 +110,7 @@ const JoinForm = () => {
             });
 
             const jsonResult = await response.json();
+            console.log(jsonResult.data);
             if (jsonResult.data !== null) {
                 setEmailCheck('사용중인 Email입니다.');
             } else {

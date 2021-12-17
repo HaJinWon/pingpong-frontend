@@ -15,7 +15,7 @@ const Comment = ({ postforComment}) => {       //
     useEffect(async()=>{        // Commnet 리스트 가져오는 useEffect
         setCommentAdd(false);
         try {
-            const response = await fetch(`/api/post/comment/${postforComment.post_id}`, {
+            const response = await fetch(`/api/comment/${postforComment.post_id}`, {
               method: 'get',
               mode: 'cors',                           
               credentials: 'include',                 
@@ -43,7 +43,7 @@ const Comment = ({ postforComment}) => {       //
         e.preventDefault();
             console.log("part 추가 in:", comment);
             try {
-                const response = await fetch(`/api/post/comment/${postforComment.post_id}`, {
+                const response = await fetch(`/api/comment/${postforComment.post_id}`, {
                 method: 'post',
                 mode: 'cors',                           
                 credentials: 'include',                 
