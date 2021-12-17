@@ -121,6 +121,7 @@ export default function() {
         console.log(formInfo);
     };
     
+    
     //
     const moveJoin = (e)=>{
         e.preventDefault();
