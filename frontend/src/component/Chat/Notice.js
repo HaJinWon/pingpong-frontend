@@ -4,7 +4,9 @@ const Notice = ({roomId}) => {
 
     const [notice,setNotice] = useState('');
 
-    // 공지사항 불러오기
+    /**
+     *  채팅방 공지사항 불러오는 함수
+     */
     useEffect(async()=>{
         const response = await fetch(`/api/room/notice/${roomId}`, {
             method: "get",

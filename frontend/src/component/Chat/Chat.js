@@ -27,10 +27,10 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
 
 
-    //roomId방의 채팅 내역을 받아오는 api
+    /**
+     * 채팅방 리스트 불러오는 함수
+     */
     useEffect(async () => {
-
-        console.log("useeffect in");
 
         try {
 
@@ -50,7 +50,6 @@ const Chat = () => {
 
             const jsonResult = await response.json();
 
-            console.log(jsonResult);
             setMessages(jsonResult);
         } catch (err) {
 
@@ -63,18 +62,23 @@ const Chat = () => {
     const roomName = "roomName";
     const loginName = loginMember.name;
     const loginId = loginMember.id;
-    console.log(roomName + ", " + roomId + ", " + loginName + ", " + loginId);
 
 
     const client = useRef({});
     const [message, setMessage] = useState("");
 
+    /**
+     *  룸 ID 변경 시 실행되는 함수 (Stomp,socket 연결)
+     */ 
     useEffect(() => {
         connect();
 
         return () => disconnect();
     }, [roomId]);
 
+    /**
+     *  Stomp 연결 함수
+     */
     const connect = () => {
         client.current = new StompJs.Client({
             webSocketFactory: () => new SockJS("http://localhost:8080/ws-stomp"), // proxy를 통한 접속
@@ -99,20 +103,25 @@ const Chat = () => {
         client.current.activate();
     };
 
+    /**
+     *  Stomp 연결 끊는 함수
+     */
     const disconnect = () => {
         client.current.deactivate();
     };
 
+    /**
+     *  Stomp Subscribe 함수
+     */
     const subscribe = () => {
         client.current.subscribe(`/sub/chat/room/${roomId}`, ({ body }) => {
-            //setChatMessages((_chatMessages) => [..._chatMessages, JSON.parse(body)]);
-            //console.log('body',body);
             setMessages(messages=>[...messages, JSON.parse(body)]);
-            console.log(messages);
-            console.log("subscribe 실행");
         });
     };
 
+    /**
+     *  Stomp Publish 함수
+     */
     const publish = (message, type) => {
         if (!client.current.connected) {
             return;

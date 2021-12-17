@@ -16,13 +16,11 @@ const Join = () => {
         marginTop:'1%',
         width:'70vh',
         height:'95vh',
-        //border:'1px solid green',
         padding:'2%',
         backgroundColor:'white',
         boxShadow:'0px 5px 5px 0px gray'
     }
     const styles3 ={
-        //border:'1px solid red',
         margin:'auto',
         textAlign:'center',
         fontFamily:'Times New Roman',

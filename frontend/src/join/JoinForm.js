@@ -13,8 +13,6 @@ const JoinForm = () => {
     const formStyle ={
         width:'35vh'
     }
-    //const [email, setEmail] = useState('');
-    //const [pwdChk, setPwdChk] = useState('');
     const [emailCheck, setEmailCheck] = useState('');
     const [formInfo, setFormInfo] = useState({
         "email": '',
@@ -25,16 +23,15 @@ const JoinForm = () => {
         "company": ''
     });
 
+    /**
+     *  회원가입 함수
+     *  (회원가입 버튼 클릭 시 실행)
+     *  (기본 validation 적용)
+     */
     const handlerSubmit = async (e) => {
         e.preventDefault();
 
-        /**
-         *  빈값 확인
-         */
-        // if(!email_check(formInfo.email)){
-        //     alert('Email 형식이 올바르지 않습니다.');
-        //     return;
-        // }
+
         if(formInfo.email == ''){
             alert("Email을 입력해주세요.");
             return;
@@ -69,17 +66,21 @@ const JoinForm = () => {
         });
     }
 
-    //changeForm 함수
+    /**
+     *  form 값 세팅 함수
+     */
     const chgForm = (e) => {
         let { name, value } = e.target;
-        //console.log("login changeForm 함수 : ", e.target)
         setFormInfo({
             ...formInfo,
             [name]: value,
         });
 
     };
-    // 이메일 중복 체크 함수
+    
+    /**
+     *  이메일 중복체크 함수
+     */
     const checkEmail = async (e) => {
         console.log("checkmail");
 
@@ -135,20 +136,6 @@ const JoinForm = () => {
 
     return (
         <div className={styles.JoinForm}>
-            {/*
-            <form   >
-                <input type='text' name='email' placeholder='Email' onChange={chgForm, checkEmail} />
-                <div className='emailckeck'></div>
-                <input type='password' name='password' placeholder='Password' onChange={chgForm} />
-                <input type='password' name='password2' placeholder='Password-re' onChange={chgForm} />
-                <div className='emailckeck'>{pwdChk}</div>
-                <input type='text' name='name' placeholder='Name' onChange={chgForm} />
-                <input type='text' name='phone' placeholder='Phone' onChange={chgForm} />
-                <input type='text' name='company' placeholder='Company' onChange={chgForm} />
-                <Button variant="primary" size="lg" as='input' type='submit' value='회원가입' />
-                <input type='submit' value='회원가입' />
-            </form>
-            */}
             <Form onSubmit={handlerSubmit} style={formStyle}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label >Email address</Form.Label>
