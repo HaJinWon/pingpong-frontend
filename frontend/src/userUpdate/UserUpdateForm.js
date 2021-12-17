@@ -99,7 +99,7 @@ const UserUpadteForm = () => {
                 </Form.Group> 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder={formInfo.name}  name='name'/>
+                    <Form.Control type="text" value={formInfo.name}  name='name'/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Phone</Form.Label>
