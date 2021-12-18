@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import stylesNotice from '../../assets/css/Notice.css';
 const Notice = ({roomId}) => {
 
     const [notice,setNotice] = useState('');
@@ -26,7 +26,7 @@ const Notice = ({roomId}) => {
     })
 
     return (
-        <div>
+        <div className={stylesNotice.Notice}>
             <h2>공지 : {notice}</h2>
         </div>
     );

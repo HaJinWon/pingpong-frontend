@@ -1,0 +1,11 @@
+.TextBox{
+    width:100vh;
+    height:10vh;
+}
+
+.Button{
+    width:15vh;
+    height:10vh;
+    font-size: 25px;
+    font-weight: bolder;
+}

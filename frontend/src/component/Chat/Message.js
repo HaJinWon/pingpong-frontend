@@ -4,19 +4,25 @@ import styles2 from '../../assets/css/Message2.css';
 import Modal from "react-modal";
 import ReactModal from "react-modal";
 import ProfileModaStyle from '../../assets/scss/ProfileModal.scss';
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import sampleImg from '../../assets/images/Im0.jpg'
 
 ReactModal.setAppElement('body');
 
 
-const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
+const Message = ({type,message,sender,senderId,roomId,chatId,chatDate, callback}) => {
 
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
 
     const [miniProfile, setMiniProfile] = useState({});
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
     const [modal03IsOpen, setModal03IsOpen] = useState(false);
-
-
+    
+    //substring이 되다가 갑자기 안되는 ㅡㅡ;;
+    // const dateTime = chatDate.substring(11,13)+'시 '+chatDate.substring(14,16)+'분';
+    const dateTime = chatDate;
+    
     /**
      *  채팅: 상대방 이미지 클릭시 미니 프로필을 띄우기 위한 함수
      */
@@ -99,38 +105,35 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
             <div>
             <div className={styles.Message}>
                 <div className={styles.Profile} onClick={ openMiniProfile }>
-                    사진
+
                 </div>
                 <div className={styles.Block}>
                     <div className={styles.UserName}>
                     {sender}
                     </div>
+                    <div className={styles.Date}>
+                    {dateTime}
+                    </div>
                     <div className={styles.Contents} onClick={openSubModal}>
                     {message}
                     </div>
-                </div>
-                <div className={styles.Count}>
-                    3
                 </div>
             </div>
             </div>
             :
             <div>
             <div className={styles2.Message}>
-               <div className={styles2.Count}>
-                    3
-                </div>
                 <div className={styles2.Block}>
                     <div className={styles2.UserName}>
                         {sender}
+                    </div>
+                    <div className={styles2.Date}>
+                    {dateTime}
                     </div>
                     <div className={styles2.Contents} onClick={openSubModal}>
                         {message}
                     </div>
                 </div> 
-                <div className={styles2.Profile}>
-                    사진
-                </div>
             </div>
             </div>
             }
@@ -141,9 +144,16 @@ const Message = ({type,message,sender,senderId,roomId,chatId, callback}) => {
                 isOpen={modal02IsOpen}
                 onRequestClose={ () => setModal02IsOpen(false) }
                 contentLabel="modal02 example">
-                <div>{miniProfile.name}</div>
-                <div>{miniProfile.status}</div>
-                <div>메세지 보내기 어케하지..</div>
+                <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={sampleImg} />
+                <Card.Body>
+                    <Card.Title>{miniProfile.name}</Card.Title>
+                    <Card.Text>
+                    {miniProfile.status}
+                    </Card.Text>
+                    <Button variant="primary">프로필 확인</Button>
+                </Card.Body>
+                </Card>
             </Modal>
 
             <Modal 

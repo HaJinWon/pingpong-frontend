@@ -1,7 +1,6 @@
 .Message{
     width: 1050px;
     height: 100px;
-    border:1px solid black;
     margin-left: 10px;
     margin-bottom: 10px;
     display: flex;
@@ -11,29 +10,35 @@
 }
 
 .Profile{
-    width:100px;
-    height:100px;
+    width:10vh;
+    height:10vh;
     border:1px solid red;
     float: left;
+    border-radius: 50%;
 }
 
 .Block{
-    width:250px;
+    width:30vh;
     height:100px;
-    border:1px solid blue;
+    margin-right: 1%;
     float:left;
 }
 .UserName{
-    border:1px solid green;
-    width:250px;
-    height:30px;
+    width:30%;
+    height:20px;
+    font-weight: bold;
     text-align: right;
+    float:right;
 }
 .Contents{
-    text-align: right;
+    margin-top: 2%;
+    background-color: cornsilk;
+    height:7vh;
+    border-radius: 5px;
+    
 }
-.Count{
-    width:20px;
-    border:1px solid black;
-    float: left;
+
+.Date{
+    font-size: 14px;
+    text-align: left;
 }

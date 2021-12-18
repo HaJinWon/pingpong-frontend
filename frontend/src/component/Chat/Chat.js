@@ -6,6 +6,8 @@ import MessageList from "./MessageList";
 import * as SockJS from "sockjs-client";
 import * as StompJs from "@stomp/stompjs";
 import Notice from "./Notice";
+import MessageInput from '../../assets/css/MessageInput.css';
+import Button from 'react-bootstrap/Button';
 
 const Chat = () => {
 
@@ -20,7 +22,8 @@ const Chat = () => {
         height: "700px",
         display:"flex",
         flexDirection: "column-reverse" ,
-        overflowY:"auto"
+        overflowY:"auto",
+        backgroundColor:'#b2c9ed'
     
     };
 
@@ -157,8 +160,6 @@ const Chat = () => {
     /*================================================================== */
     return (
         <SiteLayout isSearch={false}>
-                <h2>ChatPage</h2>
-
                 <Notice roomId={roomId}/>
             <div style={styles} className="chatDiv">            
                 <MessageList messages={messages} roomId={roomId} callback={noticeCallback}/>
@@ -166,17 +167,18 @@ const Chat = () => {
             <div>
                 <div>
                     <input
-                        type={"text"}
-                        placeholder={"message"}
+                        className={MessageInput.TextBox}
+                        type="text"
+                        placeholder="메세지를 입력해주세요."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        onKeyPress={(e) => e.which === 13 && publish(message)}
+                        onKeyPress={(e) => e.target.value !=='' &&e.which === 13 && publish(message)}
                     />
-                    <button
+                    <Button className={MessageInput.Button}
                         onClick={message !== "" ? () => publish(message, "TALK") : null}
                     >
-                        send
-                    </button>
+                        전송
+                    </Button>
                 </div>
             </div>
         </SiteLayout>
