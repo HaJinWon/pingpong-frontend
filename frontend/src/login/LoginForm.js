@@ -150,7 +150,7 @@ export default function() {
 
             </Form>
             <div>{'  '}</div>
-            <NavLink style={styles2} to={`/`}>ID / PW 찾기</NavLink>
+            <NavLink style={styles2} to={`/findid`}>ID / PW 찾기</NavLink>
         </div>
     )
 }

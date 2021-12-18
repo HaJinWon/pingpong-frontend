@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Modal from "react-modal";
 import Members from './Members';
+import styleTeamMemberInvite from '../../assets/css/TeamMemberInvite.css';
+import Button from 'react-bootstrap/Button';
+
 const BelongMemberList = ({ teamId }) => {
 
     // 팀 초대시 유저검색 결과
@@ -103,23 +106,32 @@ const BelongMemberList = ({ teamId }) => {
             
             
             <Modal
+                className={styleTeamMemberInvite.Modal}
                 isOpen={modal03IsOpen}
                 onRequestClose={() => setModal03IsOpen(false)}
                 contentLabel="modal03 example">
                 <div>
-                    <input type='text' name='memberName' onChange={memberSearch} />
+                    <input type='text' name='memberName' onChange={memberSearch} placeholder='초대할 유저의 이름을 입력해주세요.' className={styleTeamMemberInvite.InputText}/>
                     <form onSubmit={submitTeamMemberInvite}>
+                        <div className={styleTeamMemberInvite.Outer}>
                         {
                             searchUserResult2.map((userList) => {
                                 return (
-                                    <div>
-                                        {userList.name} - 소속 : {!userList.company ? `소속 없음` : userList.company}
-                                        <input type='checkbox' name='member' id={userList.member_id} onClick={checkboxChg}/>
-                                    </div>
+                                    <label>
+                                        <div className={styleTeamMemberInvite.One}>
+                                            <div className={styleTeamMemberInvite.Avatar}>{userList.avatar}</div>
+                                            <div className={styleTeamMemberInvite.UserName}>{userList.name}</div>
+                                            <div className={styleTeamMemberInvite.Company}>{!userList.company ? `소속 없음` : userList.company}</div>
+                                            <input type='checkbox' name='member' id={userList.member_id} onClick={checkboxChg}/>
+                                        </div>
+                                    </label>
                                 )
                             })
                         }
-                        <input type='submit' value='초대하기' />
+                        </div>
+                        <Button variant="primary" type="submit" className={styleTeamMemberInvite.Button}>
+                            초대하기
+                        </Button>
                     </form>
                 </div>
             </Modal>

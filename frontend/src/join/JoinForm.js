@@ -36,6 +36,10 @@ const JoinForm = () => {
             alert("Email을 입력해주세요.");
             return;
         }
+        if(emailCheck=='사용중인 Email입니다.'){
+            alert("이미 사용중인 Email입니다.");
+            return;
+        }
         if(formInfo.password == ''){
             alert("비밀번호를 입력해주세요.");
             return;

@@ -1,77 +1,92 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import styles from '../../assets/css/Message.css';
 import styles2 from '../../assets/css/Message2.css';
 import Modal from "react-modal";
 import ReactModal from "react-modal";
 import ProfileModaStyle from '../../assets/scss/ProfileModal.scss';
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
-import sampleImg from '../../assets/images/Im0.jpg'
-
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import sampleImg from '../../assets/images/Im0.jpg';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+import ProfileImgSample from '../../assets/images/Im0.jpg'
 ReactModal.setAppElement('body');
 
 
-const Message = ({type,message,sender,senderId,roomId,chatId,chatDate, callback}) => {
+const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate, callback }) => {
 
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
 
     const [miniProfile, setMiniProfile] = useState({});
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
     const [modal03IsOpen, setModal03IsOpen] = useState(false);
-    
+
     //substring이 되다가 갑자기 안되는 ㅡㅡ;;
     // const dateTime = chatDate.substring(11,13)+'시 '+chatDate.substring(14,16)+'분';
-    const dateTime = chatDate;
-    
+    //const dateTime = chatDate;
+
+
+    const dropdownStyle = {
+        marginTop: '1%',
+        backgroundColor: '#b2c9ed',
+        color: '#b2cc9ed'
+    }
+
+    // 프로필 이미지
+    var profileStyle = {
+        backgroundImage: `url(${sampleImg})`,
+        backgroundSize: '10vh 10vh'
+    };
+
     /**
      *  채팅: 상대방 이미지 클릭시 미니 프로필을 띄우기 위한 함수
      */
-    const openMiniProfile = async ()=>{
+    const openMiniProfile = async () => {
         setModal02IsOpen(true);
 
         const response = await fetch(`/api/member/${senderId}`, {
             method: 'get',
-            mode: 'cors',                           
-            credentials: 'include',                 
-            cache: 'no-cache',                           
+            mode: 'cors',
+            credentials: 'include',
+            cache: 'no-cache',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'         
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
-            redirect: 'follow',                     
-            referrer: 'client',                       
+            redirect: 'follow',
+            referrer: 'client',
             body: null
         });
         const data = await response.json();
         //console.log('miniprofile',data);
         setMiniProfile(data);
-        
+
     }
 
     /**
      *  채팅 더보기 모달 창 띄우는 함수 (공지등록, 메시지 삭제)
      */
-    const openSubModal =()=>{
+    const openSubModal = () => {
         setModal03IsOpen(true);
     }
 
     /**
      *  공지사항 등록 함수
      */
-    const regNotice = async ()=>{
-        console.log(JSON.stringify({"notice":message}));
+    const regNotice = async () => {
+        console.log(JSON.stringify({ "notice": message }));
         const response = await fetch(`/api/room/notice/${roomId}`, {
             method: 'PATCH',
-            mode: 'cors',                           
-            credentials: 'include',                 
-            cache: 'no-cache',                           
+            mode: 'cors',
+            credentials: 'include',
+            cache: 'no-cache',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'         
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
-            redirect: 'follow',               
+            redirect: 'follow',
             referrer: 'client',
-            body: JSON.stringify({"notice":message})
+            body: JSON.stringify({ "notice": message })
         })
         setModal03IsOpen(false);
         const data = await response.json();
@@ -81,18 +96,18 @@ const Message = ({type,message,sender,senderId,roomId,chatId,chatDate, callback}
     /**
      *  채팅 메세지 삭제함수 (본인 메세지만 가능)
      */
-    const deleteChat = async () =>{
+    const deleteChat = async () => {
         const response = await fetch(`/api/chat/${chatId}`, {
             method: 'PATCH',
-            mode: 'cors',                           
-            credentials: 'include',                 
-            cache: 'no-cache',                           
+            mode: 'cors',
+            credentials: 'include',
+            cache: 'no-cache',
             headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'         
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
-            redirect: 'follow',                     
-            referrer: 'client',                       
+            redirect: 'follow',
+            referrer: 'client',
             body: null
         });
         setModal03IsOpen(false);
@@ -102,75 +117,68 @@ const Message = ({type,message,sender,senderId,roomId,chatId,chatDate, callback}
     return (
         <div>
             {loginMember.name !== sender ?
-            <div>
-            <div className={styles.Message}>
-                <div className={styles.Profile} onClick={ openMiniProfile }>
+                <div>
+                    <div className={styles.Message}>
+                        <div className={styles.Profile} onClick={openMiniProfile} style={profileStyle}>
 
+                        </div>
+                        <div className={styles.Block}>
+                            <div className={styles.UserName}>
+                                {sender}
+                            </div>
+                            <div className={styles.Date}>
+                                {chatDate}
+                            </div>
+                            <div className={styles.Contents} onClick={openSubModal}>
+                                {message}
+                            </div>
+                        </div>
+                        <DropdownButton id="dropdown-basic-button" title="" style={dropdownStyle}>
+                            <Dropdown.Item onClick={regNotice} >공지등록</Dropdown.Item>
+                        </DropdownButton>
+                    </div>
                 </div>
-                <div className={styles.Block}>
-                    <div className={styles.UserName}>
-                    {sender}
-                    </div>
-                    <div className={styles.Date}>
-                    {dateTime}
-                    </div>
-                    <div className={styles.Contents} onClick={openSubModal}>
-                    {message}
+                :
+                <div>
+                    <div className={styles2.Message}>
+                        <DropdownButton id="dropdown-basic-button" title="" style={dropdownStyle}>
+                            <Dropdown.Item onClick={regNotice} >공지등록</Dropdown.Item>
+                            <Dropdown.Item onClick={deleteChat}>메세지 삭제</Dropdown.Item>
+
+                        </DropdownButton>
+                        <div className={styles2.Block}>
+                            <div className={styles2.UserName}>
+                                {sender}
+                            </div>
+                            <div className={styles2.Date}>
+                                {chatDate}
+                            </div>
+                            <div className={styles2.Contents}>
+                                {message}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            </div>
-            :
-            <div>
-            <div className={styles2.Message}>
-                <div className={styles2.Block}>
-                    <div className={styles2.UserName}>
-                        {sender}
-                    </div>
-                    <div className={styles2.Date}>
-                    {dateTime}
-                    </div>
-                    <div className={styles2.Contents} onClick={openSubModal}>
-                        {message}
-                    </div>
-                </div> 
-            </div>
-            </div>
             }
 
 
-            <Modal 
+            <Modal
                 className={ProfileModaStyle["Modal"]}
                 isOpen={modal02IsOpen}
-                onRequestClose={ () => setModal02IsOpen(false) }
+                onRequestClose={() => setModal02IsOpen(false)}
                 contentLabel="modal02 example">
                 <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={sampleImg} />
-                <Card.Body>
-                    <Card.Title>{miniProfile.name}</Card.Title>
-                    <Card.Text>
-                    {miniProfile.status}
-                    </Card.Text>
-                    <Button variant="primary">프로필 확인</Button>
-                </Card.Body>
+                    <Card.Img variant="top" src={sampleImg} />
+                    <Card.Body>
+                        <Card.Title>{miniProfile.name}</Card.Title>
+                        <Card.Text>
+                            {miniProfile.status}
+                        </Card.Text>
+                        <Button variant="primary">프로필 확인</Button>
+                    </Card.Body>
                 </Card>
             </Modal>
 
-            <Modal 
-                className={ProfileModaStyle["Modal"]}
-                isOpen={modal03IsOpen}
-                onRequestClose={ () => setModal03IsOpen(false) }
-                contentLabel="modal03 example">
-                <h2>더보기</h2>
-                <input type ='button' value='공지등록' onClick={regNotice}/>
-                {
-                    senderId == loginMember.id ? 
-                    <input type ='button' value='메세지 삭제' onClick={deleteChat}/>
-                    :
-                    null
-                }
-                
-            </Modal>
         </div>
     );
 };

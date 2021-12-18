@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Modal from "react-modal";
-import SearchBar from '../Main/SearchBar';
+import ChatInviteSearchBar from './ChatInviteSearchBar';
+import styleChatInvite from '../../assets/css/ChatInvite.css';
+import Button from 'react-bootstrap/Button';
 
 const ChatList = ({ teamId, loginMember }) => {
 
@@ -12,6 +14,8 @@ const ChatList = ({ teamId, loginMember }) => {
     const [selectedChatInvite, setSelectedChatInvite] = useState();
     const [changeValue, setChangeValue] = useState(0);
     const [keyword, setKeyword] = useState('');
+    
+
     /**
      *  채팅방 개설 (상대방 초대위한 모달 띄우는 함수) 
      */
@@ -140,30 +144,37 @@ const ChatList = ({ teamId, loginMember }) => {
                 </li>
             </ul>
             <Modal
+                className={styleChatInvite.Modal}
                 isOpen={modal02IsOpen}
                 searchUserListResult={searchUserResult}
                 onRequestClose={() => setModal02IsOpen(false)}
                 contentLabel="modal02 example">
                 <div>
-                <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
+                <ChatInviteSearchBar keyword={keyword} callback={notifyKeywordChanged} className={styleChatInvite.InputText} />
                     <form onSubmit={inviteHandler}>
+                        <div className={styleChatInvite.Outer} >
                         {
                             searchUserResult
                                 .filter(sMember => sMember.name.indexOf(keyword) !== -1)
                                 .map((sMember) => {
                                 return (
                                     sMember.memberId !== loginMember.id ?
-                                        <div>
+                                        <div >
                                             <label>
-                                                <div>{sMember.avatar}</div>
-                                                <div>{sMember.name}</div>
-                                                <div>{sMember.memberId}</div>
-                                                <input type='radio' name='selectMember' value={sMember.memberId} onClick={selectChatMember} />
+                                                <div className={styleChatInvite.One}>
+                                                    <div className={styleChatInvite.Avatar}>{sMember.avatar}</div>
+                                                    <div className={styleChatInvite.UserName}>{sMember.name}</div>
+                                                    <input className={styleChatInvite.RadioBox} type='radio' name='selectMember' value={sMember.memberId} onClick={selectChatMember} />
+                                                </div>
                                             </label>
                                         </div> : null)
                             })
                         }
-                        <input type='submit' value='채팅방 개설' />
+                        </div>
+                        <Button variant="primary" type="submit" className={styleChatInvite.Button}>
+                            채팅방 개설
+                        </Button>
+                        
                     </form>
                 </div>
             </Modal>

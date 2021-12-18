@@ -1,0 +1,65 @@
+.Modal{
+    width: 100vh;
+    top: 10vh;
+    left: 20vh;
+    background-color: #efefef;
+    position: absolute;
+    border:1px solid black;
+    border-radius: 5px;
+    height: 75vh;
+    box-shadow: 0px 5px 5px 0px black;
+}
+
+.Outer{
+    padding:5%;
+    width: 100vh;
+    height: 60h;
+    overflow: auto;
+}
+
+.One{
+    
+    width: 70vh;
+    height:15vh;
+    margin-left: 10vh;
+    background-color: white;
+    border-radius: 5px;
+    border-bottom: 1px solid black;
+}
+
+.Avatar{
+    width:10vh;
+    height:10vh;
+    float: left;
+    border-radius: 50%;
+    border:1px solid red;
+}
+
+.UserName{
+    margin-left: 5vh;
+    
+    width:20vh;
+    height:10vh;
+    float: left;
+    font-size:30px;
+    padding-top:5%;
+    font-weight: bolder;
+
+}
+.Company{
+
+}
+
+.InputText{
+    width:70vh;
+    height:5vh;
+    margin-left: 15vh;
+    margin-top: 5vh;
+    
+}
+
+.Button{
+    width:50vh;
+    margin-left: 25vh;
+    height: 5vh;
+}

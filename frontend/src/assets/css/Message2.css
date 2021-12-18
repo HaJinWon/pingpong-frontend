@@ -12,7 +12,7 @@
 .Profile{
     width:10vh;
     height:10vh;
-    border:1px solid red;
+
     float: left;
     border-radius: 50%;
 }
@@ -22,13 +22,15 @@
     height:100px;
     margin-right: 1%;
     float:left;
+
 }
 .UserName{
     width:30%;
-    height:20px;
+    height:23px;
     font-weight: bold;
     text-align: right;
     float:right;
+
 }
 .Contents{
     margin-top: 2%;
@@ -41,4 +43,5 @@
 .Date{
     font-size: 14px;
     text-align: left;
+    height:23px;
 }

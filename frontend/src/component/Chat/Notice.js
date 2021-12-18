@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import stylesNotice from '../../assets/css/Notice.css';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 const Notice = ({roomId}) => {
 
     const [notice,setNotice] = useState('');
@@ -27,7 +29,7 @@ const Notice = ({roomId}) => {
 
     return (
         <div className={stylesNotice.Notice}>
-            <h2>공지 : {notice}</h2>
+            { notice == null ? null : <h2>공지 : {notice}</h2>}
         </div>
     );
 };

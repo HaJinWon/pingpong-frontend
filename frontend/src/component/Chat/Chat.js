@@ -8,6 +8,7 @@ import * as StompJs from "@stomp/stompjs";
 import Notice from "./Notice";
 import MessageInput from '../../assets/css/MessageInput.css';
 import Button from 'react-bootstrap/Button';
+import ParticipantList from './ParticipantList';
 
 const Chat = () => {
 
@@ -15,7 +16,9 @@ const Chat = () => {
 
     const { roomId } = useParams();
     const [notice, setNotice] = useState('');
-
+    const [participant, setParticipant] = useState([]);
+    const [messages, setMessages] = useState([]);
+    const dateNow = new Date();
 
     const styles = {
         overflow: "auto",
@@ -24,20 +27,42 @@ const Chat = () => {
         flexDirection: "column-reverse" ,
         overflowY:"auto",
         backgroundColor:'#b2c9ed'
-    
     };
 
-    const [messages, setMessages] = useState([]);
+    const dropdownStyle ={
+        display:'block',
+        float:'left'
+    }
 
-
-    /**
-     * 채팅방 리스트 불러오는 함수
-     */
     useEffect(async () => {
 
         try {
-
+                /**
+                 * 채팅방 채팅 내역 리스트 불러오는 함수
+                 */
             const response = await fetch(`/api/chat/${roomId}`, {
+                method: "get",
+                mode: "cors",
+                credentials: "include",
+                cache: "no-cache",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                },
+                redirect: "follow",
+                referrer: "client",
+                body: null,
+            });
+
+            const jsonResult = await response.json();
+            console.log(jsonResult);
+            setMessages(jsonResult);
+
+
+            /**
+             *  채팅방 참여자 리스트
+             */
+             const response2 = await fetch(`/api/room/participant/${roomId}`, {
                 method: "get",
                 mode: "cors",
                 credentials: "include",
@@ -51,9 +76,10 @@ const Chat = () => {
                 body: null,
             });
 
-            const jsonResult = await response.json();
-            console.log(jsonResult);
-            setMessages(jsonResult);
+            const jsonResult2 = await response2.json();
+            console.log('참여자리스트',jsonResult2.data);
+            setParticipant(jsonResult2.data);
+
         } catch (err) {
 
             console.log(err);
@@ -144,6 +170,7 @@ const Chat = () => {
                 senderId: loginId,
                 message: message,
                 sender: loginName,
+
             }),
         });
 
@@ -160,6 +187,7 @@ const Chat = () => {
     /*================================================================== */
     return (
         <SiteLayout isSearch={false}>
+            <ParticipantList participant={participant} style={dropdownStyle}/>
                 <Notice roomId={roomId}/>
             <div style={styles} className="chatDiv">            
                 <MessageList messages={messages} roomId={roomId} callback={noticeCallback}/>
