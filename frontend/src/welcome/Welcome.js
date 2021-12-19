@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 
 
-const Welcome = () => {
+const Welcome = ({FileInput}) => {
 
     const [createTeamName, setCreateTeamName] = useState('');
     let warningText = '';
@@ -99,7 +99,7 @@ const Welcome = () => {
                     </div>
                 </div>
             </div>
-            <NavRight style={styles2} />
+            <NavRight style={styles2} FileInput={FileInput}/>
         </div>
     );
 };

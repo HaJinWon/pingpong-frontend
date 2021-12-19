@@ -25,7 +25,7 @@ export default function App({ FileInput }) {
           path="/:teamid/chat/:roomId"
           element={<Chat FileInput={FileInput} />}
         />
-        <Route path='/welcome' element={<Welcome/>}/>
+        <Route path='/welcome' element={<Welcome FileInput={FileInput}/>}/>
         <Route path='/findid' element={<FindId/>}/>
       </Routes>
     </BrowserRouter>
