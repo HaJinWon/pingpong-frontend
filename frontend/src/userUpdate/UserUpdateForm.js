@@ -13,7 +13,8 @@ import DefaultImage from "../assets/images/Im0.jpg";
 
 const UserUpadteForm = ({ FileInput }) => {
   const baseUrl = "../assets/images/";
-
+  const [avatar,setAvatar] = useState('Im0.jpg');
+  const avatarImage  = avatar;
   const [formInfo, setFormInfo] = useState({
     name: "",
     avatar: "",
@@ -87,8 +88,9 @@ const UserUpadteForm = ({ FileInput }) => {
         throw new Error(`${jsonResult.result} ${jsonResult.message}`);
       }
       console.log("회원정보 수정 : ", jsonResult.data);
-
-      await setFormInfo({
+      setAvatar(jsonResult.data.avatar);
+      console.log('아바타 주소',avatar);
+      setFormInfo({
         name: jsonResult.data.name,
         avatar: jsonResult.data.avatar,
         email: jsonResult.data.email,
@@ -116,7 +118,7 @@ const UserUpadteForm = ({ FileInput }) => {
       <div>
         {
           <Image
-            src={require(`../assets/images/6bbb1c6a-c78a-4112-bc88-5609dffef8df.jpeg`)}
+            src={require(`../assets/images/${avatar}`)}
             // src={require(`../assets/images/${formInfo.avatar}`)}
             // src={require(`${formInfo.avatar}`)}
             // src={{ imageUrl }}
@@ -136,7 +138,7 @@ const UserUpadteForm = ({ FileInput }) => {
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
-              placeholder={formInfo.email}
+              value={formInfo.email}
               onChange={chgForm}
               name="email"
               disabled
@@ -146,7 +148,7 @@ const UserUpadteForm = ({ FileInput }) => {
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
-              placeholder={formInfo.name}
+              value={formInfo.name}
               onChange={chgForm}
               name="name"
             />
@@ -155,7 +157,7 @@ const UserUpadteForm = ({ FileInput }) => {
             <Form.Label>Phone</Form.Label>
             <Form.Control
               type="text"
-              placeholder={formInfo.phone}
+              value={formInfo.phone}
               onChange={chgForm}
               name="phone"
             />
@@ -164,7 +166,7 @@ const UserUpadteForm = ({ FileInput }) => {
             <Form.Label>Company</Form.Label>
             <Form.Control
               type="text"
-              placeholder={formInfo.company}
+              value={formInfo.company}
               onChange={chgForm}
               name="company"
             />
