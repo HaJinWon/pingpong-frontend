@@ -4,6 +4,9 @@ import Modal from "react-modal";
 import ChatInviteSearchBar from './ChatInviteSearchBar';
 import styleChatInvite from '../../assets/css/ChatInvite.css';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
+import stylesMemberBox from '../../assets/css/MemberBox.css';
+import stylesChatRoomList from '../../assets/css/ChatRoomList.css'
 
 const ChatList = ({ teamId, loginMember }) => {
 
@@ -15,6 +18,7 @@ const ChatList = ({ teamId, loginMember }) => {
     const [changeValue, setChangeValue] = useState(0);
     const [keyword, setKeyword] = useState('');
     
+    const profileImage = 'Im0.jpg';
 
     /**
      *  채팅방 개설 (상대방 초대위한 모달 띄우는 함수) 
@@ -128,21 +132,27 @@ const ChatList = ({ teamId, loginMember }) => {
 
     return (
         <div>
-            <h3>Chat</h3><button onClick={openChatInviteModal}>+</button>
-            <ul>
-                <li key={1}>
+            <div className={stylesChatRoomList.OuterBox}>
+            <div className={stylesChatRoomList.Block}>
+                <div className={stylesChatRoomList.Title}>Chat</div>
+                <button className={stylesChatRoomList.PlusButton} onClick={openChatInviteModal}>+</button>
+            </div>
+            <div className={stylesChatRoomList.Body}>
                     {
                         chatRooms.map((chatRoom, index) => {
                             return (
-
-                                <li key={chatRoom.id}> <NavLink to={`/${teamId}/chat/${chatRoom.roomId}`} >{chatRoom.title}</NavLink>
-                                    <button id={chatRoom.roomId} onClick={exitRoom}> 나가기 </button>
-                                </li>
+                                <div className={stylesChatRoomList.One}>
+                        
+                        
+                                        <NavLink className={stylesChatRoomList.RoomName} to={`/${teamId}/chat/${chatRoom.roomId}`} >{chatRoom.title}</NavLink>
+                                        <button className={stylesChatRoomList.ExitButton} id={chatRoom.roomId} onClick={exitRoom}> ㅡ </button>
+                                    
+                                </div>
                             )
                         })
                     }
-                </li>
-            </ul>
+            </div>
+            </div>
             <Modal
                 className={styleChatInvite.Modal}
                 isOpen={modal02IsOpen}
@@ -162,7 +172,7 @@ const ChatList = ({ teamId, loginMember }) => {
                                         <div >
                                             <label>
                                                 <div className={styleChatInvite.One}>
-                                                    <div className={styleChatInvite.Avatar}>{sMember.avatar}</div>
+                                                    <Image className={styleChatInvite.Avatar} src={require(`../../assets/images/${profileImage}`)} />
                                                     <div className={styleChatInvite.UserName}>{sMember.name}</div>
                                                     <input className={styleChatInvite.RadioBox} type='radio' name='selectMember' value={sMember.memberId} onClick={selectChatMember} />
                                                 </div>

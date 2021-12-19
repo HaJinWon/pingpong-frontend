@@ -64,7 +64,7 @@ export default function() {
                 getTeamList();
                 
             } else{
-                alert("로그인 실패");
+                alert("회원 정보가 일치하지 않습니다.");
             }
 
         }
@@ -95,12 +95,17 @@ export default function() {
                 const data = await response.json();
                 console.log(data);
                
-                window.sessionStorage.setItem("selectTeam",JSON.stringify(data.data.teamList[0]));  //받아온 team list 중 디폴트 team을 session storage에 할당
+                if(data.data.teamList.length !== 0){
+                    window.sessionStorage.setItem("selectTeam",JSON.stringify(data.data.teamList[0]));  //받아온 team list 중 디폴트 team을 session storage에 할당
         
-                setSelectTeam(JSON.parse(sessionStorage.getItem("selectTeam")));
-                console.log('select team : ',JSON.parse(sessionStorage.getItem("selectTeam")).team_id);
+                    setSelectTeam(JSON.parse(sessionStorage.getItem("selectTeam")));
+                    console.log('select team : ',JSON.parse(sessionStorage.getItem("selectTeam")).team_id);
 
-                location.href=`/${JSON.parse(sessionStorage.getItem("selectTeam")).team_id}/main`;
+                    location.href=`/${JSON.parse(sessionStorage.getItem("selectTeam")).team_id}/main`;
+                } else{
+                    location.href='/welcome';
+                }
+                
 
 
             }catch(err){
@@ -150,7 +155,7 @@ export default function() {
 
             </Form>
             <div>{'  '}</div>
-            <NavLink style={styles2} to={`/findid`}>ID / PW 찾기</NavLink>
+            <NavLink style={styles2} to={`/findid`}>ID 찾기</NavLink>
         </div>
     )
 }

@@ -29,10 +29,7 @@ const Chat = () => {
         backgroundColor:'#b2c9ed'
     };
 
-    const dropdownStyle ={
-        display:'block',
-        float:'left'
-    }
+
 
     useEffect(async () => {
 
@@ -187,9 +184,10 @@ const Chat = () => {
     /*================================================================== */
     return (
         <SiteLayout isSearch={false}>
-            <ParticipantList participant={participant} style={dropdownStyle}/>
-                <Notice roomId={roomId}/>
-            <div style={styles} className="chatDiv">            
+            
+            <Notice roomId={roomId} participant={participant}/>
+            <div style={styles} className="chatDiv">   
+                       
                 <MessageList messages={messages} roomId={roomId} callback={noticeCallback}/>
             </div>
             <div>

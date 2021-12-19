@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react';
 import stylesNotice from '../../assets/css/Notice.css';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-const Notice = ({roomId}) => {
+import ParticipantList from './ParticipantList';
+const Notice = ({roomId,participant}) => {
 
     const [notice,setNotice] = useState('');
+    //const [participant, setParticipant] = useState([]);
 
+
+    const dropdownStyle ={
+        display:'block',
+        float:'left'
+    }
     /**
      *  채팅방 공지사항 불러오는 함수
      */
@@ -29,7 +36,8 @@ const Notice = ({roomId}) => {
 
     return (
         <div className={stylesNotice.Notice}>
-            { notice == null ? null : <h2>공지 : {notice}</h2>}
+            { notice == null ? null : <h2>[공지] : {notice}</h2>}
+            <ParticipantList participant={participant} style={dropdownStyle}/>
         </div>
     );
 };

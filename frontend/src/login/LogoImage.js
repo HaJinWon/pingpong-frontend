@@ -19,13 +19,14 @@ export default function () {
         flexDirection: 'row',  
         alignItems: 'center'
     }
-
+    
+    const image = `im1.jpg`;
     return (
         <Container style={containerStyle}>
             <Row roundedCircle style={imgStlye}>
                 <Col xs={10} md={4}>
                     
-                    <Image src={LogoImage} />
+                    <Image src={require(`../assets/images/${image}`)} />
                 </Col>
             </Row>
         </Container>

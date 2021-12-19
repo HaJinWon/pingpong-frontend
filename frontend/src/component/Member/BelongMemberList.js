@@ -3,6 +3,8 @@ import Modal from "react-modal";
 import Members from './Members';
 import styleTeamMemberInvite from '../../assets/css/TeamMemberInvite.css';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
+import stylesMemberBox from '../../assets/css/MemberBox.css';
 
 const BelongMemberList = ({ teamId }) => {
 
@@ -13,6 +15,8 @@ const BelongMemberList = ({ teamId }) => {
     // 모달 상태
     const [modal03IsOpen, setModal03IsOpen] = useState(false);
 
+    //sampleImage
+    const profileImage = 'Im0.jpg';
     //member 초대시 member 검색 onChange 함수
     const memberSearch = async (e) => {
 
@@ -101,9 +105,15 @@ const BelongMemberList = ({ teamId }) => {
 
     return (
         <div>
-            <h3>Member</h3><button onClick={teamMemberInvite}>+</button>
-            <Members teamId={teamId}/>
-            
+            <div className={stylesMemberBox.OuterBox}>
+                <div className={stylesMemberBox.Block}>
+                    <div className={stylesMemberBox.Title}>Member</div>
+                    <button className={stylesMemberBox.PlusButton} onClick={teamMemberInvite}>+</button>
+                </div>
+                <ul className={stylesMemberBox.Ul}>
+                    <Members teamId={teamId}/>
+                </ul>
+            </div>
             
             <Modal
                 className={styleTeamMemberInvite.Modal}
@@ -119,7 +129,7 @@ const BelongMemberList = ({ teamId }) => {
                                 return (
                                     <label>
                                         <div className={styleTeamMemberInvite.One}>
-                                            <div className={styleTeamMemberInvite.Avatar}>{userList.avatar}</div>
+                                            <Image className={styleTeamMemberInvite.Avatar} src={require(`../../assets/images/${profileImage}`)} />
                                             <div className={styleTeamMemberInvite.UserName}>{userList.name}</div>
                                             <div className={styleTeamMemberInvite.Company}>{!userList.company ? `소속 없음` : userList.company}</div>
                                             <input type='checkbox' name='member' id={userList.member_id} onClick={checkboxChg}/>

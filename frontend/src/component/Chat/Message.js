@@ -24,7 +24,7 @@ const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate, ca
     //substring이 되다가 갑자기 안되는 ㅡㅡ;;
     // const dateTime = chatDate.substring(11,13)+'시 '+chatDate.substring(14,16)+'분';
     //const dateTime = chatDate;
-
+    const imgUrl = 'Im0.jpg';
 
     const dropdownStyle = {
         marginTop: '1%',
@@ -168,7 +168,7 @@ const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate, ca
                 onRequestClose={() => setModal02IsOpen(false)}
                 contentLabel="modal02 example">
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={sampleImg} />
+                    <Card.Img variant="top" src={require(`../../assets/images/${imgUrl}`)} />
                     <Card.Body>
                         <Card.Title>{miniProfile.name}</Card.Title>
                         <Card.Text>
