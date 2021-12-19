@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import SiteLayout from "../../layout/SiteLayout";
@@ -10,7 +9,8 @@ import MessageInput from '../../assets/css/MessageInput.css';
 import Button from 'react-bootstrap/Button';
 import ParticipantList from './ParticipantList';
 
-const Chat = () => {
+
+const Chat = ({ FileInput }) => {
 
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
 
@@ -183,7 +183,7 @@ const Chat = () => {
 
     /*================================================================== */
     return (
-        <SiteLayout isSearch={false}>
+        <SiteLayout FileInput={FileInput}  isSearch={false}>
             
             <Notice roomId={roomId} participant={participant}/>
             <div style={styles} className="chatDiv">   
@@ -210,6 +210,7 @@ const Chat = () => {
         </SiteLayout>
 
     );
+
 };
 
 export default Chat;
