@@ -17,7 +17,7 @@ export default function App({ FileInput }) {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
-        <Route path="/:teamid/post/:partid" element={<Post />} />
+        <Route path="/:teamid/post/:partid" element={<Post FileInput={FileInput}/>} />
         <Route path="/:teamid/post/:category/:postid" element={<PostWork />} />
         <Route path="/" element={<Login />} />
         <Route path="/:teamid/main" element={<Main FileInput={FileInput} />} />

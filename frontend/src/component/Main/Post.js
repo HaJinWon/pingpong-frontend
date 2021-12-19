@@ -4,7 +4,7 @@ import { BrowserRouter,useParams,NavLink } from 'react-router-dom';
 import PostForm from './PostForm';
 import SearchBar from './SearchBar';
 
-const Post = () => {
+const Post = ({FileInput}) => {
     let {teamid, partid} = useParams(); 
     const [postidforComment, setPostidforComment] = useState('');
     const [postforComment, setPostforComment]=useState([]);
@@ -56,7 +56,7 @@ const Post = () => {
 
 
     return (
-        <SiteLayout postidforComment={postidforComment} postforComment={postforComment}>
+        <SiteLayout postidforComment={postidforComment} postforComment={postforComment} FileInput={FileInput}>
             <h2>[Post]{partid}</h2>
             <NavLink to ={`/${teamid}/post/write/${partid}`}>게시글 작성</NavLink>      {/*버튼으로 교체 예정 */}
             <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
