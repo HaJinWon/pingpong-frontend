@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import ParticipantList from './ParticipantList';
 
 
-const Chat = ({ FileInput }) => {
+const Chat = ({ /*FileInput*/ }) => {
 
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
 
@@ -167,7 +167,7 @@ const Chat = ({ FileInput }) => {
                 senderId: loginId,
                 message: message,
                 sender: loginName,
-
+                
             }),
         });
 
@@ -183,7 +183,7 @@ const Chat = ({ FileInput }) => {
 
     /*================================================================== */
     return (
-        <SiteLayout FileInput={FileInput}  isSearch={false}>
+        <SiteLayout /*FileInput={FileInput} */ isSearch={false}>
             
             <Notice roomId={roomId} participant={participant}/>
             <div style={styles} className="chatDiv">   

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UserInfo from "./UserInfo";
 import UserUpdateForm from "./UserUpdateForm";
 import Invitation from "../component/Main/Invitation";
-const UserUpdate = ({ FileInput }) => {
+const UserUpdate = () => {
   const [profile, setProfile] = useState(
     window.sessionStorage.getItem("loginMember")
   );
@@ -15,7 +15,7 @@ const UserUpdate = ({ FileInput }) => {
         //console.log('user update in : ', profile)
       }
       <br />
-      <UserUpdateForm FileInput={FileInput} profile={profile} />
+      <UserUpdateForm /*FileInput={FileInput} */profile={profile} />
       <br />
       <br />
       <Invitation />

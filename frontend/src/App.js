@@ -11,21 +11,21 @@ import Chat from "./component/Chat/Chat";
 import Welcome from "./welcome/Welcome";
 import FindId from "./findid/FindId";
 
-export default function App({ FileInput }) {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
-        <Route path="/:teamid/post/:partid" element={<Post FileInput={FileInput}/>} />
+        <Route path="/:teamid/post/:partid" element={<Post /*FileInput={FileInput}*//>} />
         <Route path="/:teamid/post/:category/:postid" element={<PostWork />} />
         <Route path="/" element={<Login />} />
-        <Route path="/:teamid/main" element={<Main FileInput={FileInput} />} />
+        <Route path="/:teamid/main" element={<Main /*FileInput={FileInput}*/ />} />
         <Route
           path="/:teamid/chat/:roomId"
-          element={<Chat FileInput={FileInput} />}
+          element={<Chat /*FileInput={FileInput}*/ />}
         />
-        <Route path='/welcome' element={<Welcome FileInput={FileInput}/>}/>
+        <Route path='/welcome' element={<Welcome /*FileInput={FileInput}*//>}/>
         <Route path='/findid' element={<FindId/>}/>
       </Routes>
     </BrowserRouter>

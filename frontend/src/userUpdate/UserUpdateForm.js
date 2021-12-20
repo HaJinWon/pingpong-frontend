@@ -2,33 +2,32 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import styles from "../assets/scss/profileImg.scss";
-
 import DefaultImage from "../assets/images/Im0.jpg";
+import FileInput from '../component/image_file_input/image_file_input';
 
-const UserUpadteForm = ({ FileInput }) => {
+const UserUpadteForm = () => {
+  let changedFile;
   const baseUrl = "../assets/images/";
   const [avatar,setAvatar] = useState('Im0.jpg');
   const avatarImage  = avatar;
+  const [changeValue, setChangeValue] = useState(0);
   const [formInfo, setFormInfo] = useState({
     name: "",
-    avatar: "",
+    avatar: "Im0.jpg",
     phone: "",
-    company: "",
-    storeName: "",
-    origName: "",
+    company: ""
   });
 
   const onFileChange = (file) => {
     console.log("ggggg", file);
     setFormInfo({
       ...formInfo,
-      avatar: baseUrl + file.storeName,
+      avatar:  file.storeName,
       storeName: file.storeName,
       origName: file.name,
     });
@@ -48,6 +47,19 @@ const UserUpadteForm = ({ FileInput }) => {
   const handlerSubmit = async (e) => {
     e.preventDefault();
 
+
+    const uploaded = await imageUpload2(changedFile);
+
+    console.log('제출실',uploaded.storeFileName);
+    alert('asdf');
+    setFormInfo({
+      ...formInfo,
+      avatar:  uploaded.storeFileName,
+      // storeName: uploaded.storeName,
+      // origName: uploaded.name,
+    });
+
+    alert('rudrh');
     await axios
       .patch("/api/member/edit", formInfo, {
         //회원정보 수정 부분
@@ -62,6 +74,7 @@ const UserUpadteForm = ({ FileInput }) => {
           alert("수정실패");
         }
       });
+      setChangeValue(changeValue+1);
   };
 
   useEffect(async () => {
@@ -105,20 +118,49 @@ const UserUpadteForm = ({ FileInput }) => {
       console.log("formInfo : state", formInfo);
       console.log("formInfo.avatar: state:", formInfo.avatar);
     }
-  }, [formInfo.avatar]);
+  }, [changeValue]);
 
   const styles = {
     backgroundImage: formInfo.avatar,
   };
 
   console.log("ooout: formInfo.avatar: state:", formInfo.avatar);
+
+  const callback = (fileName)=>{
+    console.log('b',fileName);
+    changedFile = fileName;
+  }
+
+  const imageUpload2 = async(file) =>{
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "pdzaoz52");
+
+    let response;
+
+    const result = await axios
+      .post("/api/file/upload", data, {
+        //회원정보 수정 부분
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+        body: data,
+      })
+      .then((res) => {
+        console.log(res.data);
+        response = res.data;
+      });
+
+    return response;
+  }
+
   return (
     <div className={styles.profileImg}>
       <h1>{formInfo.avatar}</h1>
       <div>
         {
           <Image
-            src={require(`../assets/images/${avatar}`)}
+            src={require(`../assets/images/${formInfo.avatar}`)}
             // src={require(`../assets/images/${formInfo.avatar}`)}
             // src={require(`${formInfo.avatar}`)}
             // src={{ imageUrl }}
@@ -132,8 +174,11 @@ const UserUpadteForm = ({ FileInput }) => {
 
       <div className="User UpdateForm">
         <Form onSubmit={handlerSubmit} enctype="multipart/form-data">
-          <FileInput onFileChange={onFileChange} />
-
+          {/*
+          <FileInput onFileChange={onFileChange} callback={callback} />
+          */
+          }
+          <FileInput callback={callback}/>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
