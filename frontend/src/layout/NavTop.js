@@ -30,14 +30,9 @@ const NavTop = (props) => {
     }
     return (
         <header className={styles.NavTop}>
-            {/*
-            <form className="SearchForm">                            
-                    <input type='text' className='kwd' />
-                    <input type='submit' value="찾기" className='submit'/>
-            </form>
-            */}
-            <button className="OpenProfile" onClick={handlerOpenNavRight}>프로필 열기</button>
-            <button className="LogOut" onClick={handlerLogOut}>로그아웃</button>
+            <div className={styles.Block}>
+                PINGPONG
+            </div>
         </header>
     );
 };

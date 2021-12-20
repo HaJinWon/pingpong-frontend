@@ -21,7 +21,7 @@ const SiteLayout = ({
         <div className={styles.Contents}>{children}</div>
       </div>
       <NavRight
-        FileInput={FileInput}
+        /*FileInput={FileInput}*/
         postidforComment={postidforComment}
         postforComment={postforComment}
       />

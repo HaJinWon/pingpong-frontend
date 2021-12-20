@@ -7,6 +7,10 @@ import ChatRoomList from '../component/Chat/ChatRoomList';
 import styles from '../assets/scss/layout/NavLeft.scss'
 import BelongMemberList from '../component/Member/BelongMemberList';
 import MenuList from './NavLeft/MenuList';
+import stylesPartBox from '../assets/css/PartBox.css';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import stylesMainTeamName from '../assets/css/MainTeamName.css';
 
 
 const NavLeft = () => {
@@ -15,7 +19,11 @@ const NavLeft = () => {
     const [selectTeamName, setSelectTeamName] = useState('');
     const [isLogin, setIsLogin] = useState(JSON.parse(window.sessionStorage.getItem('loginMember')).id);
     const [successChange, setSuccessChange] = useState(false);
-    const [selectTeam, setSelectTeam] = useState('');
+    const [selectTeam, setSelectTeam] = useState([{
+        name:'',
+        host:'',
+        team_id:''
+    }]);
 
     const [teams, setTeams] = useState([]);     //NavLink에 배치될 team list 
     const [parts, setParts] = useState([]);     //NavLink에 배치될 part list
@@ -24,9 +32,15 @@ const NavLeft = () => {
     const [searchChatMember, setSearchChatMember] = useState('');
     const [changeValue, setChangeValue] = useState(0);
 
+    const stylesPartInputText ={
+        visibility:'hidden',
+        height:'5px'
+    }
+
     const ChatSearchMember = (e) => {
         e.preventDefault();
     }
+
 
     const chatSearchChg = (e) => {
         let { name, value } = e.target;
@@ -56,7 +70,7 @@ const NavLeft = () => {
                     body: null
                 })
                 const data = await response.json();
-                console.log(data);
+                console.log('teamlist',data);
                 setTeams(data.data.teamList);       //teams state에 받아온 teamlist 주입
                 setSelectTeam(data.data.teamList.filter((team) => (team.team_id == teamid)))
                 setSelectTeamName(data.data.teamList.filter((team) => (team.team_id == teamid))[0].name);
@@ -113,7 +127,10 @@ const NavLeft = () => {
                     referrer: 'client',
                     body: JSON.stringify({ teamName: e.target.value })
                 })
-
+                const data = await response.json();
+                console.log('welcome',data);
+        
+                location.href = `/${data.teamId}/main`
 
             } catch (err) {
                 console.log(err);
@@ -135,13 +152,14 @@ const NavLeft = () => {
                     },
                     redirect: 'follow',
                     referrer: 'client',
-                    body: JSON.stringify(e.target.value)
+                    body: JSON.stringify({"partName":e.target.value})
                 })
 
             } catch (err) {
                 console.log(err);
             }
             setSuccessChange(!successChange)
+
         },
         teamExit: async ({ teamId }) => {
             try {
@@ -179,8 +197,8 @@ const NavLeft = () => {
             console.log('partDel in ; ', part_id);
             try {
                 // Delete
-                const response = await fetch(`/api/part/del/${part_id}`, {
-                    method: 'get',
+                const response = await fetch(`/api/part/${part_id}`, {
+                    method: 'delete',
                     mode: 'cors',
                     credentials: 'include',
                     cache: 'no-cache',
@@ -212,35 +230,69 @@ const NavLeft = () => {
 
     }
 
+    console.log('selectedTeam',selectTeam[0].host,'loginMemberId',loginMember.id);
 
     return (
         <nav className={styles.NavLeft}>
 
-            <h3>🤝 {selectTeamName}</h3><button onClick={(e) => { }}>➖</button>
-            <ul>
-                {teams.map((team, index) => { return (<li key={index}><NavLink to={`/${team.team_id}/main`}>{team.name}</NavLink> <CloseButton onClick={(e) => notifyMemu.teamExit({ teamId: team.team_id })}/></li>) })}
-                <li><input className="menuInput" placeholder={"Team 추가"} onKeyPress={(e) => { e.key == 'Enter' ? notifyMemu.teamAdd(e) : null }}></input></li>
-            </ul>
-
-
+            <h3>🤝
+            <div className={stylesMainTeamName.OuterBox}>
+                <DropdownButton id="dropdown-item-button" size="lg"
+                    title={selectTeamName} className={stylesMainTeamName.TeamName}>
+                <Dropdown.ItemText >
+                    <input className="menuInput" placeholder={"Team 추가"} onKeyPress={(e) => { e.key == 'Enter' ? notifyMemu.teamAdd(e) : null }}></input>
+                </Dropdown.ItemText>
+                    {
+                        teams.map((team, index) => {
+                            return (
+                                <Dropdown.Item as="button"><NavLink to={`/${team.team_id}/main`} className={stylesMainTeamName.TeamList}>{team.name}</NavLink> </Dropdown.Item>
+                            ) 
+                        })
+                    }
+                </DropdownButton>
+            </div>
+            </h3>
            
+            <div className={stylesPartBox.OuterBox}>
+                <div className={stylesPartBox.Block}>
+                    <div className={stylesPartBox.Title}>Part</div>
+                    {
+                        Number(selectTeam[0].host) == Number(loginMember.id) ?
+                        <DropdownButton id="dropdown-item-button" size="sm"  className={stylesPartBox.PlusButton} >
+                        <Dropdown.ItemText >
+                            <input className="menuInput" name='name' placeholder={"Part 추가"} onKeyPress={(e) => { e.key === 'Enter' ? notifyMemu.partAdd(e) : null }}></input> 
+                        </Dropdown.ItemText>
+                        </DropdownButton>
+                        :
+                        null
+                    }
+                    <div className={stylesPartBox.Body}>
+                    {
 
-            <h3>📚 Part</h3>
-            <ul>
-                {
-                    parts.map((part, index) => {
-                        return (<li key={index}> <NavLink to={`/${teamid}/post/${part.part_id}`} >{part.name}</NavLink> <CloseButton onClick={(e) => notifyMemu.partDel({ part_id: part.part_id })}/></li>)
-                    })
-                }
-                <li><input className="menuInput" name='name' placeholder={"Part 추가"} onKeyPress={(e) => { e.key === 'Enter' ? notifyMemu.partAdd(e) : null }}></input></li>
-            </ul>
-               
+                        <input className="menuInput" name='name' placeholder={"Part 추가"} style={stylesPartInputText} onKeyPress={(e) => { e.key === 'Enter' ? notifyMemu.partAdd(e) : null }}></input> 
+                    }                
+                    {
+                        parts.map((part, index) => {
+                            return (
+                                <div key={index} className={stylesPartBox.One}> 
+                                    <NavLink to={`/${teamid}/post/${part.part_id}`} className={stylesPartBox.PartName} >{part.name}</NavLink>
+                                    {
+                                        Number(selectTeam[0].host) == Number(loginMember.id) ? <CloseButton className={stylesPartBox.ExitButton} onClick={(e) => notifyMemu.partDel({ part_id: part.part_id })}/>
+                                        :
+                                        null
+                                    } 
+                                    
+                                </div>
+                                
+                            )
+                        })
+                    }
+                    </div>
+                </div>
+            </div>   
+
             <ChatRoomList teamId={teamid} loginMember={loginMember}/>
             <BelongMemberList teamId={teamid}/>
-
-
-
-            <MenuList  menuTitle={"team"}  menus = {teams}/>        {/**team과 part list를 컴포넌트화 하기 위한 test code */}
 
         </nav>
 

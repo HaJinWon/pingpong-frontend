@@ -1,13 +1,18 @@
 @charset "utf-8";
 .NavTop{
-    
-    background-color: #FEFEFE;
-   height: 10vh;
+    background-color: #999;
+    height: 10vh;
     display: block;
     padding-top: 2vh;
     padding-left: 1vw;    
 
-    
+    .Block{
+        align-self:right;
+        margin-left: 38%;
+        width:25%;
+        font-weight: bolder;
+        font-size: 40px;
+    }
 
     form{
         float: left;

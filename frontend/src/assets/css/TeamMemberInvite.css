@@ -17,6 +17,9 @@
     overflow: auto;
 
 }
+.Outer::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
 
 .One{
     

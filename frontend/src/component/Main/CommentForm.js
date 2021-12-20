@@ -1,7 +1,8 @@
 import React from 'react';
-
+import stylesComment from '../../assets/css/Comment.css';
 const CommentForm = (props) => {
-   
+    const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
+    console.log('props',props.member_id,'memberid',loginMember.id)
     const handlerOnclickCommentDel=async()=>{ 
        
             //comment 삭제
@@ -42,16 +43,22 @@ const CommentForm = (props) => {
 
     };
     return (
-        <table className="Comment">
-            <tr >
-                <td  className="Writer">{props.name}</td> 
-                <td  className="date">{props.date}</td>   
-                <td><button onClick={handlerOnclickCommentDel}>post delete</button></td>
-                </tr>
-            <tr>
-               <td className="CommentContents">{props.contents}</td>
-            </tr>   
-         </table>
+        <div className={stylesComment.CommentBox}>
+            <div className={stylesComment.Block2}>
+            <div className={stylesComment.Writer}>{props.name}</div>
+            <div className={stylesComment.Date}>{props.date}
+                {
+                    Number(props.member_id) == Number(loginMember.id) ?<button onClick={handlerOnclickCommentDel} className={stylesComment.DelButton}>삭제</button>
+                    :
+                    null
+                }
+            </div>
+            </div>    
+            <div className={stylesComment.WhiteBox}>
+                <div className={stylesComment.Contents}>{props.contents}</div>
+            </div>
+                
+         </div>
     )
 };
 

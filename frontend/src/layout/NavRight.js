@@ -7,7 +7,9 @@ const NavRight = ({ FileInput, postidforComment, postforComment }) => {
   //navright 로 들어오는 정보를 통해 profile을 출력할지 commnet를 출력할지 결정하는 comment
   return (
     <div className={styles.NavRight}>
-      {postidforComment === "" ||
+      {
+     
+      postidforComment === "" ||
       postidforComment == undefined ||
       postforComment === "" ||
       postforComment == undefined ? (
@@ -17,7 +19,8 @@ const NavRight = ({ FileInput, postidforComment, postforComment }) => {
           postidforComment={postidforComment}
           postforComment={postforComment}
         />
-      )}
+      )
+    }
     </div>
   );
 };

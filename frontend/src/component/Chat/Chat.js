@@ -181,6 +181,14 @@ const Chat = ({ /*FileInput*/ }) => {
 
     }
 
+    const handleEnter = (e) => {
+        if (e.which === 13) {
+          // enter를 눌렸을 때
+          e.target.value !== "" && e.which === 13 && publish(e.target.value);
+          e.target.value = "";
+        }
+      };
+
     /*================================================================== */
     return (
         <SiteLayout /*FileInput={FileInput} */ isSearch={false}>
@@ -196,9 +204,9 @@ const Chat = ({ /*FileInput*/ }) => {
                         className={MessageInput.TextBox}
                         type="text"
                         placeholder="메세지를 입력해주세요."
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        onKeyPress={(e) => e.target.value !=='' &&e.which === 13 && publish(message)}
+                        //value={message}
+                        //onChange={(e) => setMessage(e.target.value)}
+                        onKeyPress={handleEnter}
                     />
                     <Button className={MessageInput.Button}
                         onClick={message !== "" ? () => publish(message, "TALK") : null}
