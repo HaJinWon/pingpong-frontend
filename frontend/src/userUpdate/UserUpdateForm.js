@@ -12,7 +12,7 @@ import styles from '../assets/scss/profileImg.scss'
 
 import DefaultImage from '../assets/images/Im0.jpg';
 
-const UserUpadteForm = () => {
+const UserUpadteForm = (props) => {
 
     const [formInfo, setFormInfo] = useState({
         "name": '',
@@ -44,7 +44,7 @@ const UserUpadteForm = () => {
                 console.log(res.data);
                 if(res.data !== null){
                     console.log('수정된 내용 : ',formInfo)
-                    alert('수정완료');
+                    props.handlerOnChangeComponent()
                 } else{
                     alert('수정실패');
                 }
@@ -73,8 +73,6 @@ const UserUpadteForm = () => {
             if(jsonResult.result !== 'success') {
             throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
-
-            console.log('회원정보 수정 : ',jsonResult.data);
             setFormInfo({'name':jsonResult.data.name,'imageFile':jsonResult.data.imageFile, 'email':jsonResult.data.email, 'phone':jsonResult.data.phone, 'company':jsonResult.data.company});
             
         } catch(err){
@@ -109,10 +107,10 @@ const UserUpadteForm = () => {
                     <Form.Label>Company</Form.Label>
                     <Form.Control type="text" value={formInfo.company} onChange={chgForm} name='company'/>
                 </Form.Group>
-                <Button variant="primary" type="button">
+                <Button variant="primary" type="button" onClick={ props.handlerOnChangeComponent}>
                     돌아가기
                 </Button>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" >
                     회원정보 수정
                 </Button>
             </Form>

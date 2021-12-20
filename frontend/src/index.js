@@ -7,8 +7,5 @@ import styles from './assets/scss/App.scss';
 
 render(
 
-        <App/>
-
-    ,
-    document.getElementById('root')
+        <App/>, document.getElementById('root')
 );

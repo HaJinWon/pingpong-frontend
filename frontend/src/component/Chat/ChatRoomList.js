@@ -58,8 +58,6 @@ const ChatList = ({ teamId, loginMember }) => {
 
         const data2 = await response2.json();
         setChatRooms(data2.roomDtoList);
-        console.log('chatRooms',data2.roomDtoList);
-
     }, [changeValue, teamId]);
     
     /**

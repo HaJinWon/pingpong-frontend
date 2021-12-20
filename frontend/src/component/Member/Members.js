@@ -22,7 +22,6 @@ const Members = ({ teamId }) => {
         const data = await response.json();
         
         setMemberLists(data);
-        console.log('members',data);
     },[teamId])
 
     return (

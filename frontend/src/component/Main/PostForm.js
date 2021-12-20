@@ -3,8 +3,9 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import { useParams } from 'react-router';
 
-const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeletePost}) => {
+const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeletePost, showNavRight}) => {
    let {teamid, partid}=useParams()
+  
   
     const handlerOnclickCommentDel=async()=>{ 
        
@@ -42,7 +43,9 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
 
    const handlerOnclickPost=(e)=>{           //선택한 post의 comment 확인을 위해 선택한 정보를 부모 commponent로 돌려주는 handler
       e.preventDefault();
+      showNavRight()
       callback({'Postid':id ,'post':post})
+      
    }
 
     return (
@@ -56,7 +59,6 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
                         <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
                         <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
                         <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">대화방 공유</Dropdown.Item>
                   </DropdownButton>
                   
                      </div>

@@ -11,6 +11,9 @@ const Post = () => {
     const [postList, setPostList] = useState([]);
     const [postListReset, setPostListReset]=useState(false);
 
+    const [navRightForPost, setNavRightForPost]=useState(false);
+    const showNavRight=()=>{setNavRightForPost(!navRightForPost)}
+
     const [keyword, setKeyword] = useState('');
 
     const notifyKeywordChanged = (keyword) => {
@@ -56,7 +59,7 @@ const Post = () => {
 
 
     return (
-        <SiteLayout postidforComment={postidforComment} postforComment={postforComment}>
+        <SiteLayout postidforComment={postidforComment} postforComment={postforComment} showNavRight2={showNavRight} navRightForPost={navRightForPost}>
             <h2>[Post]{partid}</h2>
             <NavLink to ={`/${teamid}/post/write/${partid}`}>게시글 작성</NavLink>      {/*버튼으로 교체 예정 */}
             <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
@@ -75,6 +78,7 @@ const Post = () => {
                                             date={posts.date}
                                             callback={handlerOnclickPost}
                                             handlerDeletePost={handlerDeletePost}
+                                            showNavRight={showNavRight}
                                             />})
 
             }
