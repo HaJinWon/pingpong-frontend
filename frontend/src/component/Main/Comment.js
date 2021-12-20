@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import SiteLayout from '../../layout/SiteLayout';
 import stylesComment from '../../assets/css/Comment.css'
 import CommentForm from '../Main/CommentForm';
@@ -11,6 +11,7 @@ const Comment = ({ postforComment }) => {       //
     const [commentDelid, setCommentDelid] = useState('');
     const [commentAdd, setCommentAdd] = useState(false);
     const [comment, setComment] = useState('');
+    const textRef = useRef();
 
 
     useEffect(async () => {        // Commnet 리스트 가져오는 useEffect
@@ -59,7 +60,8 @@ const Comment = ({ postforComment }) => {       //
                 referrer: 'client',
                 body: JSON.stringify({ 'contents': comment })
             })
-
+            
+            textRef.current.reset();
         } catch (err) {
             console.log(err);
         }
@@ -107,10 +109,10 @@ const Comment = ({ postforComment }) => {       //
                 }
                 </div>
                 <div className={stylesComment.Form}>
-                    <form onSubmit={handlerOnclickCommentAdd}>           {/**comment add  */}
-                        <input type='text' name='commnet' onChange={chgComment} className={stylesComment.InputText}></input>
+                    <form onSubmit={handlerOnclickCommentAdd} ref={textRef}>           {/**comment add  */}
+                        <input type='text' name='comment' onChange={chgComment} className={stylesComment.InputText} ></input>
                         {/*<input type='submit' autoComplete={'off'} name='commnet' onChange={chgComment} />*/}
-                        <Button type="submit" className={stylesComment.Button} name='commnet' onChange={chgComment}>
+                        <Button type="submit" className={stylesComment.Button} name='comment' onChange={chgComment}>
                         작성
                         </Button>
                     </form>

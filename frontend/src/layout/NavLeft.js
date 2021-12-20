@@ -113,6 +113,9 @@ const NavLeft = () => {
 
         teamAdd: async (e) => {
             console.log('menu', e.target.value);
+            if(e.target.value==''){
+                alert('팀명을 입력해주세요.');
+            }
             try {
                 const response = await fetch('/api/team/create', {
                     method: 'post',
@@ -129,7 +132,7 @@ const NavLeft = () => {
                 })
                 const data = await response.json();
                 console.log('welcome',data);
-        
+                e.target.value='';
                 location.href = `/${data.teamId}/main`
 
             } catch (err) {
@@ -140,6 +143,9 @@ const NavLeft = () => {
         },
         partAdd: async (e) => {
             console.log("part 추가 in:" + teamid);
+            if(e.target.value==''){
+                alert('파트명을 입력해주세요.');
+            }
             try {
                 const response = await fetch(`/api/part/${teamid}`, {
                     method: 'post',
@@ -154,7 +160,7 @@ const NavLeft = () => {
                     referrer: 'client',
                     body: JSON.stringify({"partName":e.target.value})
                 })
-
+                e.target.value='';
             } catch (err) {
                 console.log(err);
             }
