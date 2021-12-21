@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import SiteLayout from '../../layout/SiteLayout';
 import Button from 'react-bootstrap/Button';
@@ -9,13 +9,13 @@ import styles from '../../assets/scss/PostWrite.scss'
 const PostModify = (props) => {
    const [title, setTitle]= useState('');
    const [contents, setContents]=useState('');
-   const [post, setPost]=useState([]);
-   let {teamid, postid} = useParams();
+   let {teamid, partid} = useParams();
+
     const handlerOnClickPostModify=async(e)=>{          //수정된 post 내용을 전송하는 post id
         e.preventDefault();
       
         try {
-            const response = await fetch(`/api/post/update/${postid}`, {
+            const response = await fetch(`/api/post/update/${partid}`, {
             method: 'post',
             mode: 'cors',                           
             credentials: 'include',                 
@@ -33,38 +33,8 @@ const PostModify = (props) => {
             console.log(err);
         }
        
-        location.href=`/${teamid}/post/${post.part_id}`;
+        location.href=`/${teamid}/post/${partid}`;
     }
-
-    useEffect(async()=>{        // 선택 post 가져옴.
-        try {
-            const response = await fetch(`/api/post/update/${postid}`, {
-              method: 'get',
-              mode: 'cors',                           
-              credentials: 'include',                 
-              cache: 'no-cache',                           
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'         
-              },
-              redirect: 'follow',                     
-              referrer: 'client',                       
-              body: null
-            })
-            
-            
-            const jsonResult = await response.json();
-        
-            setPost(jsonResult.data.postVo);
-            console.log(jsonResult.data.postVo.title);
-
-        }catch(err){
-            console.log(err);
-        }
-       
-    },[]);
-
-
 
     const onChangeTitle=(e)=>{
         setTitle({
@@ -88,18 +58,18 @@ const PostModify = (props) => {
                      <table>
                          <tr className='posttitle'>
                             <td>{"title"}</td>
-                            <td><input name='title' type='text' value={post.title} onChange={onChangeTitle}/></td>
+                            <td><input name='title' type='text' onChange={onChangeTitle}/></td>
                            
                         </tr>
                         <br/>
                         <tr className='postcontents'>
                             <td>{"contents"}</td>
-                            <td height="400px"><textarea name='contents' cols="95" rows="20"  value={post.contents} onChange={onChangeContents}/></td>
+                            <td height="400px"><textarea name='contents' cols="95" rows="20" onChange={onChangeContents}/></td>
                         </tr>
                         <br/>
                         <tr className='postfile'>
                             <td>{"file add"}</td>
-                            <td><input name='file' type="text" name="title"   onChange={onChangeContents}/> <input type="file" multiple="multiple" name="attachFiles"/></td>
+                            <td><input name='file' type="text" name="title"  onChange={onChangeContents}/> <input type="file" multiple="multiple" name="attachFiles"/></td>
                            
                         </tr>
                         <br/>

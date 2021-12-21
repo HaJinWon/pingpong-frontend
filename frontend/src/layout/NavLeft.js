@@ -56,10 +56,11 @@ const NavLeft = () => {
                     body: null
                 })
                 const data = await response.json();
+                console.log(data);
                 setTeams(data.data.teamList);       //teams state에 받아온 teamlist 주입
                 setSelectTeam(data.data.teamList.filter((team) => (team.team_id == teamid)))
                 setSelectTeamName(data.data.teamList.filter((team) => (team.team_id == teamid))[0].name);
-                console.log(data.data.teamList)
+
             } catch (err) {
                 console.log(err);
             }
@@ -83,6 +84,7 @@ const NavLeft = () => {
                 })
                 const data = await response.json();
                 setParts(data.data.partList);
+                console.log(data.data.partList)
             } catch (err) {
                 console.log(err);
             }
@@ -225,17 +227,17 @@ const NavLeft = () => {
 
             <h3>📚 Part</h3>
             <ul>
-                {parts.map((part, index) => { return (<li key={index}> <NavLink to={`/${teamid}/post/${part.part_id}`} >{part.name}</NavLink> <CloseButton onClick={(e) => notifyMemu.partDel({ part_id: part.part_id })}/></li>)})}
+                {
+                    parts.map((part, index) => {
+                        return (<li key={index}> <NavLink to={`/${teamid}/post/${part.part_id}`} >{part.name}</NavLink> <CloseButton onClick={(e) => notifyMemu.partDel({ part_id: part.part_id })}/></li>)
+                    })
+                }
                 <li><input className="menuInput" name='name' placeholder={"Part 추가"} onKeyPress={(e) => { e.key === 'Enter' ? notifyMemu.partAdd(e) : null }}></input></li>
             </ul>
                
             <ChatRoomList teamId={teamid} loginMember={loginMember}/>
             <BelongMemberList teamId={teamid}/>
 
-
-        {
-        //    <MenuList  menuTitle={"team"}  menus = {teams}/>        {/**team과 part list를 컴포넌트화 하기 위한 test code */}
-        }
         </nav>
 
     );

@@ -1,0 +1,36 @@
+@charset "utf-8";
+.PostForm{
+
+    background-color: #00A2FF;
+    border-radius: 10px 10px 10px 10px;
+    padding: 1em;
+    .contents{
+        background-color: #F7F7F7;
+        border-radius: 10px 10px 6px 6px;
+        padding: 1em;
+        width:100%; 
+        word-break:break-all;
+        word-wrap:break-word;
+    }
+    .title{
+        font-size: 1.5em;
+        font-weight: bolder;
+        float: left;
+        width: 60%;
+    }
+    .writer{
+        font-size: 1.2em;
+        float: left;
+        width: 15%;
+    }
+    .date{
+        float: left;
+        width: 15%;
+    }
+    .button{
+        width: 9%;
+        text-align: right;
+    }
+
+   
+}

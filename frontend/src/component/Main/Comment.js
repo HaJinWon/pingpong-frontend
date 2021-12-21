@@ -41,7 +41,7 @@ const Comment = ({ postforComment}) => {       //
 
     const handlerOnclickCommentAdd=async (e)=>{     //comment 작성 후 list reloading을 위한 handler
         e.preventDefault();
-            console.log("part 추가 in:", comment);
+            
             try {
                 const response = await fetch(`/api/comment/${postforComment.post_id}`, {
                 method: 'post',

@@ -2,10 +2,12 @@ import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import { useParams } from 'react-router';
+import ListGroup from 'react-bootstrap/ListGroup'
+import styles from '../../assets/scss/PostForm.scss';
+import moment from 'moment';
 
-const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeletePost, showNavRight}) => {
+const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeletePost}) => {
    let {teamid, partid}=useParams()
-  
   
     const handlerOnclickCommentDel=async()=>{ 
        
@@ -43,41 +45,37 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
 
    const handlerOnclickPost=(e)=>{           //선택한 post의 comment 확인을 위해 선택한 정보를 부모 commponent로 돌려주는 handler
       e.preventDefault();
-      showNavRight()
       callback({'Postid':id ,'post':post})
-      
    }
 
     return (
 
-            <table className="Post"  border='solid 1px' width='90%' >
-               <tr >
-                  <td className="PostTitle">{title}</td>
-                  <td> <div>
-                        
-                  <DropdownButton id="dropdown-basic-button" title="더보기" background-color="rgb(255, 255, 255)">
-                        <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
-                        <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
-                        <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
-                  </DropdownButton>
-                  
-                     </div>
-                  </td>
-               </tr>
-               <tr>
-                  <td className="PostContents">{contents}</td>
-               </tr>
-               <tr>
-                  <td className="Writer">{name}</td>
-               </tr>
-               <tr>
-                  <td className="date">{date}</td>
-               </tr>
-                <tr>
-                 
-               </tr>
-            </table>
+           
         
+            <div className={styles.PostForm}>
+                      
+                              
+                              <div className={styles.title}>{title}</div>
+                              
+                              <div className={styles.writer}>{name} </div>
+                              <div className={styles.date}>{moment(date).format('YYYY-MM-DD')}</div>
+                              <div className={styles.button}>
+                                 <DropdownButton id="btn btn-secondary btn-sm" size="sm">
+                                    <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
+                                    <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
+                                    <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
+                                 </DropdownButton>
+                              </div>
+                              <br/><br/>
+                              <div className={styles.contents}>
+                                 {contents}
+                              </div>
+
+                             
+                             
+                              
+                      
+            </div>
 
       
     );

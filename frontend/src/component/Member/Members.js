@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import stylesMemberBox from '../../assets/css/MemberBox.css';
 
 const Members = ({ teamId }) => {
 
@@ -22,10 +23,11 @@ const Members = ({ teamId }) => {
         const data = await response.json();
         
         setMemberLists(data);
+        console.log('members',data);
     },[teamId])
 
     return (
-        <Fragment>
+        <div className={stylesMemberBox.MemberList}>
             {
                 memberLists.map((memberList,index)=>{
                     return (
@@ -35,7 +37,7 @@ const Members = ({ teamId }) => {
                     )
                 })
             }
-        </Fragment>
+        </div>
 
     );
 };

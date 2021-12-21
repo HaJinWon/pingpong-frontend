@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import SiteLayout from "../../layout/SiteLayout";
@@ -6,35 +5,61 @@ import MessageList from "./MessageList";
 import * as SockJS from "sockjs-client";
 import * as StompJs from "@stomp/stompjs";
 import Notice from "./Notice";
+import MessageInput from '../../assets/css/MessageInput.css';
+import Button from 'react-bootstrap/Button';
+import ParticipantList from './ParticipantList';
 
-const Chat = () => {
+
+const Chat = ({ /*FileInput*/ }) => {
 
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
 
     const { roomId } = useParams();
     const [notice, setNotice] = useState('');
-
+    const [participant, setParticipant] = useState([]);
+    const [messages, setMessages] = useState([]);
+    const dateNow = new Date();
 
     const styles = {
         overflow: "auto",
         height: "700px",
         display:"flex",
         flexDirection: "column-reverse" ,
-        overflowY:"auto"
-    
+        overflowY:"auto",
+        backgroundColor:'#b2c9ed'
     };
 
-    const [messages, setMessages] = useState([]);
 
 
-    /**
-     * 채팅방 리스트 불러오는 함수
-     */
     useEffect(async () => {
 
         try {
-
+                /**
+                 * 채팅방 채팅 내역 리스트 불러오는 함수
+                 */
             const response = await fetch(`/api/chat/${roomId}`, {
+                method: "get",
+                mode: "cors",
+                credentials: "include",
+                cache: "no-cache",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                },
+                redirect: "follow",
+                referrer: "client",
+                body: null,
+            });
+
+            const jsonResult = await response.json();
+            console.log(jsonResult);
+            setMessages(jsonResult);
+
+
+            /**
+             *  채팅방 참여자 리스트
+             */
+             const response2 = await fetch(`/api/room/participant/${roomId}`, {
                 method: "get",
                 mode: "cors",
                 credentials: "include",
@@ -48,9 +73,10 @@ const Chat = () => {
                 body: null,
             });
 
-            const jsonResult = await response.json();
-            console.log(jsonResult);
-            setMessages(jsonResult);
+            const jsonResult2 = await response2.json();
+            console.log('참여자리스트',jsonResult2.data);
+            setParticipant(jsonResult2.data);
+
         } catch (err) {
 
             console.log(err);
@@ -141,6 +167,7 @@ const Chat = () => {
                 senderId: loginId,
                 message: message,
                 sender: loginName,
+                
             }),
         });
 
@@ -156,32 +183,34 @@ const Chat = () => {
 
     /*================================================================== */
     return (
-        <SiteLayout isSearch={false}>
-                <h2>ChatPage</h2>
-
-                <Notice roomId={roomId}/>
-            <div style={styles} className="chatDiv">            
+        <SiteLayout /*FileInput={FileInput} */ isSearch={false}>
+            
+            <Notice roomId={roomId} participant={participant}/>
+            <div style={styles} className="chatDiv">   
+                       
                 <MessageList messages={messages} roomId={roomId} callback={noticeCallback}/>
             </div>
             <div>
                 <div>
                     <input
-                        type={"text"}
-                        placeholder={"message"}
+                        className={MessageInput.TextBox}
+                        type="text"
+                        placeholder="메세지를 입력해주세요."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        onKeyPress={(e) => e.which === 13 && publish(message)}
+                        onKeyPress={(e) => e.target.value !=='' &&e.which === 13 && publish(message)}
                     />
-                    <button
+                    <Button className={MessageInput.Button}
                         onClick={message !== "" ? () => publish(message, "TALK") : null}
                     >
-                        send
-                    </button>
+                        전송
+                    </Button>
                 </div>
             </div>
         </SiteLayout>
 
     );
+
 };
 
 export default Chat;

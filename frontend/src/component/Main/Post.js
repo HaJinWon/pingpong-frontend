@@ -4,15 +4,15 @@ import { BrowserRouter,useParams,NavLink } from 'react-router-dom';
 import PostForm from './PostForm';
 import SearchBar from './SearchBar';
 
-const Post = () => {
+import styles from '../../assets/scss/Post.scss';
+import { Button } from 'react-bootstrap';
+
+const Post = ({/*FileInput*/}) => {
     let {teamid, partid} = useParams(); 
     const [postidforComment, setPostidforComment] = useState('');
     const [postforComment, setPostforComment]=useState([]);
     const [postList, setPostList] = useState([]);
     const [postListReset, setPostListReset]=useState(false);
-
-    const [navRightForPost, setNavRightForPost]=useState(false);
-    const showNavRight=()=>{setNavRightForPost(!navRightForPost)}
 
     const [keyword, setKeyword] = useState('');
 
@@ -41,6 +41,7 @@ const Post = () => {
             const jsonResult = await response.json();
         
             setPostList(jsonResult.data.postList);
+            console.log(jsonResult.data.postList)
 
         }catch(err){
             console.log(err);
@@ -59,11 +60,12 @@ const Post = () => {
 
 
     return (
-        <SiteLayout postidforComment={postidforComment} postforComment={postforComment} showNavRight2={showNavRight} navRightForPost={navRightForPost}>
-            <h2>[Post]{partid}</h2>
-            <NavLink to ={`/${teamid}/post/write/${partid}`}>게시글 작성</NavLink>      {/*버튼으로 교체 예정 */}
+        <SiteLayout postidforComment={postidforComment} postforComment={postforComment} /*FileInput={FileInput}*/>
+            <div className={styles.Post}>
+            <h2>{}</h2>
             <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
-
+            <NavLink to ={`/${teamid}/post/write/${partid}`}><Button>게시글 작성</Button></NavLink>
+            <br/><br/><br/>
             {
             
                 postList
@@ -78,10 +80,10 @@ const Post = () => {
                                             date={posts.date}
                                             callback={handlerOnclickPost}
                                             handlerDeletePost={handlerDeletePost}
-                                            showNavRight={showNavRight}
                                             />})
 
             }
+            </div>
         </SiteLayout>
     );
 };
