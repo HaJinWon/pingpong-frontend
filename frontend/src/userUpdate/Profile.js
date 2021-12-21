@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import UserInfo from "./UserInfo";
 import UserUpdateForm from "./UserUpdateForm";
+import Invitation from "../component/Main/Invitation";
+
 const UserUpdate = () => {
   const [profile, setProfile] = useState(window.sessionStorage.getItem("loginMember"));
   const [formInfo, setFormInfo] = useState([]);
@@ -64,10 +66,12 @@ const UserUpdate = () => {
         //console.log('user update in : ', profile)
       }
       <br />
+
       {profileComponentChange===false?<UserInfo profile={profile} handlerOnChangeComponent={handlerOnChangeComponent}/>:<UserUpdateForm profile={profile}  /*FileInput={FileInput} */ profile={profile}  handlerOnChangeComponent={handlerOnChangeComponent}/>
       //<UserUpdateForm /*FileInput={FileInput} */profile={profile} />
       }
      
+
     </div>
   );
 };

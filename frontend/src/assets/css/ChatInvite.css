@@ -18,6 +18,11 @@
 
 }
 
+.Outer::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+
 .One{
     
     width: 70vh;

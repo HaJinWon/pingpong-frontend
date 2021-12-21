@@ -1,0 +1,17 @@
+.TeamName{
+    margin:auto;
+    width:100%;
+    size:100%;
+}
+
+.OuterBox{
+    margin:auto;
+    width:70%;
+    margin-bottom: 10%;
+
+}
+.TeamList{
+    text-decoration: none;
+    color:black;
+    font-weight: bolder;
+}

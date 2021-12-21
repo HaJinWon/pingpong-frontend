@@ -62,7 +62,7 @@ const Welcome = ({FileInput}) => {
         const data = await response.json();
         console.log('welcome',data);
 
-        location.href = `/${data}/main`
+        location.href = `/${data.teamId}/main`
     }
 
     return (

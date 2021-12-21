@@ -5,7 +5,7 @@
     margin:auto;
     background-color: #00a2ff;
     border-radius: 10%;
-    box-shadow: 0px 2px 2px 0px gray;
+    box-shadow: 0px 5px 5px 0px gray;
     margin-bottom: 10%;
     height: 200px;
 }
@@ -38,7 +38,7 @@
 }
 .ExitButton{
     background-color: white;
-    color:#00a2ff;
+    color:black;
     border:none;
     font-weight: bolder;
 }
@@ -56,13 +56,19 @@
     width:85%;
     float: left;
     text-decoration: none;
+
+    font-weight: bolder;
+    color:black;
     
 }
 .Body{
     margin-top: 10%;
-
     width:90%;
     margin: auto;
     height:75%;
     overflow: auto;
+}
+
+.Body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }

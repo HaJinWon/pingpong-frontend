@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import styles from '../../assets/scss/Post.scss';
 import { Button } from 'react-bootstrap';
 
+
 const Post = ({/*FileInput*/}) => {
     let {teamid, partid} = useParams(); 
     const [postidforComment, setPostidforComment] = useState('');
@@ -61,8 +62,10 @@ const Post = ({/*FileInput*/}) => {
 
     return (
         <SiteLayout postidforComment={postidforComment} postforComment={postforComment} /*FileInput={FileInput}*/>
+
             <div className={styles.Post}>
             <h2>{}</h2>
+
             <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
             <NavLink to ={`/${teamid}/post/write/${partid}`}><Button>게시글 작성</Button></NavLink>
             <br/><br/><br/>

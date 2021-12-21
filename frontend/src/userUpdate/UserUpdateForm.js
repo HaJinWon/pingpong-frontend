@@ -9,9 +9,11 @@ import Col from "react-bootstrap/Col";
 import styles from "../assets/scss/profileImg.scss";
 import DefaultImage from "../assets/images/Im0.jpg";
 import FileInput from '../component/image_file_input/image_file_input';
+
 import style from '../assets/scss/UserInfo.scss'
 
 const UserUpadteForm = (props) => {
+
   let changedFile;
   const baseUrl = "../assets/images/";
   const [avatar,setAvatar] = useState('Im0.jpg');
@@ -159,7 +161,9 @@ const UserUpadteForm = (props) => {
       <div class="text-center">
         <br/>
           <Image
-            src={require(`../assets/images/Im0.jpg`)}
+
+            src={require(`../assets/images/${formInfo.avatar}`)}
+
             // src={require(`../assets/images/${formInfo.avatar}`)}
             // src={require(`${formInfo.avatar}`)}
             // src={{ imageUrl }}
@@ -181,6 +185,7 @@ const UserUpadteForm = (props) => {
           <br/>
           <FileInput callback={callback}/>
           <br/>
+
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
