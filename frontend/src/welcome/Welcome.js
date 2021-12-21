@@ -69,7 +69,7 @@ const Welcome = ({FileInput}) => {
         <div>
             <div style={styles1}>
                 <NavTop />
-                <div className={WelcomeStyle.WelcomeDiv}><h1>Welcome</h1>
+                <div className={WelcomeStyle.WelcomeDiv}>
                     <div className={WelcomeStyle.BodyLeft}>
                         <div className={WelcomeStyle.BodyLeftOuter}>
                             <div className={WelcomeStyle.BodyLeftInner}><h2 style={styles2}>팀 생성하기</h2></div>

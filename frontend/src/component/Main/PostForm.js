@@ -74,6 +74,7 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
                                      <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
                                     }
                                  </DropdownButton>
+
                               </div>
                               <br/><br/>
                               <div className={styles.contents}>

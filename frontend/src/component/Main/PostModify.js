@@ -42,7 +42,7 @@ const PostModify = (props) => {
    },[])
     const handlerOnClickPostModify=async(e)=>{          //수정된 post 내용을 전송하는 post id
         e.preventDefault();
-       
+
         try {
             const response = await fetch(`/api/post/update/${props.postid}`, {
             method: 'PATCH',
