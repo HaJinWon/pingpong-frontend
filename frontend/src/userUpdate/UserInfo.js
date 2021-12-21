@@ -69,36 +69,35 @@ const UserInfo = (props) => {
                 <div className={style.img}> 
                     {<Image src={DefaultImage} roundedCircle={true} className="img-responsive center-block" width='150px' alt='프로필 이미지'/>}
                 </div>
+                <br/>
                 <div id='avatarImage' style={styles}>{formInfo.avatar}</div>
                 <div className='User UpdateForm'>
                 <div className={style.form}>
                 <h4 >회원정보 수정</h4>
-                
-                    <Form >
+                <br/>
+                    
 
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label >Email address</Form.Label><br/>
-                            <Form.Text  name='email' >{formInfo.email}</Form.Text>
-                        </Form.Group> 
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Name</Form.Label><br/>
-                            <Form.Text  name='name' >{formInfo.name}</Form.Text>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Phone</Form.Label><br/>
-                            <Form.Text  name='phone' >{formInfo.phone}</Form.Text>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Company</Form.Label><br/>
-                            <Form.Text  name='company' >{formInfo.company}</Form.Text>
-                        </Form.Group>
+                        
+                            <h5>Email address</h5>
+                            <h6  name='email' >{formInfo.email}</h6>
+                       
+                            <h5>Name</h5>
+                            <h6  name='name' >{formInfo.name}</h6>
+                       
+                            <h5>Phone</h5>
+                            <h6  name='phone' >{formInfo.phone}</h6>
+                       
+                            <h5>Company</h5>
+                            <h6  name='company' >{formInfo.company}</h6>
+                        
+                        <br/>
                         <div  className={style.button}>
                             <Button variant="primary" type="button" onClick={props.handlerOnChangeComponent}>
                                   {`회원정보 수정`}  
                             </Button>
                         </div>
                     
-                    </Form>
+                    
                     </div>
                 </div>
 
@@ -107,7 +106,7 @@ const UserInfo = (props) => {
                 <br />
                 <br />
                 {
-                //<InvitationList />
+                <InvitationList />
                 }
                 
 

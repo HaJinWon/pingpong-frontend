@@ -5,6 +5,8 @@ import Invitation from './Invitation';
 
 const InvitationList = () => {
     const [invitationList, setInvitationList]=useState([]);
+    const [invitationAnswer, setInvitationAnswer]=useState(false);
+    
     
 
     useEffect(async()=>{        // 초대장 리스트 가져오는 useEffect
@@ -25,17 +27,16 @@ const InvitationList = () => {
             })
 
             const jsonResult = await response.json();
-            console.log()
-            setInvitationList(jsonResult);
+            setInvitationList(jsonResult.data);
 
         }catch(err){
             console.log(err);
         }
        
-    },[]);
+    },[invitationAnswer]);
 
-    const handlerOnclickInvitationAnswer=(answer)=>{       //comment 삭제 후 list reloading을 위한 handler
-        setInvitationList(answer) 
+    const handlerOnclickInvitationAnswer=()=>{       //comment 삭제 후 list reloading을 위한 handler
+        setInvitationAnswer(!invitationAnswer) 
      }
 
     return (

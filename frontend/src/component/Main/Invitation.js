@@ -5,16 +5,13 @@ import { useParams } from 'react-router';
 import styles from '../../assets/scss/Invitation.scss'
 
 const Invitation = (props) => {
-    const {team_id} = useParams()
-
-
-    console.log('초대장!!!!!!!!!!!!!!!!!!!!!!팀아이디!!!!!!!!!!!!!!!!',team_id)
+    console.log(props.invitation);
     const InvitationResponse= async (e) => {
             e.preventDefault();
                 
                 try {
-                    const response = await fetch(`/api/team/accept/${team_id}`, {
-                    method: 'post',
+                    const response = await fetch(`/api/team/accept/${props.invitation.teamId}`, {
+                    method: 'PATCH',
                     mode: 'cors',                           
                     credentials: 'include',                 
                     cache: 'no-cache',                           
@@ -26,11 +23,11 @@ const Invitation = (props) => {
                     referrer: 'client',                       
                     body: JSON.stringify(e.target.value)
                     })
-                    
+                    console.log('초대장 답장은!!!!!!!!!!!!!!!!', e.target.value)
                 }catch(err){
                     console.log(err);
                 }
-                props.callback(true)
+                props.callback()
             }
 
 
@@ -39,7 +36,7 @@ const Invitation = (props) => {
         <div className={styles.Invitation}>
             
         <div className={styles.InvitationContents}>
-                    🎁{`${props.invitation.name} 님으로 부터 초대장이 도착했습니다.`}<br/>
+                    🎁{`[${props.invitation.teamName}] 팀으로 부터 초대장이 도착했습니다.`}<br/>
               </div>
               <div className={styles.Button}>
               <div className={styles.Button1}>  <Button variant="primary" type="button" value='Y' onClick={InvitationResponse}>수락</Button></div>

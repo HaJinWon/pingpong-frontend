@@ -2,6 +2,7 @@
 
 .UserInfo{
     margin: 0 auto;
+    text-align: center;
     .img{
         margin: 2em;
         text-align: center;
@@ -26,5 +27,13 @@
 
     .form{
         padding: 1.5em;
+    }
+    h6{
+        background-color: aliceblue;
+        padding: 0.6em;
+        border-radius: 10px 10px 10px 10px;
+    }
+    h5{
+        border: 2px;
     }
 }
