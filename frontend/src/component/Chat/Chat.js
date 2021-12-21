@@ -8,6 +8,7 @@ import Notice from "./Notice";
 import MessageInput from '../../assets/css/MessageInput.css';
 import Button from 'react-bootstrap/Button';
 import ParticipantList from './ParticipantList';
+import stylesChatBox from '../../assets/css/ChatBox.css';
 
 
 const Chat = ({ /*FileInput*/ }) => {
@@ -194,7 +195,7 @@ const Chat = ({ /*FileInput*/ }) => {
         <SiteLayout /*FileInput={FileInput} */ isSearch={false}>
             
             <Notice roomId={roomId} participant={participant}/>
-            <div style={styles} className="chatDiv">   
+            <div style={styles} className={stylesChatBox.ChatDiv}>   
                        
                 <MessageList messages={messages} roomId={roomId} callback={noticeCallback}/>
             </div>
