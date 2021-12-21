@@ -11,16 +11,15 @@ import ParticipantList from './ParticipantList';
 import stylesChatBox from '../../assets/css/ChatBox.css';
 
 
-const Chat = ({ /*FileInput*/ }) => {
+const Chat = () => {
 
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
-
+    const textRef = useRef();
     const { roomId } = useParams();
     const [notice, setNotice] = useState('');
     const [participant, setParticipant] = useState([]);
     const [messages, setMessages] = useState([]);
     const dateNow = new Date();
-
     const styles = {
         overflow: "auto",
         height: "700px",
@@ -190,6 +189,18 @@ const Chat = ({ /*FileInput*/ }) => {
         }
       };
 
+
+    const handleButton = (e) => {
+        console.log('asdf',MessageInput);
+        handleEnter(MessageInput.TextBox);
+    }
+
+    const handlerSend = (e)=>{
+        e.preventDefault();
+        textRef.current.value !=='' && publish(textRef.current.value);
+        textRef.current.value='';
+    }
+
     /*================================================================== */
     return (
         <SiteLayout /*FileInput={FileInput} */ isSearch={false}>
@@ -201,19 +212,24 @@ const Chat = ({ /*FileInput*/ }) => {
             </div>
             <div>
                 <div>
+                    <form onSubmit={handlerSend}>
                     <input
                         className={MessageInput.TextBox}
                         type="text"
                         placeholder="메세지를 입력해주세요."
                         //value={message}
                         //onChange={(e) => setMessage(e.target.value)}
+                        ref={textRef}
                         onKeyPress={handleEnter}
+                        name ='inputText'
                     />
                     <Button className={MessageInput.Button}
-                        onClick={message !== "" ? () => publish(message, "TALK") : null}
+                        onClick={handleButton}
+                        type="submit"
                     >
                         전송
                     </Button>
+                    </form>
                 </div>
             </div>
         </SiteLayout>

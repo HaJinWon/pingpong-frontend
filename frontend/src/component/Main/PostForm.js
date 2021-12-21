@@ -14,8 +14,8 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
                                        //comment 삭제를 위한 함수
             try {
             // Delete
-            const response = await fetch(`/api/post/del/${id}`, {
-               method: 'get',
+            const response = await fetch(`/api/post/${id}`, {
+               method: 'delete',
                mode: 'cors',                           
                credentials: 'include',                 
                cache: 'no-cache',                           
@@ -54,17 +54,18 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
         
             <div className={styles.PostForm}>
                       
-                              
-                              <div className={styles.title}>{title}</div>
-                              
-                              <div className={styles.writer}>{name} </div>
-                              <div className={styles.date}>{moment(date).format('YYYY-MM-DD')}</div>
-                              <div className={styles.button}>
-                                 <DropdownButton id="btn btn-secondary btn-sm" size="sm">
-                                    <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
-                                    <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
-                                    <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
-                                 </DropdownButton>
+                              <div className={styles.header}>
+                                 <div className={styles.title}>{title}</div>
+                                 
+                                 <div className={styles.writer}>{name} </div>
+                                 <div className={styles.date}>{moment(date).format('YYYY-MM-DD')}</div>
+                                 <div className={styles.button}>
+                                    <DropdownButton id="btn btn-secondary btn-sm" size="sm">
+                                       <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
+                                       <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
+                                       <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
+                                    </DropdownButton>
+                                 </div>
                               </div>
                               <br/><br/>
                               <div className={styles.contents}>

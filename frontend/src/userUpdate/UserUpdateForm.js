@@ -9,10 +9,18 @@ import Col from "react-bootstrap/Col";
 import styles from "../assets/scss/profileImg.scss";
 import DefaultImage from "../assets/images/Im0.jpg";
 import FileInput from '../component/image_file_input/image_file_input';
+import ImageFileInput from "../component/image_file_input/image_file_input";
+import ImageUploader from "../service/image_uploader";
+
 
 import style from '../assets/scss/UserInfo.scss'
 
 const UserUpadteForm = (props) => {
+  const imageUploader = new ImageUploader();
+  const FileInput = (props) => (
+    <ImageFileInput {...props} imageUploader={imageUploader} />
+  );
+
 
   let changedFile;
   const baseUrl = "../assets/images/";
@@ -50,19 +58,6 @@ const UserUpadteForm = (props) => {
   const handlerSubmit = async (e) => {
     e.preventDefault();
 
-
-    const uploaded = await imageUpload2(changedFile);
-
-    console.log('제출실',uploaded.storeFileName);
-    alert('asdf');
-    setFormInfo({
-      ...formInfo,
-      avatar:  uploaded.storeFileName,
-      // storeName: uploaded.storeName,
-      // origName: uploaded.name,
-    });
-
-    alert('rudrh');
     await axios
       .patch("/api/member/edit", formInfo, {
         //회원정보 수정 부분
@@ -77,8 +72,8 @@ const UserUpadteForm = (props) => {
           alert("수정실패");
         }
       });
-      setChangeValue(changeValue+1);
   };
+
 
   useEffect(async () => {
     try {
@@ -121,7 +116,7 @@ const UserUpadteForm = (props) => {
       console.log("formInfo : state", formInfo);
       console.log("formInfo.avatar: state:", formInfo.avatar);
     }
-  }, [changeValue]);
+  }, []);
 
   
 
@@ -162,7 +157,7 @@ const UserUpadteForm = (props) => {
         <br/>
           <Image
 
-            src={require(`../assets/images/${formInfo.avatar}`)}
+            src={`http://localhost:8080/upload-file/${formInfo.avatar}`}
 
             // src={require(`../assets/images/${formInfo.avatar}`)}
             // src={require(`${formInfo.avatar}`)}
@@ -183,7 +178,7 @@ const UserUpadteForm = (props) => {
           */
           }
           <br/>
-          <FileInput callback={callback}/>
+          <FileInput callback={callback} onFileChange={onFileChange} />
           <br/>
 
           <Form.Group className="mb-3" controlId="formBasicEmail">

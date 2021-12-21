@@ -20,13 +20,13 @@ export default function () {
         alignItems: 'center'
     }
     
-    const image = `im1.jpg`;
+    const image = `http://localhost:8080/upload-file/2021929104243428.jpg`;
     return (
         <Container style={containerStyle}>
             <Row roundedCircle style={imgStlye}>
                 <Col xs={10} md={4}>
                     
-                    <Image src={require(`../assets/images/${image}`)} />
+                    <Image src={`http://localhost:8080/upload-file/2021929104243428.jpg`} />
                 </Col>
             </Row>
         </Container>

@@ -4,6 +4,8 @@
     background-color: #00A2FF;
     border-radius: 10px 10px 10px 10px;
     padding: 1em;
+    
+
     .contents{
         background-color: #F7F7F7;
         border-radius: 10px 10px 6px 6px;
@@ -26,11 +28,14 @@
     .date{
         float: left;
         width: 15%;
+        
     }
     .button{
-        width: 9%;
+        width: 54%;
         text-align: right;
+        
+        position: absolute;
+        
     }
 
-   
 }
