@@ -70,7 +70,7 @@ const NavLeft = () => {
                     body: null
                 })
                 const data = await response.json();
-                console.log('teamlist',data);
+                
                 setTeams(data.data.teamList);       //teams state에 받아온 teamlist 주입
                 setSelectTeam(data.data.teamList.filter((team) => (team.team_id == teamid)))
                 setSelectTeamName(data.data.teamList.filter((team) => (team.team_id == teamid))[0].name);
@@ -98,7 +98,7 @@ const NavLeft = () => {
                 })
                 const data = await response.json();
                 setParts(data.data.partList);
-                console.log(data.data.partList)
+               
             } catch (err) {
                 console.log(err);
             }
@@ -112,7 +112,7 @@ const NavLeft = () => {
     const notifyMemu = {            //team, part  추가 삭제
 
         teamAdd: async (e) => {
-            console.log('menu', e.target.value);
+           
             if(e.target.value==''){
                 alert('팀명을 입력해주세요.');
             }
@@ -131,7 +131,7 @@ const NavLeft = () => {
                     body: JSON.stringify({ teamName: e.target.value })
                 })
                 const data = await response.json();
-                console.log('welcome',data);
+                
                 e.target.value='';
                 alert("팀 생성이 완료되었습니다.");
                 location.href = `/${data.teamId}/main`
@@ -143,7 +143,7 @@ const NavLeft = () => {
 
         },
         partAdd: async (e) => {
-            console.log("part 추가 in:" + teamid);
+            
             if(e.target.value==''){
                 alert('파트명을 입력해주세요.');
             }
@@ -237,7 +237,7 @@ const NavLeft = () => {
 
     }
 
-    console.log('selectedTeam',selectTeam[0].host,'loginMemberId',loginMember.id);
+   
 
     return (
         <nav className={styles.NavLeft}>

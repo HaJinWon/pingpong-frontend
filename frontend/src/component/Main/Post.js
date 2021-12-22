@@ -3,6 +3,7 @@ import SiteLayout from '../../layout/SiteLayout';
 import { BrowserRouter,useParams,NavLink } from 'react-router-dom';
 import PostForm from './PostForm';
 import SearchBar from './SearchBar';
+import {throttle} from 'lodash';
 
 import styles from '../../assets/scss/Post.scss';
 import { Button } from 'react-bootstrap';
@@ -20,8 +21,8 @@ const Post = ({/*FileInput*/}) => {
     const notifyKeywordChanged = (keyword) => {
         setKeyword(keyword);
     };
-
-
+    
+   
     useEffect(async()=>{        // part 별 post list 가져옴.
         try {
             const response = await fetch(`/api/post/${partid}`, {
@@ -69,6 +70,7 @@ const Post = ({/*FileInput*/}) => {
             <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
             <NavLink to ={`/${teamid}/post/write/${partid}`}><Button>게시글 작성</Button></NavLink>
             <br/><br/><br/>
+            <div >
             {
             
                 postList
@@ -86,6 +88,7 @@ const Post = ({/*FileInput*/}) => {
                                             />})
 
             }
+            </div>
             </div>
         </SiteLayout>
     );

@@ -66,7 +66,48 @@ const PostWrite = () => {
         })
 
     }
-
+    useEffect(async () => {
+        try {
+          const response = await fetch("/api/member/edit", {
+            //선택한 post 를 가져오는 부분
+            method: "get",
+            mode: "cors",
+            credentials: "include",
+            cache: "no-cache",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            redirect: "follow",
+            referrer: "client",
+            body: null,
+          });
+    
+          const jsonResult = await response.json();
+          console.log(jsonResult);
+    
+          if (jsonResult.result !== "success") {
+            throw new Error(`${jsonResult.result} ${jsonResult.message}`);
+          }
+          console.log("회원정보 수정 : ", jsonResult.data);
+          setAvatar(jsonResult.data.avatar);
+          console.log('아바타 주소',avatar);
+          setFormInfo({
+            name: jsonResult.data.name,
+            avatar: jsonResult.data.avatar,
+            email: jsonResult.data.email,
+            phone: jsonResult.data.phone,
+            company: jsonResult.data.company,
+            fileName: jsonResult.data.fileName,
+            status: "LOGIN",
+          });
+        } catch (err) {
+        } finally {
+          //   console.log("formInfo: json :", jsonResult.data.avatar);
+          console.log("formInfo : state", formInfo);
+          console.log("formInfo.avatar: state:", formInfo.avatar);
+        }
+      }, [changeValue]);
     return (
 
 

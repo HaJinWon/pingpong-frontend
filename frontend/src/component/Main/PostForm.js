@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import { useParams } from 'react-router';
@@ -8,10 +8,11 @@ import moment from 'moment';
 
 const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeletePost}) => {
    let {teamid, partid}=useParams()
-  
+   const {openDropdown, setOpenDropdown}=useState(false);
+   
     const handlerOnclickCommentDel=async()=>{ 
        
-                                       //comment 삭제를 위한 함수
+                                       //post 삭제를 위한 함수
             try {
             // Delete
             const response = await fetch(`/api/post/${id}`, {
@@ -47,38 +48,46 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
       e.preventDefault();
       callback({'Postid':id ,'post':post})
    }
+   const handlerOpenDropdown=(e)=>{
+      e.preventDefault();
+      setOpenDropdown(!openDropdown)
+   }
 
     return (
 
            
-        
+        <div><br/>
             <div className={styles.PostForm}>
                       
-                              <div className={styles.header}>
-                                 <div className={styles.title}>{title}</div>
-                                 
-                                 <div className={styles.writer}>{name} </div>
-                                 <div className={styles.date}>{moment(date).format('YYYY-MM-DD')}</div>
-                                 <div className={styles.button}>
-                                    <DropdownButton id="btn btn-secondary btn-sm" size="sm">
-                                       <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
-                                       <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
-                                       <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
-                                    </DropdownButton>
-                                 </div>
+                              
+                              <div className={styles.title}>{title}</div>
+                              
+                              <div className={styles.writer}>{name} </div>
+                              <div className={styles.date}>{moment(date).format('YYYY-MM-DD')}</div>
+                              <div className={styles.button}>
+                                 <DropdownButton id="btn btn-secondary btn-sm" size="sm">
+                                    <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
+                                    {JSON.parse(window.sessionStorage.getItem("loginMember")).id === post.member_id &&
+                                    <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
+                                    }
+                                    {JSON.parse(window.sessionStorage.getItem("loginMember")).id === post.member_id &&
+                                     <Dropdown.Item onClick={handlerOnclickCommentDel}>삭제</Dropdown.Item>
+                                    }
+                                 </DropdownButton>
+
                               </div>
                               <br/><br/>
                               <div className={styles.contents}>
                                  {contents}
                               </div>
 
-                             
+                            
                              
                               
                       
             </div>
 
-      
+            </div>
     );
 };
 
