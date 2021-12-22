@@ -63,7 +63,9 @@ const BelongMemberList = ({ teamId }) => {
             referrer: 'client',                       
             body: JSON.stringify({"members":checkedId})
           });
-
+        for(let i = 0;i<checkedId.length;i++){
+            sendMessage(checkedId[i]);
+        }
         setModal03IsOpen(false);
     }
     
@@ -101,6 +103,23 @@ const BelongMemberList = ({ teamId }) => {
             checkedId.pop(e.target.id);
             setCheckedId(checkedId);
         }
+        console.log(checkedId);
+    }
+
+    const sendMessage = async(receiver) =>{
+        await fetch(`http://localhost:8080/wsInvite/1/${receiver}`, {
+            method: 'get',
+            mode: 'cors',
+            credentials: 'include',
+            cache: 'no-cache',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrer: 'client',
+            body: null
+        })
     }
 
     return (
@@ -129,7 +148,7 @@ const BelongMemberList = ({ teamId }) => {
                                 return (
                                     <label>
                                         <div className={styleTeamMemberInvite.One}>
-                                            <Image className={styleTeamMemberInvite.Avatar} src={require(`../../assets/images/${profileImage}`)} />
+                                            <Image className={styleTeamMemberInvite.Avatar} src={`http://localhost:8080/upload-file/${userList.avatar}`} />
                                             <div className={styleTeamMemberInvite.UserName}>{userList.name}</div>
                                             <div className={styleTeamMemberInvite.Company}>{!userList.company ? `소속 없음` : userList.company}</div>
                                             <input type='checkbox' name='member' id={userList.member_id} onClick={checkboxChg}/>

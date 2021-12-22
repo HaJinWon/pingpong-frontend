@@ -10,6 +10,9 @@ import PostWork from "./component/Main/PostWork"; //postwrite, modify, del, show
 import Chat from "./component/Chat/Chat";
 import Welcome from "./welcome/Welcome";
 import FindId from "./findid/FindId";
+import WebSocketProvider from "./Websocket/WebSocketProvider";
+import SiteLayout from "./layout/SiteLayout";
+import ChatRoomList from './component/Chat/ChatRoomList'
 
 export default function App() {
   return (
@@ -27,6 +30,8 @@ export default function App() {
         />
         <Route path='/welcome' element={<Welcome /*FileInput={FileInput}*//>}/>
         <Route path='/findid' element={<FindId/>}/>
+        <Route path='/chatroomlist' element={<ChatRoomList/>}/>
+        <Route path='/sitelayout' element={<SiteLayout/>}/>
       </Routes>
     </BrowserRouter>
   );

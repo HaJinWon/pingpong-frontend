@@ -152,7 +152,6 @@ const UserUpadteForm = (props) => {
 
   return (
     <div className={style.UserInfo}>
-      <h1>{formInfo.avatar}</h1>
       <div class="text-center">
         <br/>
           <Image

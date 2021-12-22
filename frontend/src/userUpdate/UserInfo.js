@@ -54,7 +54,7 @@ const UserInfo = (props) => {
             if(jsonResult.result !== 'success') {
             throw new Error(`${jsonResult.result} ${jsonResult.message}`);
             }
-            setFormInfo({'name':jsonResult.data.name,'imageFile':jsonResult.data.imageFile, 'email':jsonResult.data.email, 'phone':jsonResult.data.phone, 'company':jsonResult.data.company});
+            setFormInfo({'name':jsonResult.data.name,'avatar':jsonResult.data.avatar, 'email':jsonResult.data.email, 'phone':jsonResult.data.phone, 'company':jsonResult.data.company});
             
         } catch(err){
 
@@ -67,9 +67,9 @@ const UserInfo = (props) => {
        
         <div className={style.UserInfo}>
                 <div className={style.img}> 
-                    {<Image src={DefaultImage} roundedCircle={true} className="img-responsive center-block" width='150px' alt='프로필 이미지'/>}
+                    {<Image src={`http://localhost:8080/upload-file/${formInfo.avatar}`} roundedCircle={true} className="img-responsive center-block" width='150px' alt='프로필 이미지'/>}
                 </div>
-                <div id='avatarImage' style={styles}>{formInfo.avatar}</div>
+                <div id='avatarImage' style={styles}></div>
                 <div className='User UpdateForm'>
                 <div className={style.form}>
                 <h4 >회원정보 수정</h4>

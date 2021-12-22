@@ -6,6 +6,7 @@ import NavTop from "./NavTop";
 
 import styles from "../assets/scss/layout/Contents.scss";
 import styles2 from "../assets/scss/layout/Body.scss";
+import WebSocketProvider, { WebSocketContext } from '../Websocket/WebSocketProvider';
 
 const SiteLayout = ({
   FileInput,
@@ -13,6 +14,7 @@ const SiteLayout = ({
   postidforComment,
   postforComment,
 }) => {
+
   return (
     <Fragment>
       <NavLeft />

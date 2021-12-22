@@ -10,6 +10,7 @@ import sampleImg from '../../assets/images/Im0.jpg';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import ProfileImgSample from '../../assets/images/Im0.jpg'
+import Image from 'react-bootstrap/Image';
 ReactModal.setAppElement('body');
 
 
@@ -120,7 +121,7 @@ const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate, ca
                 <div>
                     <div className={styles.Message}>
                         <div className={styles.Profile} onClick={openMiniProfile} style={profileStyle}>
-
+                        <Image className={styles.Profile} src={`http://localhost:8080/upload-file/`} />
                         </div>
                         <div className={styles.Block}>
                             <div className={styles.UserName}>

@@ -133,6 +133,7 @@ const NavLeft = () => {
                 const data = await response.json();
                 console.log('welcome',data);
                 e.target.value='';
+                alert("팀 생성이 완료되었습니다.");
                 location.href = `/${data.teamId}/main`
 
             } catch (err) {

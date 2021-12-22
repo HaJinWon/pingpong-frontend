@@ -43,6 +43,7 @@ const ChatList = ({ teamId, loginMember }) => {
 
         const data = await response.json();
         setSearchUserResult(data);
+        console.log('asdfdsafsa',data);
 
     }
 
@@ -130,6 +131,7 @@ const ChatList = ({ teamId, loginMember }) => {
         setKeyword(keyword);
     };
 
+
     return (
         <div>
             <div className={stylesChatRoomList.OuterBox}>
@@ -172,7 +174,7 @@ const ChatList = ({ teamId, loginMember }) => {
                                         <div >
                                             <label>
                                                 <div className={styleChatInvite.One}>
-                                                    <Image className={styleChatInvite.Avatar} src={require(`../../assets/images/${profileImage}`)} />
+                                                    <Image className={styleChatInvite.Avatar} src={`http://localhost:8080/upload-file/${sMember.avatar}`} />
                                                     <div className={styleChatInvite.UserName}>{sMember.name}</div>
                                                     <input className={styleChatInvite.RadioBox} type='radio' name='selectMember' value={sMember.memberId} onClick={selectChatMember} />
                                                 </div>
