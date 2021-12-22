@@ -64,8 +64,8 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
                               
                               <div className={styles.writer}>{name} </div>
                               <div className={styles.date}>{moment(date).format('YYYY-MM-DD')}</div>
-                              <div className={styles.button}>
-                                 <DropdownButton id="btn btn-secondary btn-sm" size="sm">
+                             
+                                 <DropdownButton id="btn btn-secondary btn-sm" size="sm" className={styles.drobDwon}>
                                     <Dropdown.Item onClick={handlerOnclickPost}>댓글</Dropdown.Item>
                                     {JSON.parse(window.sessionStorage.getItem("loginMember")).id === post.member_id &&
                                     <Dropdown.Item onClick={()=>location.href=`/${teamid}/post/modify/${id}`}>수정</Dropdown.Item>
@@ -75,7 +75,7 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
                                     }
                                  </DropdownButton>
 
-                              </div>
+                        
                               <br/><br/>
                               <div className={styles.contents}>
                                  {contents}

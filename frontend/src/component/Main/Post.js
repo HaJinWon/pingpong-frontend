@@ -43,7 +43,7 @@ const Post = ({/*FileInput*/}) => {
             const jsonResult = await response.json();
         
             setPostList(jsonResult.data.postList);
-            console.log(jsonResult.data.postList)
+            console.log('asdfsadf',jsonResult.data.postList)
 
         }catch(err){
             console.log(err);
@@ -70,7 +70,7 @@ const Post = ({/*FileInput*/}) => {
             <SearchBar keyword={keyword} callback={notifyKeywordChanged} />
             <NavLink to ={`/${teamid}/post/write/${partid}`}><Button>게시글 작성</Button></NavLink>
             <br/><br/><br/>
-            <div >
+            <div className={styles.Post2} >
             {
             
                 postList

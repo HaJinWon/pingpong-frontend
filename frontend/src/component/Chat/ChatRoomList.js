@@ -10,7 +10,7 @@ import stylesChatRoomList from '../../assets/css/ChatRoomList.css'
 
 const ChatList = ({ teamId, loginMember }) => {
 
-
+    //const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
     const [chatRooms, setChatRooms] = useState([]);
     const [modal02IsOpen, setModal02IsOpen] = useState(false);
     const [searchUserResult, setSearchUserResult] = useState([]);
@@ -18,7 +18,7 @@ const ChatList = ({ teamId, loginMember }) => {
     const [changeValue, setChangeValue] = useState(0);
     const [keyword, setKeyword] = useState('');
     
-    const profileImage = 'Im0.jpg';
+    //const profileImage = 'Im0.jpg';
 
     /**
      *  채팅방 개설 (상대방 초대위한 모달 띄우는 함수) 
@@ -43,7 +43,7 @@ const ChatList = ({ teamId, loginMember }) => {
 
         const data = await response.json();
         setSearchUserResult(data);
-        console.log('asdfdsafsa',data);
+        //console.log('asdfdsafsa',data);
 
     }
 
@@ -67,7 +67,7 @@ const ChatList = ({ teamId, loginMember }) => {
 
         const data2 = await response2.json();
         setChatRooms(data2.roomDtoList);
-        console.log('chatRooms',data2.roomDtoList);
+        //console.log('chatRooms',data2.roomDtoList);
 
     }, [changeValue, teamId]);
     
@@ -84,7 +84,7 @@ const ChatList = ({ teamId, loginMember }) => {
      */
     const inviteHandler = async (e) => {
         e.preventDefault();
-        console.log('submit', selectedChatInvite);
+        //console.log('submit', selectedChatInvite);
 
         await fetch(`/api/room/create/${teamId}/${selectedChatInvite}`, {
             method: 'post',
@@ -142,13 +142,37 @@ const ChatList = ({ teamId, loginMember }) => {
             <div className={stylesChatRoomList.Body}>
                     {
                         chatRooms.map((chatRoom, index) => {
+                            const roomName = (chatRoom.title).split("/");
                             return (
+                                
                                 <div className={stylesChatRoomList.One}>
-                        
-                        
-                                        <NavLink className={stylesChatRoomList.RoomName} to={`/${teamId}/chat/${chatRoom.roomId}`} >{chatRoom.title}</NavLink>
-                                        <button className={stylesChatRoomList.ExitButton} id={chatRoom.roomId} onClick={exitRoom}> ㅡ </button>
-                                    
+                                    {
+                                        roomName.length == 1 ?
+                                        <div>
+                                        <NavLink className={stylesChatRoomList.RoomName} to={`/${teamId}/chat/${chatRoom.roomId}`} >
+                                            {chatRoom.title}
+                                        </NavLink>
+                                        <button className={stylesChatRoomList.ExitButton} id={chatRoom.roomId} onClick={exitRoom}> ㅡ </button> 
+                                        </div>
+                                        :
+                                        (
+                                            roomName[0] == loginMember.name ? 
+                                            <div>
+                                        <NavLink className={stylesChatRoomList.RoomName} to={`/${teamId}/chat/${chatRoom.roomId}`} >
+                                            {roomName[1]}
+                                        </NavLink>
+                                        <button className={stylesChatRoomList.ExitButton} id={chatRoom.roomId} onClick={exitRoom}> ㅡ </button> 
+                                        </div>
+                                        :
+                                        <div>
+                                        <NavLink className={stylesChatRoomList.RoomName} to={`/${teamId}/chat/${chatRoom.roomId}`} >
+                                            {roomName[0]}
+                                        </NavLink>
+                                        <button className={stylesChatRoomList.ExitButton} id={chatRoom.roomId} onClick={exitRoom}> ㅡ </button> 
+                                        </div>
+                                        
+                                        )
+                                     }
                                 </div>
                             )
                         })

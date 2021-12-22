@@ -14,7 +14,7 @@ import Image from 'react-bootstrap/Image';
 ReactModal.setAppElement('body');
 
 
-const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate, callback }) => {
+const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate,avatar, callback }) => {
 
     const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
 
@@ -35,8 +35,7 @@ const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate, ca
 
     // 프로필 이미지
     var profileStyle = {
-        backgroundImage: `url(${sampleImg})`,
-        backgroundSize: '10vh 10vh'
+
     };
 
     /**
@@ -114,14 +113,13 @@ const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate, ca
         setModal03IsOpen(false);
     }
 
-
     return (
         <div>
             {loginMember.name !== sender ?
                 <div>
                     <div className={styles.Message}>
                         <div className={styles.Profile} onClick={openMiniProfile} style={profileStyle}>
-                        <Image className={styles.Profile} src={`http://localhost:8080/upload-file/`} />
+                        <Image className={styles.Profile} src={`http://localhost:8080/upload-file/${avatar}`} onClick={openMiniProfile}/>
                         </div>
                         <div className={styles.Block}>
                             <div className={styles.UserName}>

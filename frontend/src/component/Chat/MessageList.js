@@ -20,6 +20,7 @@ const MessageList = ({ messages, roomId, callback }) => {
                     roomId={roomId} 
                     chatId={message.chatId}
                     chatDate={message.date}
+                    avatar={message.avatar}
                     callback={noticeCallback2}/>
             }
 

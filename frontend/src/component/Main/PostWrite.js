@@ -110,25 +110,26 @@ const PostWrite = ({ partid, teamid }) => {
   //   }, [changeValue]);
   return (
     <div className={styles.PostWrite}>
-      <h2>[PostWrite]</h2>
-
+      <h2>게시글 작성</h2>
+      <br/>
       <form enctype="multipart/form-data" onSubmit={handlerOnClickPostAdd}>
         <table>
           <tr className="posttitle">
-            <td>{"title"}</td>
+            <td className={styles.Title}>{"제목"}</td>
             <td>
-              <input name="title" type="text" onChange={onChangeTitle} />
+              <input name="title" type="text" onChange={onChangeTitle} className={styles.InputTitle}/>
             </td>
           </tr>
           <br />
-          <tr className="postcontents">
-            <td>{"contents"}</td>
+          <tr className={styles.Contents}>
+            <td>{"내용"}</td>
             <td height="400px">
               <textarea
                 name="contents"
                 cols="95"
                 rows="20"
                 onChange={onChangeContents}
+                className={styles.InputContents}
               />
             </td>
           </tr>
@@ -137,7 +138,7 @@ const PostWrite = ({ partid, teamid }) => {
             <tr className="postimg">
               <td>{"Image add"}</td>
               <td>
-                <FileInput callback={callback} onFileChange={onFileChange} />
+                <FileInput callback={callback} onFileChange={onFileChange} className={styles.InputImage}/>
               </td>
             </tr>
           }
