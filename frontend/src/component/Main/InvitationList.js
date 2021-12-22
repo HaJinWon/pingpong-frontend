@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useRef} from 'react';
 import Invitation from './Invitation';
-
+import SockJsClient from 'react-stomp';
+import styles from '../../assets/scss/Invitation.scss'
 
 
 const InvitationList = () => {
     const [invitationList, setInvitationList]=useState([]);
     const [invitationAnswer, setInvitationAnswer]=useState(false);
-    
+    const $websocket = useRef(null);
+    const [inviteMessage, setInviteMessage] = useState(0);
+    const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
     
 
     useEffect(async()=>{        // 초대장 리스트 가져오는 useEffect
@@ -33,14 +36,17 @@ const InvitationList = () => {
             console.log(err);
         }
        
-    },[invitationAnswer]);
+    },[invitationAnswer,inviteMessage]);
 
     const handlerOnclickInvitationAnswer=()=>{       //comment 삭제 후 list reloading을 위한 handler
         setInvitationAnswer(!invitationAnswer) 
      }
 
     return (
-        <div>
+        <div className={styles.OuterBox}>
+              <SockJsClient url="http://localhost:8080/ws-stomp"
+                topics={[`/sub/${loginMember.id}`]}
+                onMessage={msg => { setInviteMessage(inviteMessage+1); console.log(inviteMessage);}} ref={$websocket} />
                                                    {/**Invitation list  */}
                 {invitationList.map((invitation, index)=>{return <Invitation
                                                                 key={index} 

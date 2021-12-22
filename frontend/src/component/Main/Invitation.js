@@ -6,6 +6,7 @@ import styles from '../../assets/scss/Invitation.scss'
 
 const Invitation = (props) => {
     console.log(props.invitation);
+    //const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
     const InvitationResponse= async (e) => {
             e.preventDefault();
                 
@@ -28,21 +29,47 @@ const Invitation = (props) => {
                     console.log(err);
                 }
                 props.callback()
+    }
+
+    const Reject= async (e) => {
+        e.preventDefault();
+            
+            try {
+                const response = await fetch(`/api/team/invite/${props.invitation.teamId}`, {
+                method: 'delete',
+                mode: 'cors',                           
+                credentials: 'include',                 
+                cache: 'no-cache',                           
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'         
+                },
+                redirect: 'follow',                     
+                referrer: 'client',                       
+                body: null
+                })
+    
+            }catch(err){
+                console.log(err);
             }
+            props.callback()
+}
 
 
 
     return (
-        <div className={styles.Invitation}>
-            
-        <div className={styles.InvitationContents}>
-                    🎁{`[${props.invitation.teamName}] 팀으로 부터 초대장이 도착했습니다.`}<br/>
-              </div>
-              <div className={styles.Button}>
-              <div className={styles.Button1}>  <Button variant="primary" type="button" value='Y' onClick={InvitationResponse}>수락</Button></div>
-              <div className={styles.Button2}>     <Button variant="primary" type="button" value='N' onClick={InvitationResponse}>거절</Button></div>
-              </div>
-        </div>
+
+            <div className={styles.Invitation}>
+
+                <div className={styles.InvitationContents}>
+                    🎁{`[${props.invitation.teamName}] 팀으로 부터 초대장이 도착했습니다.`}<br />
+                </div>
+                <div className={styles.Button}>
+                    <div className={styles.Button1}>  <Button variant="primary" type="button" value='Y' onClick={InvitationResponse}>수락</Button></div>
+                    <div className={styles.Button2}>  <Button variant="primary" type="button" value='N' onClick={Reject}>거절</Button></div>
+                </div>
+            </div>
+    
     );
 };
 

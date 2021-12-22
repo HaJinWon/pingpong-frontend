@@ -3,10 +3,12 @@ import UserInfo from "./UserInfo";
 import UserUpdateForm from "./UserUpdateForm";
 import Invitation from "../component/Main/Invitation";
 
-const UserUpdate = () => {
+const UserUpdate = ({inviteMessage}) => {
   const [profile, setProfile] = useState(window.sessionStorage.getItem("loginMember"));
   const [formInfo, setFormInfo] = useState([]);
   const [profileComponentChange, setProfileComponent]=useState(false);
+  const [alram, setAlram] = useState(inviteMessage);
+  
   const chgForm = (e) => {
 
       let { name, value } = e.target;

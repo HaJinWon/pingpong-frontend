@@ -12,16 +12,13 @@ const NavRight = ({ FileInput, postidforComment, postforComment }) => {
 
   return (
     <div className={styles.NavRight}>
-      <SockJsClient url="http://localhost:8080/ws-stomp"
-      topics={[`/sub/${loginMember.id}`]}
-      onMessage={msg => { console.log(msg); alert(msg); setInviteMessage(inviteMessage+1) }} ref={$websocket} />
       {
      
       postidforComment === "" ||
       postidforComment == undefined ||
       postforComment === "" ||
       postforComment == undefined ? (
-        <Profile FileInput={FileInput} />
+        <Profile FileInput={FileInput} inviteMessage={inviteMessage}/>
       ) : (
         <Comment
           postidforComment={postidforComment}

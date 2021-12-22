@@ -4,7 +4,21 @@ import stylesMemberBox from '../../assets/css/MemberBox.css';
 const Members = ({ teamId }) => {
 
     const [memberLists, setMemberLists ] = useState([]);
+    const stylesName ={
+        //border:'1px solid red',
+        width:'11vh',
+        float:'left',
+        fontWeight:'bolder'
+    }
 
+    const stylesStatus={
+        //border:'1px solid blue',
+        width:'10vh',
+        float:'left'
+    }
+    const stylesBlock ={
+        //border:'1px solid blue',
+    }
     useEffect(async() => {
         const response = await fetch(`/api/member/team/${teamId}`, {
             method: 'get',
@@ -32,7 +46,7 @@ const Members = ({ teamId }) => {
                 memberLists.map((memberList,index)=>{
                     return (
 
-                        <li>{memberList.name} - {memberList.status}</li>
+                        <li><div style={stylesBlock}><div style={stylesName}>{memberList.name}</div> <div style={stylesStatus}>{memberList.status}</div></div></li>
                        
                     )
                 })

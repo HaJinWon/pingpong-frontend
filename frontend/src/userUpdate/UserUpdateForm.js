@@ -164,6 +164,7 @@ const UserUpadteForm = (props) => {
             roundedCircle={true}
             class="rounded mx-auto d-block"
             width="150px"
+            height="150px"
             alt="프로필 이미지"
           />
         <br/>

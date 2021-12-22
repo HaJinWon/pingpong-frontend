@@ -1,3 +1,11 @@
+.OuterBox{
+    height: 23vh;
+    overflow: auto;
+}
+.OuterBox::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
 .Invitation{
     margin: 2em;
     background-color: #00A2FF;
@@ -6,6 +14,7 @@
     padding-left: 1em;
     padding-right: 1em;
     padding-bottom: 0.3em;
+    border:1px solid red;
     .Button{
         margin:0.5em;
         text-align: center;

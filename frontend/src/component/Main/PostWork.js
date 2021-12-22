@@ -39,7 +39,7 @@ const PostWork = () => {
             case 'modify': 
                 return <PostModify postid={postid} teamid={teamid}/> 
             case 'write': 
-                return <PostWrite/> 
+                return <PostWrite partid={postid} teamid={teamid}/> 
             default:
                 break;
     }

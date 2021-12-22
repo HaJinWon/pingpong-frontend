@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useRef} from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -7,12 +7,15 @@ import DefaultImage from '../assets/images/Im0.jpg';
 import Invitation from "../component/Main/Invitation";
 import style from '../assets/scss/UserInfo.scss'
 import InvitationList from '../component/Main/InvitationList';
+import styleChatInvite from '../assets/css/ChatInvite.css';
 
 
 
 const UserInfo = (props) => {
-    
 
+    const stylesLogoutBtn = {
+        marginLeft:'5%'
+    }
     const [formInfo, setFormInfo] = useState({
         "name": '',
         "avatar": '',
@@ -63,18 +66,43 @@ const UserInfo = (props) => {
     const styles ={
         backgroundImage:formInfo.avatar
     }
+
+    /**
+     *  로그아웃 함수
+     */
+    const handlerLogOut = async (e) => {
+        e.preventDefault();
+
+        await fetch(`/api/member/logout`, {
+            method: 'get',
+            mode: 'cors',
+            credentials: 'include',
+            cache: 'no-cache',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrer: 'client',
+            body: null
+        })
+        location.href = '/login';
+
+    }
+
     return (
        
         <div className={style.UserInfo}>
+              
                 <div className={style.img}> 
-                    {<Image src={`http://localhost:8080/upload-file/${formInfo.avatar}`} roundedCircle={true} className="img-responsive center-block" width='150px' alt='프로필 이미지'/>}
+                    {<Image src={`http://localhost:8080/upload-file/${formInfo.avatar}`} roundedCircle={true} width='150px' height='150px'alt='프로필 이미지'/>}
                 </div>
 
                 <div id='avatarImage' style={styles}></div>
 
                 <div className='User UpdateForm'>
                 <div className={style.form}>
-                <h4 >회원정보 수정</h4>
+                <h4 >회원정보</h4>
                 <br/>
                     
 
@@ -96,6 +124,9 @@ const UserInfo = (props) => {
                             <Button variant="primary" type="button" onClick={props.handlerOnChangeComponent}>
                                   {`회원정보 수정`}  
                             </Button>
+                            <Button variant="primary" type="button" style={stylesLogoutBtn} onClick={handlerLogOut}>
+                                  로그아웃
+                            </Button>
                         </div>
                     
                     
@@ -103,9 +134,6 @@ const UserInfo = (props) => {
                 </div>
 
 
-
-                <br />
-                <br />
                 {
                 <InvitationList />
                 }
