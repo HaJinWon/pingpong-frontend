@@ -3,17 +3,10 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import styles from "../assets/scss/profileImg.scss";
-import DefaultImage from "../assets/images/Im0.jpg";
-import FileInput from '../component/image_file_input/image_file_input';
 import ImageFileInput from "../component/image_file_input/image_file_input";
 import ImageUploader from "../service/image_uploader";
 
-
-import style from '../assets/scss/UserInfo.scss'
+import style from "../assets/scss/UserInfo.scss";
 
 const UserUpadteForm = (props) => {
   const imageUploader = new ImageUploader();
@@ -21,24 +14,23 @@ const UserUpadteForm = (props) => {
     <ImageFileInput {...props} imageUploader={imageUploader} />
   );
 
-
   let changedFile;
   const baseUrl = "../assets/images/";
-  const [avatar,setAvatar] = useState('Im0.jpg');
-  const avatarImage  = avatar;
+  const [avatar, setAvatar] = useState("Im0.jpg");
+  const avatarImage = avatar;
   const [changeValue, setChangeValue] = useState(0);
   const [formInfo, setFormInfo] = useState({
     name: "",
     avatar: "Im0.jpg",
     phone: "",
-    company: ""
+    company: "",
   });
 
   const onFileChange = (file) => {
     console.log("ggggg", file);
     setFormInfo({
       ...formInfo,
-      avatar:  file.storeName,
+      avatar: file.storeName,
       storeName: file.storeName,
       origName: file.name,
     });
@@ -74,7 +66,6 @@ const UserUpadteForm = (props) => {
       });
   };
 
-
   useEffect(async () => {
     try {
       const response = await fetch("/api/member/edit", {
@@ -100,7 +91,7 @@ const UserUpadteForm = (props) => {
       }
       console.log("회원정보 수정 : ", jsonResult.data);
       setAvatar(jsonResult.data.avatar);
-      console.log('아바타 주소',avatar);
+      console.log("아바타 주소", avatar);
       setFormInfo({
         name: jsonResult.data.name,
         avatar: jsonResult.data.avatar,
@@ -118,16 +109,14 @@ const UserUpadteForm = (props) => {
     }
   }, []);
 
-  
-
   console.log("ooout: formInfo.avatar: state:", formInfo.avatar);
 
-  const callback = (fileName)=>{
-    console.log('b',fileName);
+  const callback = (fileName) => {
+    console.log("b", fileName);
     changedFile = fileName;
-  }
+  };
 
-  const imageUpload2 = async(file) =>{
+  const imageUpload2 = async (file) => {
     const data = new FormData();
     data.append("file", file);
     data.append("upload_preset", "pdzaoz52");
@@ -148,82 +137,92 @@ const UserUpadteForm = (props) => {
       });
 
     return response;
-  }
+  };
 
   return (
     <div className={style.UserInfo}>
       <div class="text-center">
-        <br/>
-          <Image
-
-            src={`http://localhost:8080/upload-file/${formInfo.avatar}`}
-
-            // src={require(`../assets/images/${formInfo.avatar}`)}
-            // src={require(`${formInfo.avatar}`)}
-            // src={{ imageUrl }}
-            roundedCircle={true}
-            class="rounded mx-auto d-block"
-            width="150px"
-            height="150px"
-            alt="프로필 이미지"
-          />
-        <br/>
+        <br />
+        <Image
+          src={`http://localhost:8080/upload-file/${formInfo.avatar}`}
+          roundedCircle={true}
+          class="rounded mx-auto d-block"
+          width="150px"
+          height="150px"
+          alt="프로필 이미지"
+        />
+        <br />
       </div>
-      <br/>
+      <br />
       <div className="User UpdateForm">
-      <div className={style.form}>
-        <Form onSubmit={handlerSubmit} enctype="multipart/form-data">
-          {/*
+        <div className={style.form}>
+          <Form onSubmit={handlerSubmit} enctype="multipart/form-data">
+            {/*
           <FileInput onFileChange={onFileChange} callback={callback} />
-          */
-          }
-          <br/>
-          <FileInput callback={callback} onFileChange={onFileChange} />
-          <br/>
+          */}
+            <br />
+            <FileInput callback={callback} onFileChange={onFileChange} />
+            <br />
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              value={formInfo.email}
-              onChange={chgForm}
-              name="email"
-              disabled
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={formInfo.name}
-              onChange={chgForm}
-              name="name"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Phone</Form.Label>
-            <Form.Control
-              type="text"
-              value={formInfo.phone}
-              onChange={chgForm}
-              name="phone"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Company</Form.Label>
-            <Form.Control
-              type="text"
-              value={formInfo.company}
-              onChange={chgForm}
-              name="company"
-            />
-          </Form.Group>
-          <br/><br/>
-          <div className={style.button}>
-          <div className={style.Button1}> <Button variant="primary" type="button" onClick={ props.handlerOnChangeComponent}>돌아가기</Button></div>
-          <div className={style.Button2}> <Button variant="primary" type="submit"> 회원정보 수정 </Button></div>
-          </div>
-        </Form>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                value={formInfo.email}
+                onChange={chgForm}
+                name="email"
+                disabled
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                value={formInfo.name}
+                onChange={chgForm}
+                name="name"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="text"
+                value={formInfo.phone}
+                onChange={chgForm}
+                name="phone"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Company</Form.Label>
+              <Form.Control
+                type="text"
+                value={formInfo.company}
+                onChange={chgForm}
+                name="company"
+              />
+            </Form.Group>
+            <br />
+            <br />
+            <div className={style.button}>
+              <div className={style.Button1}>
+                {" "}
+                <Button
+                  variant="primary"
+                  type="button"
+                  onClick={props.handlerOnChangeComponent}
+                >
+                  돌아가기
+                </Button>
+              </div>
+              <div className={style.Button2}>
+                {" "}
+                <Button variant="primary" type="submit">
+                  {" "}
+                  회원정보 수정{" "}
+                </Button>
+              </div>
+            </div>
+          </Form>
         </div>
       </div>
     </div>
