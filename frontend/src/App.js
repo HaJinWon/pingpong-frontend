@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router";
@@ -12,7 +11,7 @@ import Welcome from "./welcome/Welcome";
 import FindId from "./findid/FindId";
 import WebSocketProvider from "./Websocket/WebSocketProvider";
 import SiteLayout from "./layout/SiteLayout";
-import ChatRoomList from './component/Chat/ChatRoomList'
+import ChatRoomList from "./component/Chat/ChatRoomList";
 
 export default function App() {
   return (
@@ -20,20 +19,16 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
-        <Route path="/:teamid/post/:partid" element={<Post /*FileInput={FileInput}*//>} />
+        <Route path="/:teamid/post/:partid" element={<Post />} />
         <Route path="/:teamid/post/:category/:postid" element={<PostWork />} />
         <Route path="/" element={<Login />} />
-        <Route path="/:teamid/main" element={<Main /*FileInput={FileInput}*/ />} />
-        <Route
-          path="/:teamid/chat/:roomId"
-          element={<Chat /*FileInput={FileInput}*/ />}
-        />
-        <Route path='/welcome' element={<Welcome /*FileInput={FileInput}*//>}/>
-        <Route path='/findid' element={<FindId/>}/>
-        <Route path='/chatroomlist' element={<ChatRoomList/>}/>
-        <Route path='/sitelayout' element={<SiteLayout/>}/>
+        <Route path="/:teamid/main" element={<Main />} />
+        <Route path="/:teamid/chat/:roomId" element={<Chat />} />
+        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/findid" element={<FindId />} />
+        <Route path="/chatroomlist" element={<ChatRoomList />} />
+        <Route path="/sitelayout" element={<SiteLayout />} />
       </Routes>
     </BrowserRouter>
   );
-
 }
