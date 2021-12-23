@@ -66,6 +66,7 @@ const BelongMemberList = ({ teamId }) => {
         for(let i = 0;i<checkedId.length;i++){
             sendMessage(checkedId[i]);
         }
+        setCheckedId(new Array());
         setModal03IsOpen(false);
     }
     
