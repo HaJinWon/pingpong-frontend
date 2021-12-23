@@ -38,13 +38,10 @@ const UserUpadteForm = (props) => {
 
   const chgForm = (e) => {
     let { name, value } = e.target;
-
     setFormInfo({
       ...formInfo,
       [name]: value,
     });
-
-    console.log(formInfo);
   };
 
   const handlerSubmit = async (e) => {
@@ -104,8 +101,6 @@ const UserUpadteForm = (props) => {
     } catch (err) {
     } finally {
       //   console.log("formInfo: json :", jsonResult.data.avatar);
-      console.log("formInfo : state", formInfo);
-      console.log("formInfo.avatar: state:", formInfo.avatar);
     }
   }, []);
 
@@ -142,7 +137,6 @@ const UserUpadteForm = (props) => {
   return (
     <div className={style.UserInfo}>
       <div class="text-center">
-        <br />
         <Image
           src={`http://localhost:8080/upload-file/${formInfo.avatar}`}
           roundedCircle={true}
@@ -151,15 +145,12 @@ const UserUpadteForm = (props) => {
           height="150px"
           alt="프로필 이미지"
         />
-        <br />
+        <span className="status-point"></span>
       </div>
       <br />
       <div className="User UpdateForm">
         <div className={style.form}>
           <Form onSubmit={handlerSubmit} enctype="multipart/form-data">
-            {/*
-          <FileInput onFileChange={onFileChange} callback={callback} />
-          */}
             <br />
             <FileInput callback={callback} onFileChange={onFileChange} />
             <br />
@@ -181,6 +172,7 @@ const UserUpadteForm = (props) => {
                 value={formInfo.name}
                 onChange={chgForm}
                 name="name"
+                disabled
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
