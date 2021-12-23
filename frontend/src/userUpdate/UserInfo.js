@@ -139,7 +139,7 @@ const UserInfo = (props) => {
           </div>
         </div>
       </div>
-
+      <InvitationList/>      
       {}
     </div>
   );

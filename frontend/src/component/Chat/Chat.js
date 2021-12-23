@@ -47,7 +47,7 @@ const Chat = () => {
       });
 
       const jsonResult = await response.json();
-      console.log(jsonResult);
+      console.log('asdfsadf',jsonResult);
       setMessages(jsonResult);
 
       /**
@@ -133,6 +133,7 @@ const Chat = () => {
   const subscribe = () => {
     client.current.subscribe(`/sub/chat/room/${roomId}`, ({ body }) => {
       setMessages((messages) => [...messages, JSON.parse(body)]);
+      console.log(body);
     });
   };
 
@@ -155,6 +156,7 @@ const Chat = () => {
    *  Stomp Publish 함수
    */
   const publish = (message, type) => {
+    window.sessionStorage.getItem("loginMember");
     if (!client.current.connected) {
       return;
     }
@@ -166,14 +168,16 @@ const Chat = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        avatar :loginMember.avatar,
         type: type,
         roomId: roomId,
         senderId: loginId,
         message: message,
         sender: loginName,
       }),
+      
     });
-
+    console.log(loginMember.avatar);
     setMessage("");
   };
 

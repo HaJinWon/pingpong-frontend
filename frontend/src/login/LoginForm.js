@@ -103,9 +103,10 @@ export default function () {
           JSON.parse(sessionStorage.getItem("selectTeam")).team_id
         );
 
-        location.href = `/${
-          JSON.parse(sessionStorage.getItem("selectTeam")).team_id
-        }/main`;
+        const defaultTeam = data.data.teamList[0].team_id;
+        const defaultRoom = data.data.teamList[0].room_id;
+
+        location.href = `/${defaultTeam}/chat/${defaultRoom}`;
       } else {
         location.href = "/welcome";
       }
