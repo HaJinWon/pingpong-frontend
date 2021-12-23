@@ -46,7 +46,7 @@ const InvitationList = () => {
         <div className={styles.OuterBox}>
               <SockJsClient url="http://localhost:8080/ws-stomp"
                 topics={[`/sub/${loginMember.id}`]}
-                onMessage={msg => { setInviteMessage(inviteMessage+1); console.log(inviteMessage);}} ref={$websocket} />
+                onMessage={msg => { setInviteMessage(inviteMessage+1); console.log(inviteMessage); alert('초대장이 도착했습니다.')}} ref={$websocket} />
                                                    {/**Invitation list  */}
                 {invitationList.map((invitation, index)=>{return <Invitation
                                                                 key={index} 
