@@ -6,7 +6,7 @@ import Image from "react-bootstrap/Image";
 import ImageFileInput from "../image_file_input/image_file_input";
 import ImageUploader from "../../service/image_uploader";
 
-import styles from "../../assets/scss/PostWrite.scss";
+import styles from "../../assets/scss/PostModify.scss";
 
 const PostModify = (props) => {
   const imageUploader = new ImageUploader();
@@ -16,6 +16,7 @@ const PostModify = (props) => {
 
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [origName, setOrigName] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [partId, setPartId] = useState("");
   //   const [post, setPost] = useState([]);
@@ -66,7 +67,6 @@ const PostModify = (props) => {
     } catch (err) {
       console.log(err);
     }
-    console.log("click!!!!!!!!!!!!!!!!!!!!!!");
     location.href = `/${props.teamid}/post/${partId}`;
   };
 
@@ -83,19 +83,22 @@ const PostModify = (props) => {
   };
 
   const onFileChange = (file) => {
-    console.log("ggggg", file);
+    console.log("2131231231", file);
     setThumbnail(file.storeName);
+    setOrigName(file.name);
   };
 
   return (
-    <div className={styles.PostWrite}>
-      <h2>[PostModify]</h2>
+    <div className={styles.updatePost}>
+      <h2>[게시글 수정]</h2>
       <form action method="post" enctype="multipart/form-data">
-        <table>
-          <tr className="posttitle">
-            <td>{"title"}</td>
+        <table className={styles.updateTable}>
+          {/* 타이틀 */}
+          <tr className={styles.titleContainer}>
+            <td>제목</td>
             <td>
               <input
+                className={styles.styleInput}
                 name="title"
                 type="text"
                 onChange={onChangeTitle}
@@ -103,52 +106,42 @@ const PostModify = (props) => {
               />
             </td>
           </tr>
-          <br />
-          <tr className="postcontents">
-            <td>{"contents"}</td>
+
+          {/* 본문내용 */}
+          <tr className={styles.contentsContainer}>
+            <td>본문</td>
             <td height="400px">
               <textarea
                 name="contents"
-                cols="108"
-                rows="20"
                 value={contents}
                 onChange={onChangeContents}
               />
             </td>
           </tr>
-          <br />
+
+          {/* 첨부파일 */}
           <tr className="postimg">
-            <td>{"thumbnail add"}</td>
+            <td>{"File"}</td>
             <td>
-              <FileInput callback={callback} onFileChange={onFileChange} />
-            </td>
-            <td>
-              {thumbnail ? (
-                <Image
-                  src={`http://localhost:8080/upload-file/${thumbnail}`}
-                  roundedCircle={true}
-                  class="rounded mx-auto d-block"
-                  width="150px"
-                  height="150px"
-                  alt="thumbnail"
-                />
-              ) : null}
-            </td>
-          </tr>
-          <br />
-          <tr className="postcontents">
-            <td>
-              <Button
-                variant="secondary"
-                size="lg"
-                type="submit"
-                onClick={handlerOnClickPostModify}
-              >
-                작성 완료
-              </Button>
+              <FileInput
+                name={origName}
+                callback={callback}
+                onFileChange={onFileChange}
+              />
             </td>
           </tr>
         </table>
+        {/* submit 버튼 */}
+        <div className={styles.btnContainer}>
+          <Button
+            variant="secondary"
+            size="lg"
+            type="submit"
+            onClick={handlerOnClickPostModify}
+          >
+            작성 완료
+          </Button>
+        </div>
       </form>
     </div>
   );

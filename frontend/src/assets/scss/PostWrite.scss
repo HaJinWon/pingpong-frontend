@@ -1,58 +1,60 @@
-.PostWrite{
-    padding-left: 1em;
-    input{
-        width: 90%;
-        margin: auto;
-    }
-    .AddPosttitle{
-        height: 15vh;
-    }
-    
-    table{
-        width: 60vw;
-        .postcontents{
-            height: 60vh;
+.PostWrite {
+  padding-left: 1em;
+  input {
+    width: 90%;
+    margin: auto;
+  }
+  .AddPosttitle {
+    height: 15vh;
+  }
 
-            .AddPostcomment{
-                height: 60vh;
-            }
-        }
+  .updateTable {
+    width: 120px;
+  }
+
+  table {
+    width: 100%;
+    .postcontents {
+      height: 60vh;
+      width: 50vh;
+
+      .AddPostcomment {
+        height: 60vh;
+      }
     }
-    .Title{
-        font-size: 20px;
-        font-weight: bolder;
+
+    .fileContainer {
+      width: 89%;
     }
-    .Contents{
-        font-size: 20px;
-        font-weight: bolder;
-    }
-    
-    .InputTitle{
-        width:89%;
-    
-    }
-    .InputContents{
-        width:89%;
-    }
-    .InputImage{
-        width:89%;
-    }
+  }
+  .Title {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  .Contents {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  .InputTitle {
+    width: 89%;
+  }
+  .InputContents {
+    width: 89%;
+  }
+  .InputImage {
+    width: 89%;
+  }
+
+  .btnContainer {
+    width: 100%;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    margin-top: 20px;
+    margin-left: -24px;
+  }
 }
-
-
-// <div className={styles.PostWrite}>
-// <h2>[PostWrite]</h2>
-// <form>
-//     <input className='AddPosttitle' type='text'></input>
-//     <br/>
-
-
-    
-//     <input className='AddPostcomment' type='text'></input>
-//     {/*
-//     <FontAwesomeIcon icon={file-alt} />
-//     <FontAwesomeIcon icon={camera-alt} />
-//     <FontAwesomeIcon icon={poll} />
-//     */}
-// </form>
-// </div>

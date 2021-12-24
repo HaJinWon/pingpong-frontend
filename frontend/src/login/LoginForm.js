@@ -52,23 +52,21 @@ export default function () {
       return;
     }
 
-    await axios
-      .post("/api/member/login", formInfo, {
+    try {
+      const jsonResult = await axios.post("/api/member/login", formInfo, {
         headers: { "Content-Type": `application/json` },
-      })
-      .then((res) => {
-        console.log(res.data.member.id);
-        if (res.data.member.id !== null) {
-          window.sessionStorage.setItem(
-            "loginMember",
-            JSON.stringify(res.data.member)
-          );
-          setSuccessAdd(!successAdd);
-          getTeamList();
-        } else {
-          alert("회원 정보가 일치하지 않습니다.");
-        }
       });
+      const member = jsonResult.data.data.member;
+      const result = jsonResult.data.result;
+
+      console.log("3www", result);
+
+      window.sessionStorage.setItem("loginMember", JSON.stringify(member));
+      setSuccessAdd(!successAdd);
+      getTeamList();
+    } catch (e) {
+      alert("회원정보가 일치하지 않습니다.");
+    }
   };
   /**
    *  본인이 속한 팀 리스트 부르는 함수

@@ -24,6 +24,7 @@ const UserUpadteForm = (props) => {
     avatar: "Im0.jpg",
     phone: "",
     company: "",
+    origName: "",
   });
 
   const onFileChange = (file) => {
@@ -86,9 +87,7 @@ const UserUpadteForm = (props) => {
       if (jsonResult.result !== "success") {
         throw new Error(`${jsonResult.result} ${jsonResult.message}`);
       }
-      console.log("회원정보 수정 : ", jsonResult.data);
       setAvatar(jsonResult.data.avatar);
-      console.log("아바타 주소", avatar);
       setFormInfo({
         name: jsonResult.data.name,
         avatar: jsonResult.data.avatar,
@@ -152,7 +151,11 @@ const UserUpadteForm = (props) => {
         <div className={style.form}>
           <Form onSubmit={handlerSubmit} enctype="multipart/form-data">
             <br />
-            <FileInput callback={callback} onFileChange={onFileChange} />
+            <FileInput
+              name={formInfo.origName}
+              callback={callback}
+              onFileChange={onFileChange}
+            />
             <br />
 
             <Form.Group className="mb-3" controlId="formBasicEmail">

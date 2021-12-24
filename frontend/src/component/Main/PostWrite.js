@@ -6,6 +6,7 @@ import ImageFileInput from "../image_file_input/image_file_input";
 import ImageUploader from "../../service/image_uploader";
 
 import styles from "../../assets/scss/PostWrite.scss";
+import { NavItem } from "react-bootstrap";
 
 const PostWrite = ({ partid, teamid }) => {
   const imageUploader = new ImageUploader();
@@ -14,6 +15,7 @@ const PostWrite = ({ partid, teamid }) => {
   );
 
   const [title, setTitle] = useState("");
+  const [origName, setOrigName] = useState("");
   const [contents, setContents] = useState("");
   const [thumbnail, setThumbnail] = useState();
   const [postAdd, setPostAdd] = useState(false);
@@ -46,18 +48,14 @@ const PostWrite = ({ partid, teamid }) => {
     location.href = `/${teamId}/post/${partId}`;
   };
 
-  //   useEffect(() => {
-  //     thumbnail && setThumbnail(thumbnail);
-  //   }, [thumbnail]);
-
   const callback = (fileName) => {
     console.log("b", fileName);
     changedFile = fileName;
   };
 
   const onFileChange = (file) => {
-    console.log("ggggg", file);
     setThumbnail(file.storeName);
+    setOrigName(file.name);
   };
 
   const onChangeTitle = (e) => {
@@ -66,58 +64,22 @@ const PostWrite = ({ partid, teamid }) => {
   const onChangeContents = (e) => {
     setContents(e.target.value);
   };
-  // useEffect(async () => {
-  //     try {
-  //       const response = await fetch("/api/member/edit", {
-  //         //선택한 post 를 가져오는 부분
-  //         method: "get",
-  //         mode: "cors",
-  //         credentials: "include",
-  //         cache: "no-cache",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Accept: "application/json",
-  //         },
-  //         redirect: "follow",
-  //         referrer: "client",
-  //         body: null,
-  //       });
 
-  //       const jsonResult = await response.json();
-  //       console.log(jsonResult);
-
-  //       if (jsonResult.result !== "success") {
-  //         throw new Error(`${jsonResult.result} ${jsonResult.message}`);
-  //       }
-  //       console.log("회원정보 수정 : ", jsonResult.data);
-  //       setAvatar(jsonResult.data.avatar);
-  //       console.log('아바타 주소',avatar);
-  //       setFormInfo({
-  //         name: jsonResult.data.name,
-  //         avatar: jsonResult.data.avatar,
-  //         email: jsonResult.data.email,
-  //         phone: jsonResult.data.phone,
-  //         company: jsonResult.data.company,
-  //         fileName: jsonResult.data.fileName,
-  //         status: "LOGIN",
-  //       });
-  //     } catch (err) {
-  //     } finally {
-  //       //   console.log("formInfo: json :", jsonResult.data.avatar);
-  //       console.log("formInfo : state", formInfo);
-  //       console.log("formInfo.avatar: state:", formInfo.avatar);
-  //     }
-  //   }, [changeValue]);
   return (
     <div className={styles.PostWrite}>
       <h2>게시글 작성</h2>
-      <br/>
+      <br />
       <form enctype="multipart/form-data" onSubmit={handlerOnClickPostAdd}>
         <table>
           <tr className="posttitle">
             <td className={styles.Title}>{"제목"}</td>
             <td>
-              <input name="title" type="text" onChange={onChangeTitle} className={styles.InputTitle}/>
+              <input
+                name="title"
+                type="text"
+                onChange={onChangeTitle}
+                className={styles.InputTitle}
+              />
             </td>
           </tr>
           <br />
@@ -134,38 +96,30 @@ const PostWrite = ({ partid, teamid }) => {
             </td>
           </tr>
           <br />
-          {
-            <tr className="postimg">
-              <td>{"Image add"}</td>
-              <td>
-                <FileInput callback={callback} onFileChange={onFileChange} className={styles.InputImage}/>
-              </td>
-            </tr>
-          }
-          <br />
-          {thumbnail ? (
-            <Image
-              src={`http://localhost:8080/upload-file/${thumbnail}`}
-              roundedCircle={true}
-              class="rounded mx-auto d-block"
-              width="150px"
-              height="150px"
-              alt="thumbnail"
-            />
-          ) : null}
-          <tr>
+          <tr className="postimg">
+            <td>{"File"}</td>
             <td>
-              <Button
-                variant="secondary"
-                size="lg"
-                type="submit"
-                onClick={handlerOnClickPostAdd}
-              >
-                작성 완료
-              </Button>
+              <div className={styles.fileContainer}>
+                <FileInput
+                  name={origName}
+                  callback={callback}
+                  onFileChange={onFileChange}
+                  className={styles.InputImage}
+                />
+              </div>
             </td>
           </tr>
         </table>
+        <div className={styles.btnContainer}>
+          <Button
+            variant="secondary"
+            size="lg"
+            type="submit"
+            onClick={handlerOnClickPostAdd}
+          >
+            작성 완료
+          </Button>
+        </div>
       </form>
     </div>
   );
