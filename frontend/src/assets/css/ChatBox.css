@@ -10,3 +10,12 @@
 .ChatDiv::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
 }
+
+.Input{
+    border:1px solid red;
+    width: 100%;
+}
+
+.Form{
+    width: 100%;
+}

@@ -216,9 +216,9 @@ const Chat = () => {
           callback={noticeCallback}
         />
       </div>
-      <div>
-        <div>
-          <form onSubmit={handlerSend}>
+      <div className={stylesChatBox.Input}>
+
+          <form onSubmit={handlerSend} className={stylesChatBox.Form}>
             <input
               className={MessageInput.TextBox}
               type="text"
@@ -237,7 +237,7 @@ const Chat = () => {
               전송
             </Button>
           </form>
-        </div>
+
       </div>
     </SiteLayout>
   );
