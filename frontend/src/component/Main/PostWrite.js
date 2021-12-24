@@ -24,7 +24,7 @@ const PostWrite = ({ partid, teamid }) => {
     //글 작성을 위한 함수
     e.preventDefault();
     console.log({ title, contents });
-    alert("11");
+    
     try {
       const response = await fetch(`/api/post/${partId}`, {
         method: "post",
@@ -136,23 +136,13 @@ const PostWrite = ({ partid, teamid }) => {
           <br />
           {
             <tr className="postimg">
-              <td>{"Image add"}</td>
+              <td>{"File add"}</td>
               <td>
                 <FileInput callback={callback} onFileChange={onFileChange} className={styles.InputImage}/>
               </td>
             </tr>
           }
           <br />
-          {thumbnail ? (
-            <Image
-              src={`http://localhost:8080/upload-file/${thumbnail}`}
-              roundedCircle={true}
-              class="rounded mx-auto d-block"
-              width="150px"
-              height="150px"
-              alt="thumbnail"
-            />
-          ) : null}
           <tr>
             <td>
               <Button

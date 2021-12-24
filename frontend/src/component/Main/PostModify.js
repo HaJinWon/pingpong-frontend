@@ -19,6 +19,10 @@ const PostModify = (props) => {
   const [thumbnail, setThumbnail] = useState("");
   const [partId, setPartId] = useState("");
   //   const [post, setPost] = useState([]);
+
+  const stylesContent ={
+    width:'50%'
+  }
   useEffect(async () => {
     try {
       const response = await fetch(`/api/post/update/${props.postid}`, {
@@ -89,11 +93,11 @@ const PostModify = (props) => {
 
   return (
     <div className={styles.PostWrite}>
-      <h2>[PostModify]</h2>
+      <h2>글 수정하기</h2>
       <form action method="post" enctype="multipart/form-data">
         <table>
-          <tr className="posttitle">
-            <td>{"title"}</td>
+          <tr className={styles.Title}>
+            <td>{"제목"}</td>
             <td>
               <input
                 name="title"
@@ -104,10 +108,11 @@ const PostModify = (props) => {
             </td>
           </tr>
           <br />
-          <tr className="postcontents">
-            <td>{"contents"}</td>
-            <td height="400px">
+          <tr className={styles.Contents} style={stylesContent}>
+            <td>{"내용"}</td>
+            <td height="400px" >
               <textarea
+                width="50%"
                 name="contents"
                 cols="108"
                 rows="20"

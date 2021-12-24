@@ -38,6 +38,12 @@ const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate,ava
 
     };
 
+    //미니 프로필
+    const stylesMiniProfile ={
+        width:'285px',
+        height:'285px'
+    }
+
     /**
      *  채팅: 상대방 이미지 클릭시 미니 프로필을 띄우기 위한 함수
      */
@@ -167,13 +173,13 @@ const Message = ({ type, message, sender, senderId, roomId, chatId, chatDate,ava
                 onRequestClose={() => setModal02IsOpen(false)}
                 contentLabel="modal02 example">
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={require(`../../assets/images/${imgUrl}`)} />
+                    <Card.Img variant="top" src={`http://localhost:8080/upload-file/${avatar}`} style={stylesMiniProfile}/>
                     <Card.Body>
                         <Card.Title>{miniProfile.name}</Card.Title>
                         <Card.Text>
                             {miniProfile.status}
                         </Card.Text>
-                        <Button variant="primary">프로필 확인</Button>
+                        <Button variant="primary">대화하기</Button>
                     </Card.Body>
                 </Card>
             </Modal>

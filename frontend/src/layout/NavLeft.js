@@ -242,7 +242,7 @@ const NavLeft = () => {
     return (
         <nav className={styles.NavLeft}>
 
-            <h3>🤝
+            <h3>
             <div className={stylesMainTeamName.OuterBox}>
                 <DropdownButton id="dropdown-item-button" size="lg"
                     title={selectTeamName} className={stylesMainTeamName.TeamName}>
@@ -252,7 +252,7 @@ const NavLeft = () => {
                     {
                         teams.map((team, index) => {
                             return (
-                                <Dropdown.Item as="button"><NavLink to={`/${team.team_id}/chat/${team.room_id}`} className={stylesMainTeamName.TeamList}>{team.name}</NavLink> </Dropdown.Item>
+                                <NavLink to={`/${team.team_id}/chat/${team.room_id}`} className={stylesMainTeamName.TeamList}><Dropdown.Item as="button">{team.name}</Dropdown.Item></NavLink>
                             )
                         })
                     }

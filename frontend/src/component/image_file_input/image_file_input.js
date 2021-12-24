@@ -24,7 +24,6 @@ const ImageFileInput = ({ imageUploader, name, onFileChange }) => {
         ref={inputRef}
         className={styles.input}
         type="file"
-        accept="image/*"
         name="file"
         onChange={onChange}
       />
