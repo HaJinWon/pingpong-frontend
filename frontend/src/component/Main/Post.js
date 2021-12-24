@@ -83,6 +83,7 @@ const Post = ({/*FileInput*/}) => {
                                             name={posts.name}
                                             post={posts}
                                             date={posts.date}
+                                            thumbnail={posts.thumbnail}
                                             callback={handlerOnclickPost}
                                             handlerDeletePost={handlerDeletePost}
                                             />})

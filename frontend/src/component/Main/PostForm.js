@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import styles from '../../assets/scss/PostForm.scss';
 import moment from 'moment';
 
-const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeletePost}) => {
+const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeletePost,thumbnail}) => {
    let {teamid, partid}=useParams()
    const {openDropdown, setOpenDropdown}=useState(false);
    
@@ -52,7 +52,28 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
       e.preventDefault();
       setOpenDropdown(!openDropdown)
    }
+   const FileDownload = async(e) =>{
+      
+      location.href=`http://localhost:8080/download/${thumbnail}`
+      // try {
+      //    const response = await fetch(`http://localhost:8080/download/${thumbnail}`, {
+      //       method: 'get',
+      //       mode: 'cors',                           
+      //       credentials: 'include',                 
+      //       cache: 'no-cache',                           
+      //       headers: {
+      //          'Accept': 'application/json',
+      //          'Content-Type': 'application/json'         
+      //       },
+      //       redirect: 'follow',                     
+      //       referrer: 'client',                       
+      //       body: null
+      //    });
 
+      //    } catch (err) {
+      //       console.error(err);
+      //    }
+   }
     return (
 
            
@@ -75,11 +96,14 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
                                     }
                                  </DropdownButton>
 
-                        
+                                    
                               <br/><br/>
+                              
                               <div className={styles.contents}>
+                              <div className={styles.download} onClick={FileDownload}>첨부파일 : <a>{thumbnail}</a></div>
                                  {contents}
                               </div>
+                              
 
                             
                              
