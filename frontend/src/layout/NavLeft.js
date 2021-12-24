@@ -253,7 +253,7 @@ const NavLeft = () => {
                         teams.map((team, index) => {
                             return (
                                 <Dropdown.Item as="button"><NavLink to={`/${team.team_id}/chat/${team.room_id}`} className={stylesMainTeamName.TeamList}>{team.name}</NavLink> </Dropdown.Item>
-                            ) 
+                            )
                         })
                     }
                 </DropdownButton>
