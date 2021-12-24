@@ -19,11 +19,10 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const dateNow = new Date();
   const styles = {
-    overflow: "auto",
-    height: "700px",
-    display: "flex",
-    flexDirection: "column-reverse",
     overflowY: "auto",
+    height: "700px",
+    // display: "flex",
+    flexDirection: "column-reverse",
     backgroundColor: "#b2c9ed",
   };
 
