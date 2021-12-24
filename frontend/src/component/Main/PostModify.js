@@ -20,6 +20,10 @@ const PostModify = (props) => {
   const [thumbnail, setThumbnail] = useState("");
   const [partId, setPartId] = useState("");
   //   const [post, setPost] = useState([]);
+
+  const stylesContent = {
+    width: "50%",
+  };
   useEffect(async () => {
     try {
       const response = await fetch(`/api/post/update/${props.postid}`, {
@@ -112,6 +116,7 @@ const PostModify = (props) => {
             <td>본문</td>
             <td height="400px">
               <textarea
+                width="50%"
                 name="contents"
                 value={contents}
                 onChange={onChangeContents}

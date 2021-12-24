@@ -26,7 +26,7 @@ const PostWrite = ({ partid, teamid }) => {
     //글 작성을 위한 함수
     e.preventDefault();
     console.log({ title, contents });
-    alert("11");
+
     try {
       const response = await fetch(`/api/post/${partId}`, {
         method: "post",
