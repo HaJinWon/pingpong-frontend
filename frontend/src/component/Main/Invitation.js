@@ -24,7 +24,8 @@ const Invitation = (props) => {
                     referrer: 'client',                       
                     body: JSON.stringify(e.target.value)
                     })
-                    console.log('초대장 답장은!!!!!!!!!!!!!!!!', e.target.value)
+                    // console.log('초대장 답장은!!!!!!!!!!!!!!!!', e.target.value)
+                    getTeamList();
                 }catch(err){
                     console.log(err);
                 }
@@ -53,7 +54,49 @@ const Invitation = (props) => {
                 console.log(err);
             }
             props.callback()
-}
+    }
+
+    const getTeamList = async () => {
+        try {
+          const response = await fetch("/api/team/list", {
+            method: "get",
+            mode: "cors",
+            credentials: "include",
+            cache: "no-cache",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            redirect: "follow",
+            referrer: "client",
+            body: null,
+          });
+          const data = await response.json();
+          console.log(data);
+    
+          if (data.data.teamList.length !== 0) {
+            window.sessionStorage.setItem(
+              "selectTeam",
+              JSON.stringify(data.data.teamList[0])
+            ); //받아온 team list 중 디폴트 team을 session storage에 할당
+    
+            //setSelectTeam(JSON.parse(sessionStorage.getItem("selectTeam")));
+            console.log(
+              "select team : ",
+              JSON.parse(sessionStorage.getItem("selectTeam")).team_id
+            );
+    
+            const defaultTeam = data.data.teamList[0].team_id;
+            const defaultRoom = data.data.teamList[0].room_id;
+            console.log('defaultTeam',defaultTeam,'defaultRoom',defaultRoom);
+            location.href = `/${defaultTeam}/chat/${defaultRoom}`;
+          } else {
+            location.href = "/welcome";
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      };
 
 
 
