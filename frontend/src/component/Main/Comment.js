@@ -4,7 +4,7 @@ import stylesComment from '../../assets/css/Comment.css'
 import CommentForm from '../Main/CommentForm';
 import Button from 'react-bootstrap/Button';
 
-const Comment = ({ postforComment }) => {       //
+const Comment = ({ postforComment ,  onHandlerNavLeftChange}) => {       //
     const postId = postforComment.post_id
 
     const [commentList, setCommentList] = useState([]);
@@ -69,7 +69,7 @@ const Comment = ({ postforComment }) => {       //
         }
         setCommentAdd(true)
     }
-
+   
 
     const handlerOnclickCommentDel = (commentId) => {       //comment 삭제 후 list reloading을 위한 handler
         setCommentDelid(commentId)
@@ -83,6 +83,9 @@ const Comment = ({ postforComment }) => {       //
     return (
 
         <div className='Comment'>
+            {
+           // <input type='button' onClick={onHandlerNavLeftChange} value='x'/>
+            }
             <div className={stylesComment.OuterBox}>
                 <div className={stylesComment.InnerBox}>
                 <div className={stylesComment.Post}>        {//show target post. 추가적 배치 필요.  

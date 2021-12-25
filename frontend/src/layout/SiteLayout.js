@@ -14,6 +14,12 @@ const SiteLayout = ({
   postidforComment,
   postforComment,
 }) => {
+ const [navLeftChange, setNavLeftChange]=useState(true);
+ const preNavLeftState = navLeftChange;
+  const onHandlerNavLeftChange=()=>{
+    console.log('x 버튼 클릭 : ', navLeftChange, '   ', preNavLeftState);
+    setNavLeftChange(!navLeftChange)
+  }
 
   return (
     <Fragment>
@@ -24,8 +30,9 @@ const SiteLayout = ({
       </div>
       <NavRight
         /*FileInput={FileInput}*/
-        postidforComment={postidforComment}
-        postforComment={postforComment}
+        postidforComment={navLeftChange===true?postidforComment:''}
+        postforComment={navLeftChange===true?postforComment:''}
+        onHandlerNavLeftChange={onHandlerNavLeftChange}
       />
     </Fragment>
   );

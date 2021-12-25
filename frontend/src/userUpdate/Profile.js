@@ -3,7 +3,7 @@ import UserInfo from "./UserInfo";
 import UserUpdateForm from "./UserUpdateForm";
 import Invitation from "../component/Main/Invitation";
 
-const UserUpdate = ({inviteMessage}) => {
+const UserUpdate = ({inviteMessage, onHandlerNavLeftChange}) => {
   const [profile, setProfile] = useState(window.sessionStorage.getItem("loginMember"));
   const [formInfo, setFormInfo] = useState([]);
   const [profileComponentChange, setProfileComponent]=useState(false);
@@ -23,6 +23,7 @@ const UserUpdate = ({inviteMessage}) => {
   };
   
   useEffect(async () => {
+   
 
       try{
           const response = await fetch('/api/member/edit', {          //로그인한 회원의 회원정보를 가져오는 부분 
@@ -62,7 +63,7 @@ const UserUpdate = ({inviteMessage}) => {
 
   return (
     <div>
-      {
+      {  
         //수정중. 버튼을 누르면 보기(UserInfo)/수정(UserUpdateForm)  화면으로 전환시킬 예정
         //<UserInfo profile={profile}/>
         //console.log('user update in : ', profile)
