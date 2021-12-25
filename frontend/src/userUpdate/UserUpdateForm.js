@@ -58,6 +58,7 @@ const UserUpadteForm = (props) => {
         if (res.data !== null) {
           console.log("수정된 내용 : ", formInfo);
           alert("수정완료");
+          props.handlerOnChangeComponent(true)
         } else {
           alert("수정실패");
         }

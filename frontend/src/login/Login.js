@@ -10,21 +10,23 @@ export default function() {
         width:'100%',
         height:'100vh',
         border:'1px solid #efefef',
-        backgroundColor:'#efefef'
+        backgroundColor:'#efefef',
+        
     }
+    
     const styles2 ={
         borderRadius:'10px',
         margin:'auto',
         marginTop:'5%',
         width:'70vh',
         height:'75vh',
-        //border:'1px solid green',
         padding:'3%',
         backgroundColor:'white',
-        boxShadow:'0px 5px 5px 0px gray'
+        boxShadow:'0px 5px 5px 0px gray',
+        alignItems: 'center'
     }
+
     const style3 ={
-        //border:'1px solid red',
         margin:'auto',
         textAlign:'center',
         fontFamily:'Times New Roman',
