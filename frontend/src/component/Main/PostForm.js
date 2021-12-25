@@ -100,7 +100,12 @@ const PostForm = ({title, contents,name ,date,id,callback, post , handlerDeleteP
                               <br/><br/>
                               
                               <div className={styles.contents}>
-                              <div className={styles.download} onClick={FileDownload}>첨부파일 : <a>{thumbnail}</a></div>
+                              {
+                                 thumbnail !== undefined ?
+                                 <div className={styles.download} onClick={FileDownload}>첨부파일 : <a>{thumbnail}</a></div>
+                                 :
+                                 null
+                              }
                                  {contents}
                               </div>
                               
