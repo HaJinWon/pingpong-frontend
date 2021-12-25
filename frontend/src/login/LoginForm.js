@@ -106,7 +106,8 @@ export default function () {
 
         const defaultTeam = data.data.teamList[0].team_id;
         const defaultRoom = data.data.teamList[0].room_id;
-
+        console.log('defaultTeam',defaultTeam,'defaultRoom',defaultRoom);
+        alert('1');
         location.href = `/${defaultTeam}/chat/${defaultRoom}`;
       } else {
         location.href = "/welcome";
