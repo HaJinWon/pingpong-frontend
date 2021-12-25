@@ -56,15 +56,18 @@ export default function () {
       const jsonResult = await axios.post("/api/member/login", formInfo, {
         headers: { "Content-Type": `application/json` },
       });
-      const member = jsonResult.data.data.member;
-      const result = jsonResult.data.result;
+      console.log('jsonResult',jsonResult);
+      const member = jsonResult.data.data.member.json();
+      const result = jsonResult.data.result.json();
 
       console.log("3www", result);
-
+      console.log("member1234",member);
       window.sessionStorage.setItem("loginMember", JSON.stringify(member));
       setSuccessAdd(!successAdd);
       getTeamList();
     } catch (e) {
+      console.log(e);
+      // console.error(e);
       alert("회원정보가 일치하지 않습니다.");
     }
   };
