@@ -57,8 +57,8 @@ export default function () {
         headers: { "Content-Type": `application/json` },
       });
       console.log('jsonResult',jsonResult);
-      const member = jsonResult.data.data.member.json();
-      const result = jsonResult.data.result.json();
+      const member = jsonResult.data.data.member;
+      const result = jsonResult.data.result;
 
       console.log("3www", result);
       console.log("member1234",member);
