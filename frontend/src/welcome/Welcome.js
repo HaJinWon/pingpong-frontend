@@ -89,7 +89,6 @@ const Welcome = ({FileInput}) => {
               JSON.stringify(data.data.teamList[0])
             ); //받아온 team list 중 디폴트 team을 session storage에 할당
     
-            //setSelectTeam(JSON.parse(sessionStorage.getItem("selectTeam")));
             console.log(
               "select team : ",
               JSON.parse(sessionStorage.getItem("selectTeam")).team_id

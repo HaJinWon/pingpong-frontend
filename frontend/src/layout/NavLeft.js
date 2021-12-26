@@ -19,6 +19,7 @@ const NavLeft = () => {
     const [selectTeamName, setSelectTeamName] = useState('');
     const [isLogin, setIsLogin] = useState(JSON.parse(window.sessionStorage.getItem('loginMember')).id);
     const [successChange, setSuccessChange] = useState(false);
+    let roomId22;
     const [selectTeam, setSelectTeam] = useState([{
         name:'',
         host:'',
@@ -103,8 +104,6 @@ const NavLeft = () => {
                 console.log(err);
             }
 
-           
-
         }
 
     }, [successChange,teamid])      //선택한 팀이 바뀌거나 수정이 완료되면 (메뉴 삭제, 입력) list reloading
@@ -115,6 +114,7 @@ const NavLeft = () => {
            
             if(e.target.value==''){
                 alert('팀명을 입력해주세요.');
+                return;
             }
             try {
                 const response = await fetch('/api/team/create', {
@@ -133,8 +133,27 @@ const NavLeft = () => {
                 const data = await response.json();
                 
                 e.target.value='';
+
+                const response2 = await fetch(`/api/team/findRoom/${data.teamId}`, {
+                    method: 'get',
+                    mode: 'cors',                           
+                    credentials: 'include',                 
+                    cache: 'no-cache',                           
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'         
+                    },
+                    redirect: 'follow',                     
+                    referrer: 'client',                       
+                    body: null
+                    })
+            
+                    const result2 = await response2.json();
+                    const roomId23 = JSON.stringify(result2.data.roomId);
                 alert("팀 생성이 완료되었습니다.");
-                location.href = `/${data.teamId}/main`
+                
+                
+                location.href = `/${data.teamId}/chat/`+roomId23;
 
             } catch (err) {
                 console.log(err);
@@ -236,6 +255,29 @@ const NavLeft = () => {
 
 
     }
+    /**
+     *  해당팀의 단체룸 번호
+     */
+    const getRoomId = async(teamId2) =>{
+        
+        const response = await fetch(`/api/team/findRoom/${teamId2}`, {
+        method: 'get',
+        mode: 'cors',                           
+        credentials: 'include',                 
+        cache: 'no-cache',                           
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'         
+        },
+        redirect: 'follow',                     
+        referrer: 'client',                       
+        body: null
+        })
+
+        const result = await response.json();
+        const roomId = JSON.stringify(result.data.roomId);
+
+  }
 
    
 
