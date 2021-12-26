@@ -149,11 +149,10 @@ const NavLeft = () => {
                     })
             
                     const result2 = await response2.json();
-                    const roomId23 = JSON.stringify(result2.data.roomId);
+                    const selectRoomId = JSON.stringify(result2.data.roomId);
                 alert("팀 생성이 완료되었습니다.");
                 
-                
-                location.href = `/${data.teamId}/chat/`+roomId23;
+                location.href = `/${data.teamId}/chat/`+selectRoomId;
 
             } catch (err) {
                 console.log(err);
@@ -255,30 +254,6 @@ const NavLeft = () => {
 
 
     }
-    /**
-     *  해당팀의 단체룸 번호
-     */
-    const getRoomId = async(teamId2) =>{
-        
-        const response = await fetch(`/api/team/findRoom/${teamId2}`, {
-        method: 'get',
-        mode: 'cors',                           
-        credentials: 'include',                 
-        cache: 'no-cache',                           
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'         
-        },
-        redirect: 'follow',                     
-        referrer: 'client',                       
-        body: null
-        })
-
-        const result = await response.json();
-        const roomId = JSON.stringify(result.data.roomId);
-
-  }
-
    
 
     return (

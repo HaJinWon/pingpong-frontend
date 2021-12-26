@@ -26,6 +26,7 @@ const Invitation = (props) => {
                     })
                     // console.log('초대장 답장은!!!!!!!!!!!!!!!!', e.target.value)
 
+                    // 초대장 받고 해당 팀의 단체 채팅방 아이디 받아오는 api
                     const response2 = await fetch(`/api/team/findRoom/${props.invitation.teamId}`, {
                         method: 'get',
                         mode: 'cors',                           
@@ -41,9 +42,9 @@ const Invitation = (props) => {
                         })
             
                         const result2 = await response2.json();
-                        const roomId22 = result2.data;
+                        const roomId = result2.data;
 
-                    location.href = `/${props.invitation.teamId}/chat/`+roomId22;
+                    location.href = `/${props.invitation.teamId}/chat/`+roomId;
                 }catch(err){
                     console.log(err);
                 }
@@ -73,28 +74,6 @@ const Invitation = (props) => {
             }
             props.callback()
     }
-
-      const getRoomId = async() =>{
-        
-            const response = await fetch(`/api/team/findRoom/${props.invitation.teamId}`, {
-            method: 'get',
-            mode: 'cors',                           
-            credentials: 'include',                 
-            cache: 'no-cache',                           
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'         
-            },
-            redirect: 'follow',                     
-            referrer: 'client',                       
-            body: null
-            })
-
-            const result = await response.json();
-            const roomId22 = result.data;
- 
-      }
-
 
     return (
 

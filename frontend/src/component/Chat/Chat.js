@@ -12,6 +12,7 @@ import stylesChatBox from "../../assets/css/ChatBox.css";
 
 const Chat = () => {
   const loginMember = JSON.parse(window.sessionStorage.getItem("loginMember"));
+  const [senderAvatar, setSenderAvatar] = useState(loginMember.avatar);
   const textRef = useRef();
   const { roomId } = useParams();
   const [notice, setNotice] = useState("");
@@ -72,7 +73,7 @@ const Chat = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [roomId]);
+  }, [roomId, senderAvatar]);
 
   /*======================= socket,stomp 연결 ================================ */
 
@@ -131,8 +132,9 @@ const Chat = () => {
    */
   const subscribe = () => {
     client.current.subscribe(`/sub/chat/room/${roomId}`, ({ body }) => {
+      setSenderAvatar(body.avatar);
       setMessages((messages) => [...messages, JSON.parse(body)]);
-      console.log(body);
+      console.log("body!!!", body);
     });
   };
 
@@ -167,7 +169,7 @@ const Chat = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        avatar :loginMember.avatar,
+        // avatar :loginMember.avatar,
         type: type,
         roomId: roomId,
         senderId: loginId,
