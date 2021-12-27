@@ -42,7 +42,7 @@ const Invitation = (props) => {
                         })
             
                         const result2 = await response2.json();
-                        const roomId = result2.data;
+                        const roomId = JSON.stringify(result2.data.roomId);
 
                     location.href = `/${props.invitation.teamId}/chat/`+roomId;
                 }catch(err){
